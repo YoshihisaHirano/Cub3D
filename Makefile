@@ -1,26 +1,39 @@
-SRC		=	main.c
-PROG	=	cub3D
+SRC		=	main.c utils/draw_utils.c hooks/keys.c draft_funcs.c
+OBJ		=	$(SRC:.c=.o)
+NAME	=	cub3D
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror -O3
 LIBDIR	=	./libft
 LIB		=	$(LIBDIR)/libft.a
+MLXDIR	=	./minilibx
+MLX		=	$(MLXDIR)/libmlx.a
+LFLAGS	=	-L $(LIBDIR) -lft -L $(MLXDIR) -lmlx -framework OpenGL -framework AppKit
 HEADER	=	cub3D.h
 
 .PHONY	:	all re clean fclean
 
-all		:	$(PROG)
+all		:	$(NAME)
+
+$(MLX)	:	
+			make -s -C $(MLXDIR)
 
 $(LIB)	:
 			make -s -C $(LIBDIR)
 
-$(PROG)	:	$(SRC) $(LIB) $(HEADER)
-			$(CC) $(CFLAGS) $(SRC) -L $(LIBDIR) -lft -Lminilibx -lmlx -framework OpenGL -framework AppKit -o $(PROG)
+$(NAME)	:	$(OBJ) Makefile
+			$(CC) $(CFLAGS) $(LFLAGS) $(OBJ)  -o $(NAME)
 
-clean	:
+%.o		:	%.c $(LIB) $(MLX) $(HEADER)
+			$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
+
+clean	:	
+			rm -f *.o */*.o
 			make clean -C $(LIBDIR)
+			make clean -C $(MLXDIR)
 
-fclean	:
-			rm -f $(PROG)
+fclean	:	clean
+			rm -f $(NAME)
 			make fclean -C $(LIBDIR)
+			make clean -C $(MLXDIR)
 
 re		:	fclean all
