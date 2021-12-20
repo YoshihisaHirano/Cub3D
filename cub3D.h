@@ -21,6 +21,8 @@
 # define WALL_SIDE 64 // the world consists of 64x64 cubes
 # define DISTANCE_TO_PLANE 277 // half_of_width / tan(FOV / 2)
 # define RAY_ANGLE_STEP 0.1875 // columns_qty / FOV; angle between subsequent rays
+# define MAP_BORDER 256
+
 /*
 map, # - wall, 256 x 256 units
 ####

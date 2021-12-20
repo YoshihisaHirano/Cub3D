@@ -1,8 +1,8 @@
-SRC		=	main.c utils/draw_utils.c hooks/keys.c draft_funcs.c
+SRC		=	main.c draw_utils.c hooks/keys.c draft_funcs.c utils/math_utils.c
 OBJ		=	$(SRC:.c=.o)
 NAME	=	cub3D
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -O3
+CFLAGS	=	-Wall -Wextra -Werror -g
 LIBDIR	=	./libft
 LIB		=	$(LIBDIR)/libft.a
 MLXDIR	=	./minilibx

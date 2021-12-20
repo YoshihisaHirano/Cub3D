@@ -1,12 +1,12 @@
 #ifndef UTILS_H
 # define UTILS_H
 # include <math.h>
-# include "../cub3D.h"
+# include <stdio.h>
+# include <stdlib.h>
 
-/* draw */
-void	draw_column(t_img *img, int x, int y, int height);
 /* math */
 double  angle_in_radians(int angle_in_degrees);
 int bitwise_division(int divident, int divisor);
+int divide_nums(double divident, double divisor);
 
 #endif
