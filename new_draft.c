@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <limits.h>
 #define TILE_SIZE 64
 #define PLANE_WIDTH 320
 #define PLANE_HEIGHT 200
@@ -24,16 +25,28 @@
 #define PLANE_CENTER (PLAYER_HEIGHT / 2)
 
 typedef struct s_trig_tables {
-	double	sin_table[ANGLE360 + 1];
-	double	inv_sin_table[ANGLE360 + 1];
-	double	cos_table[ANGLE360 + 1];
-	double	inv_cos_table[ANGLE360 + 1];
-	double	tan_table[ANGLE360 + 1];
-	double	inv_tan_table[ANGLE360 + 1];
+	double	sin[ANGLE360 + 1];
+	double	inv_sin[ANGLE360 + 1];
+	double	cos[ANGLE360 + 1];
+	double	inv_cos[ANGLE360 + 1];
+	double	tan[ANGLE360 + 1];
+	double	inv_tan[ANGLE360 + 1];
 	double	fish_table[ANGLE60 + 1];
 	double	x_step_table[ANGLE360 + 1];
 	double	y_step_table[ANGLE360 + 1];
 }	t_trig_tables;
+
+typedef	struct s_player {
+	int	x;
+	int	y;
+	int	angle;
+} t_player;
+
+typedef struct s_point {
+	int	x;
+	int	y;
+} t_point;
+
 
 double	angle_to_radians(double angle)
 {
@@ -42,7 +55,7 @@ double	angle_to_radians(double angle)
 
 bool	facing_down(int angle)
 {
-	if (angle >= ANGLE0 && angle <= ANGLE180)
+	if (angle >= ANGLE0 && angle < ANGLE180)
 		return true;
 	return false;
 }
@@ -67,12 +80,12 @@ t_trig_tables	*create_trig_tables(void)
 	while (i <= ANGLE360)
 	{
 		rad = angle_to_radians(i) + 0.0001; // addition to avoid zero division
-		tables->sin_table[i] = sin(rad);
-		tables->inv_sin_table[i] = 1.0 / tables->sin_table[i];
-		tables->cos_table[i] = cos(rad);
-		tables->inv_cos_table[i] = 1.0 / cos(rad);
-		tables->tan_table[i] = tan(rad);
-		tables->inv_tan_table[i] = 1.0 / tables->tan_table[i];
+		tables->sin[i] = sin(rad);
+		tables->inv_sin[i] = 1.0 / tables->sin[i];
+		tables->cos[i] = cos(rad);
+		tables->inv_cos[i] = 1.0 / cos(rad);
+		tables->tan[i] = tan(rad);
+		tables->inv_tan[i] = 1.0 / tables->tan[i];
 		i++;
 	}
 	return (tables);
@@ -97,11 +110,47 @@ void	add_step_tables(t_trig_tables *tables)
 	i = 0;
 	while (i <= ANGLE360)
 	{
-		tables->x_step_table[i] = TILE_SIZE / tables->tan_table[i];
+		tables->x_step_table[i] = TILE_SIZE / tables->tan[i];
 		if ((facing_left(i) && tables->x_step_table[i] > 0) ||
 				(! facing_left(i) && tables->x_step_table[i] < 0))
 			tables->x_step_table[i] *= -1;
-		tables->y_step_table[i] = TILE_SIZE * tables->tan_table[i];
+		tables->y_step_table[i] = TILE_SIZE * tables->tan[i];
+		if ((facing_down(i) && tables->y_step_table[i] < 0) ||
+				(! facing_down(i) && tables->y_step_table[i]) > 0)
+			tables->y_step_table[i] *= -1;
 		i++;
 	}
+}
+
+int	get_start_angle(int player_angle)
+{
+	int	start_angle;
+
+	start_angle = player_angle - ANGLE30;
+	if (start_angle < 0)
+		start_angle += ANGLE360;
+	return (start_angle);
+}
+
+double	dst_to_horizontal(t_trig_tables *tables, t_player *player, char **map, int curr_angle)
+{
+	t_point	first_intersec;
+	t_point	current_pos;
+	t_point	grid_idx;
+	t_point	deltas;
+
+	if (curr_angle == ANGLE0 || curr_angle == ANGLE180)
+		return (INT_MAX);
+	if (facing_down(curr_angle))
+	{
+		first_intersec.y = (int)(player->y / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
+		deltas.y = TILE_SIZE;
+	}
+	else
+	{
+		first_intersec.y = (int)(player->y / TILE_SIZE) * TILE_SIZE - 1;
+		deltas.y = -TILE_SIZE;
+	}
+	first_intersec.x = tables->tan[curr_angle] * (first_intersec.y - player->y) + player->x;
+	
 }
