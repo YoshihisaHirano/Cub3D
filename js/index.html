@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Ray Casting Tutorial Demo for Developers, written in Javascript - Part 1</title>
+        <script src="raycasting.js"></script>
+
+    </head>
+
+    <body>
+	<h1>Ray Casting Techniques Demo Series - Part 1</h1>
+	This is a ray casting demo, to be used as a companion to the Ray Casting Tutorial at 
+	<a href="https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/">https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/</a>
+        <p>
+		<canvas id="gameCanvas" width="600" height="200">
+            <!-- Insert fallback content here -->
+        </canvas>
+		
+	<p>
+	Ray-casting is a 2.5D rendering techniques that was very popular in the 90s, seen in computer games and video games such as Wolfenstein 3D.
+	<p>This first of a series of demos demonstrates:
+	<li>Wall finding algorithm.  
+	<li>Lookup table generations (sine, cosine, fisheye correction tables and more)
+	<li>Distortion corrections. Ie: How to deal with fishbowl/fisheye effects (bent walls). 
+	<li>Simple flat wall shading (rendering wall slices with simple solid colored lines). 
+	<li>Rendering of simple (static) ground and sky (with gradients added for a bit of polish)
+	<li>Movement handling using keyboard keys.
+	<li>Overhead map to visualize where the rays are and where they hit the walls.
+
+<p>	
+	 To move around the demo, use the arrow keys on your keyboard or the W,A,S,D keys.
+	
+	<p>
+	<b>Checkout the source and other demos in the series in the <a href="https://github.com/permadi-com/ray-cast/tree/master/">Git Hub</a> repository</b>
+	
+    </body>
+
+	
+	<script>
+		var canvas = document.getElementById("gameCanvas");
+		var gameWindow=new GameWindow(canvas);
+		gameWindow.init();
+		for (let i = 0; i < gameWindow.fTanTable.length; i++) {
+			console.log(gameWindow.fTanTable[i]);
+		}
+		console.log("end of tans");
+		gameWindow.start();
+
+	</script>	
+	
+
+</html>
