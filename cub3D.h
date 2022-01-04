@@ -6,10 +6,12 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <fcntl.h>
 # include "minilibx/mlx.h"
 # include "libft/libft.h"
 # include "hooks/hooks.h"
 # include "utils/utils.h"
+
 
 # define HEIGHT 200 //projection plane height
 # define WIDTH 320 // projection plane width, therefore 320 columns in total
@@ -76,5 +78,42 @@ typedef struct s_win
 	int		width;
 	t_img	*image;
 }	t_win;
+
+typedef struct s_map
+{
+	char	*NO;
+	char	*SO;
+	char	*WE;
+	char	*EA;
+	int		F_R;
+	int		F_G;
+	int		F_B;
+	int		C_R;
+	int		C_G;
+	int		C_B;
+	char	**map;
+
+}			t_map;
+
+
+// parser part
+void show_params(t_map *config); // to delete
+/* gnl */
+typedef struct s_set_fd
+{
+	char	*str;
+	int		fd;
+	void	*next;
+	int		read_res;
+}			t_set_fd;
+
+char		*ft_strdup_gnl(char *src, int len, int offset);
+char		*ft_strjoin_gnl(char *s1, char *s2, int len);
+int			ft_strlen_gnl(const char *s);
+t_set_fd	*get_current_el(t_set_fd **list, int fd);
+int			get_next_line(int fd, char **line);
+void		lst_free(t_set_fd **list);
+int			parser(char *filename);
+
 
 #endif

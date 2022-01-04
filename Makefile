@@ -1,4 +1,6 @@
-SRC		=	main.c draw_utils.c hooks/keys.c draft_funcs.c utils/math_utils.c
+SRC		=	main.c draw_utils.c hooks/keys.c draft_funcs.c utils/math_utils.c\
+			parser/map_parser.c parser/gnl/get_next_line.c parser/gnl/get_next_line_utils.c\
+			parser/parser_utils.c
 OBJ		=	$(SRC:.c=.o)
 NAME	=	cub3D
 CC		=	gcc
@@ -35,5 +37,8 @@ fclean	:	clean
 			rm -f $(NAME)
 			make fclean -C $(LIBDIR)
 			make clean -C $(MLXDIR)
+
+x		:	all
+			./cub3D map.cub
 
 re		:	fclean all
