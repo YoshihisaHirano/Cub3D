@@ -1,54 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aalannys <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/12 16:28:17 by aalannys          #+#    #+#             */
-/*   Updated: 2021/10/12 16:31:13 by aalannys         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "libft.h"
-#include <stdio.h> //delete!
-
-static unsigned long long	str_to_num(const char *start)
+int	ft_atoi(const char *s)
 {
-	unsigned long long	res;
-	unsigned long long	rank;
-	size_t				i;
+	int			res;
+	int			minus;
+	char		*str;
 
+	minus = 1;
 	res = 0;
-	rank = 1;
-	i = 0;
-	while (ft_isdigit(start[i]))
-		i++;
-	while (ft_isdigit(*start))
+	str = (char *) s;
+	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\v'
+		|| *str == '\f' || *str == '\r')
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		res += (*start - '0') * rank;
-		rank *= 10;
-		start--;
+		if (*str == '-')
+			minus = -1;
+		str++;
 	}
-	return (res);
-}
-
-int	ft_atoi(const char *nptr)
-{
-	int					is_minus;
-	unsigned long long	res;
-
-	if (!(*nptr))
-		return (0);
-	is_minus = 1;
-	while (ft_isspace(*nptr))
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
+	while (*str >= '0' && *str <= '9')
 	{
-		if (*nptr == '-')
-			is_minus = -1;
-		nptr++;
+		res = res * 10 + ((*str) - 48);
+		str++;
 	}
-	res = str_to_num(nptr);
-	return ((int)(res * is_minus));
+	return (res * minus);
 }

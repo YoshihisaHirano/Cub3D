@@ -79,18 +79,21 @@ typedef struct s_win
 	t_img	*image;
 }	t_win;
 
+typedef struct s_color
+{
+	int	R;
+	int	G;
+	int	B;
+}		t_color;
+
 typedef struct s_map
 {
 	char	*NO;
 	char	*SO;
 	char	*WE;
 	char	*EA;
-	int		F_R;
-	int		F_G;
-	int		F_B;
-	int		C_R;
-	int		C_G;
-	int		C_B;
+	t_color	*floor;
+	t_color	*ceil;
 	char	**map;
 
 }			t_map;
@@ -114,6 +117,9 @@ t_set_fd	*get_current_el(t_set_fd **list, int fd);
 int			get_next_line(int fd, char **line);
 void		lst_free(t_set_fd **list);
 int			parser(char *filename);
+t_map	    *create_config(void);
+void		free_arr(char **arr);
+void    	free_config(t_map *config);
 
 
 #endif
