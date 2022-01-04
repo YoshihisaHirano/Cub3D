@@ -85,8 +85,8 @@ function GameWindow(canvas) {
 	this.fYStepTable=[];
 
 	// player's attributes
-	this.fPlayerX = 100;
-	this.fPlayerY = 160;
+	this.fPlayerX = 67;
+	this.fPlayerY = 67;
 	this.fPlayerArc = this.ANGLE90;
 	this.fPlayerDistanceToTheProjectionPlane = 277;
 	this.fPlayerHeight =32;
@@ -263,9 +263,18 @@ GameWindow.prototype =
                 'WOOOWOWOWOOW'+
                 'WOOOWWWOWOOW'+
                 'WOOOOOOOOOOW'+
-                'WWWWWWWWWWWW';	
+                'WWWWWWWWWWWW';
+		var map4 =
+				'WWWWWWWWWWWW' +
+				'WOWOOOOOOOOW' +
+				'WOWOOOOOOOOW' +
+				'WOOOOOOOOOOW' +
+				'WWOOOOOOOOOW' +
+				'WOOOOOOOOOOW' +
+				'WOWOOOOOOOOW' +
+				'WWWWWWWWWWWW';
 		// Remove spaces and tabs
-        this.fMap=map3.replace(/\s+/g, '');
+        this.fMap=map4.replace(/\s+/g, '');
 	},
 	
 	//*******************************************************************//
@@ -432,9 +441,9 @@ GameWindow.prototype =
 				// 1/tan(arc)*verticalDistance
 				// find the x interception to that wall
 				xIntersection = xtemp + this.fPlayerX;
-				if (this.fTanTable[castArc] < -999) {
-					console.log('xIntersection', xIntersection);
-				}
+				// if (this.fTanTable[castArc] < -999) {
+				// 	console.log('xIntersection', xIntersection);
+				// }
 				if (DEBUG)
 				{				
 					console.log("castArc="+castArc+" in CHECKPOINT A, horizontalGrid="+horizontalGrid+" distToNextHorizontalGrid="+distToNextHorizontalGrid+
@@ -589,12 +598,21 @@ GameWindow.prototype =
 			// determine which ray strikes a closer wall.
 			// if yray distance to the wall is closer, the yDistance will be shorter than
 			// the xDistance
-			if (this.fTanTable[castArc] < -999)
-			{
-				console.log(castArc, 'castArc', this.fTanTable[castArc], 'tan castArc');
-				console.log("dst to horizontal grid " + distToHorizontalGridBeingHit);
-				console.log("dst to vertical grid " + distToVerticalGridBeingHit);
-			}
+			// if (castArc === this.ANGLE90)
+			// {
+				// console.log('hi there');
+			// 	console.log("dst to horizontal grid " + distToHorizontalGridBeingHit);
+			// 	console.log('inverted tan', this.fTanTable[this.ANGLE90]);
+			// 	console.log('x step', this.fXStepTable[this.ANGLE90]);
+			// 	console.log('angle in rads', this.arcToRad(this.ANGLE90));
+			// 	console.log("dst to vertical grid " + distToVerticalGridBeingHit);
+			// }
+			// if (this.fTanTable[castArc] < -999)
+			// {
+			// 	console.log(castArc, 'castArc', this.fTanTable[castArc], 'tan castArc');
+			// 	console.log("dst to horizontal grid " + distToHorizontalGridBeingHit);
+			// 	console.log("dst to vertical grid " + distToVerticalGridBeingHit);
+			// }
 			if (distToHorizontalGridBeingHit < distToVerticalGridBeingHit)
 			{
 				// the next function call (drawRayOnMap()) is not a part of raycating rendering part, 
@@ -619,7 +637,7 @@ GameWindow.prototype =
 					console.log("castColumn="+castColumn+" using distToVerticalGridBeingHit");
 				}
 			}
-
+			// console.log('player x', this.fPlayerX, 'player y', this.fPlayerY);
 			// correct distance (compensate for the fishbown effect)
 			dist /= this.fFishTable[castColumn];
 			// projected_wall_height/wall_height = fPlayerDistToProjectionPlane/dist;
