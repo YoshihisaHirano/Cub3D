@@ -34,55 +34,90 @@ void    check_for_texture(char **arr_line, t_map *config)
 		config->EA = ft_strdup(arr_line[1]);
 }
 
-void	set_texture_color(int file_fd, t_map *config)
+int	set_texture_color(int file_fd, t_map *config)
 {
 	char	*line;
 	char	**arr_line;
+	int		i;
 
+	i = 1;
 	while (get_next_line(file_fd, &line))
 	{
+		i++;
 		arr_line = ft_split(line, ' ');
 		check_for_texture(arr_line, config);
 		check_for_colors(arr_line, config->floor, "F");
 		check_for_colors(arr_line, config->ceil, "C");
 		free_arr(arr_line);
 		free(line);
+		line = NULL;
+		if (isColors_texture_setted(config))
+			return (i);
 	}
-	free(line);
+	if (line)
+		free(line);
+	if (!isColors_texture_setted(config))
+		return (-1);
+	return (i);
 }
 
-void	set_map(int file_fd, t_map *config)
+int	set_map(int file_fd, int lines_to_map, t_map *config, char *filename)
 {
-	// one str?? 
-	// linked list
-	// when quit from 1st gnl
+	int		map_size;
+	int		current_len;
+	int		max_line;
 	char	*line;
-	(void) config;
+
+	map_size = 2;
+	max_line = 0;
+	lines_to_map = skip_to_map(file_fd, lines_to_map);
 	while (get_next_line(file_fd, &line))
 	{
-		printf("%s\n", line);
+		current_len = ft_strlen(line);
+		if (current_len > max_line)
+			max_line = current_len;
+		map_size++;
 		free(line);
 	}
 	free(line);
+	close(file_fd);
+	file_fd = open(filename, O_RDONLY);
+	if (file_fd == -1)
+		return (-1);
+	if (fill_map_config(config, lines_to_map, map_size, file_fd) == -1)
+		return (-1);
+	close(file_fd);
+	printf("map size: %d\n lines_to_map %d\n max_len %d\n", map_size, lines_to_map, max_line);
+	return (0);
 }
 
 int parser(char *filename)
 {
 	int     file_fd;
 	t_map   *config;
+	int		lines_to_map;
 
+	if (check_filename(filename) == -1)
+		return (exit_error("Wrong file format"));
 	config = create_config();
 	if (!config)
 		return (-1);
 	file_fd = open(filename, O_RDONLY);
 	if (file_fd == -1)
+		return (exit_error("Open file error"));
+	lines_to_map = set_texture_color(file_fd, config);
+	if (lines_to_map == -1)
 	{
-		printf("open file error\n");
+		free_config(config);
+		return (exit_error("Map error"));
+	}
+	if (set_map(file_fd, lines_to_map, config, filename) == -1)
+	{
+		free_config(config);
 		return (-1);
 	}
-	set_texture_color(file_fd, config);
-	set_map(file_fd, config);
-	close(file_fd);
+	if (validation(config) == -1)
+		return(exit_error("validation error"));
 	show_params(config);
 	free_config(config);
 	return (0);

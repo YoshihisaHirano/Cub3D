@@ -95,6 +95,7 @@ typedef struct s_map
 	t_color	*floor;
 	t_color	*ceil;
 	char	**map;
+	char	player_look;
 
 }			t_map;
 
@@ -120,6 +121,12 @@ int			parser(char *filename);
 t_map	    *create_config(void);
 void		free_arr(char **arr);
 void    	free_config(t_map *config);
+int			isColors_texture_setted(t_map *config);
+int			skip_to_map(int file_fd, int lines_to_map);
+int			fill_map_config(t_map *config, int lines_to_map, int map_size, int file_fd);
+int			validation(t_map *config);
+int			check_filename(char *file_name);
+int			exit_error(char *msg);
 
 
 #endif
