@@ -11,6 +11,8 @@ void show_params(t_map *config)
 		printf("WE: %s\n", config->WE);
 	if (config->EA)
 		printf("EA: %s\n", config->EA);
+	if (config->player_look != -1)
+		printf("player look %d \n", config->player_look);
 	printf("color setup: \n");
 	printf("Ceil : ");
 		printf("%i ", config->ceil->R);
@@ -34,10 +36,8 @@ t_map   *create_config(void)
 	if (!config)
 		return (NULL);
 	config->ceil = malloc(sizeof(t_color));
-	if (!config->ceil)
-		return (NULL);
 	config->floor = malloc(sizeof(t_color));
-	if (!config->floor)
+	if (!config->ceil || !config->floor)
 		return (NULL);
 	config->NO = NULL;
 	config->SO = NULL;
@@ -50,7 +50,9 @@ t_map   *create_config(void)
 	config->ceil->G = -1;
 	config->ceil->B = -1;
 	config->map = NULL;
-	config->player_look = 0;
+	config->player_look = -1;
+	config->map_size = 2;
+	config->max_line = 0;
 	return (config);
 }
 
@@ -93,14 +95,30 @@ int	skip_to_map(int file_fd, int lines_to_map)
 	return (lines_to_map);
 }
 
+void	add_spaces(t_map *config, int i)
+{
+	char	*tmp;
+	int		len;
 
-int fill_map_config(t_map *config, int lines_to_map, int map_size, int file_fd)
+	len = ft_strlen(config->map[i]);
+	if (len < config->max_line)
+	{
+		tmp = config->map[i];
+		config->map[i] = ft_calloc((config->max_line + 1), sizeof(char));
+		ft_memset(config->map[i], ' ', config->max_line);
+		ft_memcpy(config->map[i], tmp, len);
+		free(tmp);
+	}
+
+}
+
+int fill_map_config(t_map *config, int lines_to_map, int file_fd)
 {
 	int		i;
 	char	*line;
 	int		gnl_res;
 
-	config->map = malloc((map_size + 1) * sizeof(char *));
+	config->map = malloc((config->map_size + 1) * sizeof(char *));
 	if (config->map == NULL)
 		return (-1);
 	gnl_res = 1;
@@ -115,14 +133,15 @@ int fill_map_config(t_map *config, int lines_to_map, int map_size, int file_fd)
 	while (gnl_res)
 	{
 		gnl_res = get_next_line(file_fd, &(config->map[i]));
+		add_spaces(config, i);
 		i++;
 	}
-	config->map[map_size] = NULL;
+	config->map[config->map_size] = NULL;
 	return (0);
 }
 
-int	exit_error(char *msg)
+void	*exit_error(char *msg)
 {
 	printf("%s\n", msg);
-	return (-1);
+	return (NULL);
 }

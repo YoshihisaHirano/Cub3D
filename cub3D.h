@@ -33,13 +33,13 @@ map, # - wall, 256 x 256 units
 ####
 
 degrees schema:
-		90
+	   270
 		|
 		|
 180------------0
 		|
 		|
-		270
+		90
 
 the plane starts at 0,0 at the to left corner
 0__________x
@@ -95,8 +95,9 @@ typedef struct s_map
 	t_color	*floor;
 	t_color	*ceil;
 	char	**map;
-	char	player_look;
-
+	int		player_look;
+	int		map_size;
+	int		max_line;
 }			t_map;
 
 
@@ -117,16 +118,17 @@ int			ft_strlen_gnl(const char *s);
 t_set_fd	*get_current_el(t_set_fd **list, int fd);
 int			get_next_line(int fd, char **line);
 void		lst_free(t_set_fd **list);
-int			parser(char *filename);
+t_map		*parser(char *filename);
 t_map	    *create_config(void);
 void		free_arr(char **arr);
 void    	free_config(t_map *config);
 int			isColors_texture_setted(t_map *config);
 int			skip_to_map(int file_fd, int lines_to_map);
-int			fill_map_config(t_map *config, int lines_to_map, int map_size, int file_fd);
-int			validation(t_map *config);
+int			fill_map_config(t_map *config, int lines_to_map, int file_fd);
+int			validation(t_map *config);	
 int			check_filename(char *file_name);
-int			exit_error(char *msg);
+void		*exit_error(char *msg);
+int			check_wall(t_map *config, int x, int y);
 
 
 #endif

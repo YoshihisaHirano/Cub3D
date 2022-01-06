@@ -63,20 +63,16 @@ int	set_texture_color(int file_fd, t_map *config)
 
 int	set_map(int file_fd, int lines_to_map, t_map *config, char *filename)
 {
-	int		map_size;
 	int		current_len;
-	int		max_line;
 	char	*line;
 
-	map_size = 2;
-	max_line = 0;
 	lines_to_map = skip_to_map(file_fd, lines_to_map);
 	while (get_next_line(file_fd, &line))
 	{
 		current_len = ft_strlen(line);
-		if (current_len > max_line)
-			max_line = current_len;
-		map_size++;
+		if (current_len > config->max_line)
+			config->max_line = current_len;
+		config->map_size++;
 		free(line);
 	}
 	free(line);
@@ -84,14 +80,15 @@ int	set_map(int file_fd, int lines_to_map, t_map *config, char *filename)
 	file_fd = open(filename, O_RDONLY);
 	if (file_fd == -1)
 		return (-1);
-	if (fill_map_config(config, lines_to_map, map_size, file_fd) == -1)
+	if (fill_map_config(config, lines_to_map, file_fd) == -1)
 		return (-1);
 	close(file_fd);
-	printf("map size: %d\n lines_to_map %d\n max_len %d\n", map_size, lines_to_map, max_line);
+	printf("map size: %d\n lines_to_map %d\n max_len %d\n",
+			config->map_size, lines_to_map, config->max_line);
 	return (0);
 }
 
-int parser(char *filename)
+t_map	*parser(char *filename)
 {
 	int     file_fd;
 	t_map   *config;
@@ -101,7 +98,7 @@ int parser(char *filename)
 		return (exit_error("Wrong file format"));
 	config = create_config();
 	if (!config)
-		return (-1);
+		return (NULL);
 	file_fd = open(filename, O_RDONLY);
 	if (file_fd == -1)
 		return (exit_error("Open file error"));
@@ -114,11 +111,12 @@ int parser(char *filename)
 	if (set_map(file_fd, lines_to_map, config, filename) == -1)
 	{
 		free_config(config);
-		return (-1);
+		return (NULL);
 	}
 	if (validation(config) == -1)
 		return(exit_error("validation error"));
+//
 	show_params(config);
-	free_config(config);
-	return (0);
+	// free_config(config);
+	return (config);
 }

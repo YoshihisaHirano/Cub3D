@@ -28,10 +28,19 @@ int check_map_for_sym(t_map *config, char **map)
         while (map[i][k])
         {
             if (map[i][k] == 'N' || map[i][k] == 'S' || map[i][k] == 'E' || map[i][k] == 'W')
-                if (config->player_look)
+                if (config->player_look != -1)
                     return (-1);
                 else
-                    config->player_look = map[i][k];
+                {
+                    if (map[i][k] == 'N')
+                        config->player_look = 270;
+                    if (map[i][k] == 'S')
+                        config->player_look = 90;
+                    if (map[i][k] == 'E')
+                        config->player_look = 0;
+                    if (map[i][k] == 'W')
+                        config->player_look = 180;
+                }
             else if (map[i][k] != '0' && map[i][k] != '1' && map[i][k]  != ' ')
                     return (-1);
             if (has_map_char || map[i][k] == '0' || map[i][k] == '1' || map[i][k] == 'N'
@@ -46,11 +55,27 @@ int check_map_for_sym(t_map *config, char **map)
     return (0);
 }
 
+// check is fist line 1
+// check is last line 1
+// check 1st and last sym in line is 1
+// check is every sym except 
+
+// int check_walls_to_close(t_map *config)
+// {
+
+// }
+
 int validation(t_map *config)
 {
     if (!config || !isColors_texture_setted(config) || !config->map)
-        return (exit_error("params is incorrect"));
+    {
+        printf("params are incorrect\n");
+        return (-1);
+    }
     if (check_map_for_sym(config, config->map) == -1)
-        return (exit_error("map incorrect"));
+    {
+            printf("map is incorrect\n");
+            return (-1);
+    }
     return (0);
 }
