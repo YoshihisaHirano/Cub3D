@@ -4,6 +4,8 @@
 # define TILE_SIDE 320
 # define PLANE_WIDTH 1600
 # define PLANE_HEIGHT 1000
+# define PLANE_CENTER (PLANE_HEIGHT / 2)
+# define PLAYER_PLANE_DST 1386 // (half plane width / tan(30 deg))
 
 /* angles */
 # define ANGLE60 PLANE_WIDTH
@@ -20,10 +22,11 @@
 # define PLAYER_X 100
 # define PLAYER_Y 160
 # define PLAYER_ANGLE ANGLE0
-# define PLAYER_PLANE_DST 1386 // (half plane width / tan(30 deg))
 # define PLAYER_HEIGHT (TILE_SIDE / 2)
-# define PLANE_CENTER (PLANE_HEIGHT / 2)
 # define MAP_WIDTH 12
 # define MAP_HEIGHT 12
+
+/* keys */
+# define KEYCODE_ESC 53
 
 #endif
