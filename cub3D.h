@@ -135,5 +135,6 @@ void			init_win(t_win *win);
 void			init_img(t_img *img, t_win *win);
 int				create_trgb(int t, int r, int g, int b);
 void			draw_rectangle(t_img *img, t_rectangle *params, int color);
+void			draw_plane(t_config *conf);
 
 #endif

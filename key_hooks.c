@@ -1,4 +1,9 @@
-#include "hooks.h"
+#include "hooks/hooks.h"
+
+void	exit_procedure(void)
+{
+
+}
 
 int key_hook(int key_code)
 {
