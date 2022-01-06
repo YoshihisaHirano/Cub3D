@@ -16,16 +16,34 @@ void	my_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-void	draw_column(t_img *img, int x, int y, int height)
+void	draw_column(t_img *img, t_point coords, int height, int color)
 {
 	int i;
-	int	color;
 
 	i = 0;
-	color = create_trgb(0, 3, 19, 242); // arbitrary blue color
 	while (i < height)
 	{
-		my_pix_put(img, x, y + i, color);
+		my_pix_put(img, (int)coords.x, (int)coords.y + i, color);
+		i++;
+	}
+}
+
+void	draw_rectangle(t_img *img, t_rectangle *params, int color)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < params->height)
+	{
+		j = 0;
+		while (j < params->width)
+		{
+//			printf("%d - x, %d - y, %d - height, %d - width\n", params->x, params->y, params->height, params->width);
+//			printf("%d - i, %d - j\n", i , j);
+			my_pix_put(img, params->x + j, params->y + i, color);
+			j++;
+		}
 		i++;
 	}
 }

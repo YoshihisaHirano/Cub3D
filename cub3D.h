@@ -6,58 +6,40 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <limits.h>
 # include "minilibx/mlx.h"
 # include "libft/libft.h"
-//# include "hooks/hooks.h"
-//# include "utils/utils.h"
+# include "constants.h"
 
-//# define HEIGHT 200 //projection plane height
-//# define WIDTH 320 // projection plane width, therefore 320 columns in total
-//# define EV_DESTR_NOTIFY 17
-//# define MASK_NO_EVENT 0L
-//
-//# define PLAYER_HEIGHT 32 // player's height is half the wall's height
-//# define PLAYER_FOV 60 // player's field of view
-//# define WALL_SIDE 64 // the world consists of 64x64 cubes
-//# define DISTANCE_TO_PLANE 277 // half_of_width / tan(FOV / 2)
-//# define RAY_ANGLE_STEP 0.1875 // columns_qty / FOV; angle between subsequent rays
-//# define MAP_BORDER 256
+typedef struct s_trig_tables {
+	double	sin[ANGLE360 + 1];
+	double	inv_sin[ANGLE360 + 1];
+	double	cos[ANGLE360 + 1];
+	double	inv_cos[ANGLE360 + 1];
+	double	tan[ANGLE360 + 1];
+	double	inv_tan[ANGLE360 + 1];
+	double	fish_table[ANGLE60 + 1];
+	double	x_step_table[ANGLE360 + 1];
+	double	y_step_table[ANGLE360 + 1];
+}	t_trig_tables;
 
-/*
-map, # - wall, 256 x 256 units
-####
-#  #
-#  #
-####
+typedef	struct s_player {
+	int	x;
+	int	y;
+	int	angle;
+} t_player;
 
-degrees schema:
-		90
-		|
-		|
-180------------0
-		|
-		|
-		270
+typedef struct s_point {
+	double	x;
+	double	y;
+} t_point;
 
-the plane starts at 0,0 at the to left corner
-0__________x
-|
-|
-|
-y
-*/
-
-//typedef struct s_point {
-//	int	x;
-//	int	y;
-//} t_point;
-
-//typedef struct s_ppov {
-//	int player_x; // on the map
-//	int player_y; // on the map
-//	int player_angle; // in degrees, with regards to X-axis
-//} t_ppov;
-
+typedef struct s_rectangle {
+	int x;
+	int y;
+	int height;
+	int	width;
+} t_rectangle;
 
 typedef struct s_img
 {
@@ -68,6 +50,14 @@ typedef struct s_img
 	int			endian;
 }	t_img;
 
+typedef struct s_config {
+	t_player		*player;
+	t_trig_tables	*tables;
+	char 			*map;
+	t_img			*image;
+	int				scale;
+} t_config;
+
 typedef struct s_win
 {
 	void	*mlx_ptr;
@@ -76,5 +66,24 @@ typedef struct s_win
 	int		width;
 	t_img	*image;
 }	t_win;
+
+
+void			draw_column(t_img *img, t_point coords, int height, int color);
+t_trig_tables	*create_trig_tables(void);
+void			add_fish_table(t_trig_tables *tables);
+void			add_step_tables(t_trig_tables *tables);
+double			angle_to_radians(int angle);
+bool			facing_down(int angle);
+bool			facing_left(int angle);
+int				get_start_angle(int player_angle);
+double			dst_to_horizontal(t_trig_tables *tables, t_player *player,
+									char *map, int curr_angle);
+double			dst_to_vertical(t_trig_tables *tables, t_player *player,
+								  char *map, int curr_angle);
+t_config		*create_config();
+void			init_win(t_win *win);
+void			init_img(t_img *img, t_win *win);
+int				create_trgb(int t, int r, int g, int b);
+void			draw_rectangle(t_img *img, t_rectangle *params, int color);
 
 #endif

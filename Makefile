@@ -1,4 +1,4 @@
-SRC		=	new_draft.c draw_utils.c
+SRC		=	new_draft.c draw_utils.c create_tables.c player_utils.c initialization.c find_walls.c
 #main.c draw_utils.c hooks/keys.c draft_funcs.c utils/math_utils.c
 OBJ		=	$(SRC:.c=.o)
 NAME	=	cub3D
@@ -9,7 +9,7 @@ LIB		=	$(LIBDIR)/libft.a
 MLXDIR	=	./minilibx
 MLX		=	$(MLXDIR)/libmlx.a
 LFLAGS	=	-L $(LIBDIR) -lft -L $(MLXDIR) -lmlx -framework OpenGL -framework AppKit
-HEADER	=	cub3D.h
+HEADER	=	cub3D.h constants.h
 
 .PHONY	:	all re clean fclean
 
