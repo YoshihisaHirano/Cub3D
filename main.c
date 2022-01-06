@@ -27,23 +27,31 @@ int    exit_prog(t_win *win)
     return (0);
 }
 
-int main()
+int main(int argc, char **argv)
 {
-    t_win win;
-    t_img img;
-    t_ppov  p;
+    if (argc < 2)
+        return (1);
+    if (parser(argv[1]) == -1)
+    {
+        printf("parser error\n");
+        return (0);
+    }
+    // t_win win;
+    // t_img img;
+    // t_ppov  p;
 
-    init_win(&win);
-    init_img(&img, &win);
-    mlx_key_hook(win.win_ptr, key_hook, NULL);
-    // mlx_hook(win.mlx_ptr, EV_DESTR_NOTIFY, MASK_NO_EVENT, exit_prog, &win); check why this doesn't work
-    char ** map = create_map(); // think of map representation, probably linked lists
-    // print_map(map);
-    // these values will be extracted from map and will change with regards to key/mouse events:
-    p.player_x = 96;
-    p.player_y = 224;
-    p.player_angle = 45;
-    draw_plane(&p, map, &img);
-    mlx_put_image_to_window(win.mlx_ptr, win.win_ptr, img.img, 0, 0);
-    mlx_loop(win.mlx_ptr);
+    // init_win(&win);
+    // init_img(&img, &win);
+    // mlx_key_hook(win.win_ptr, key_hook, NULL);
+    // // mlx_hook(win.mlx_ptr, EV_DESTR_NOTIFY, MASK_NO_EVENT, exit_prog, &win); check why this doesn't work
+    // char ** map = create_map(); // think of map representation, probably linked lists
+    // // print_map(map);
+    // // these values will be extracted from map and will change with regards to key/mouse events:
+    // p.player_x = 96;
+    // p.player_y = 224;
+    // p.player_angle = 45;
+    // draw_plane(&p, map, &img);
+    // mlx_put_image_to_window(win.mlx_ptr, win.win_ptr, img.img, 0, 0);
+    // mlx_loop(win.mlx_ptr);
+    return (0);
 }

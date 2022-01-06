@@ -38,7 +38,7 @@ void    init_img(t_img *img, t_win *win)
 								  &(img->line_len), &(img->endian));
 }
 
-t_config	*create_config()
+t_config	*create_main_config()
 {
 	t_config		*config;
 	t_player		*player;
