@@ -51,7 +51,7 @@ t_map   *create_config(void)
 	config->ceil->B = -1;
 	config->map = NULL;
 	config->player_look = -1;
-	config->map_size = 2;
+	config->map_size = 1;
 	config->max_line = 0;
 	return (config);
 }
@@ -75,15 +75,17 @@ int isColors_texture_setted(t_map *config)
 	return (1);
 }
 
-int	skip_to_map(int file_fd, int lines_to_map)
+int	skip_to_map(t_map *config, int file_fd, int lines_to_map)
 {
 	char	*line;
 	char	*tmp_str;
+
 	while (get_next_line(file_fd, &line))
 	{
 		tmp_str = ft_strtrim(line, " ");
 		if (*tmp_str)
 		{
+			config->max_line = ft_strlen(line);
 			free(tmp_str);
 			free(line);
 			break ;

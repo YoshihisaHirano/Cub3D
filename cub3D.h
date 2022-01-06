@@ -112,7 +112,7 @@ t_map	    *create_config(void);
 void		free_arr(char **arr);
 void    	free_config(t_map *config);
 int			isColors_texture_setted(t_map *config);
-int			skip_to_map(int file_fd, int lines_to_map);
+int			skip_to_map(t_map *config, int file_fd, int lines_to_map);
 int			fill_map_config(t_map *config, int lines_to_map, int file_fd);
 int			validation(t_map *config);	
 int			check_filename(char *file_name);

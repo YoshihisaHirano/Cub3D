@@ -58,12 +58,57 @@ int check_map_for_sym(t_map *config, char **map)
 // check is fist line 1
 // check is last line 1
 // check 1st and last sym in line is 1
-// check is every sym except 
+// check is every (sym) 0 except 1st and last has no spaces around
 
-// int check_walls_to_close(t_map *config)
-// {
+int check_borders(t_map *config)
+{
+    int     x_i;
+    int     y_i;
+    int     line_end_i;
 
-// }
+    x_i = 0;
+    while (x_i <= config->max_line)
+    {
+        if (config->map[0][x_i] == '0'
+            || config->map[config->map_size - 1][x_i] == '0')
+            return (-1);
+        x_i++;
+    }
+    y_i = 1;
+    while (y_i < config->map_size)
+    {
+        x_i = 0;
+        line_end_i = config->max_line - 1;
+        while (config->map[y_i][x_i] == ' ')
+            x_i++;
+        while (config->map[y_i][line_end_i] == ' ')
+            line_end_i--;
+        if (config->map[y_i][x_i] == '0' || config->map[y_i][line_end_i] == '0')
+            return (-1);
+        y_i++;
+    }
+    return (0);
+}
+
+int check_walls_to_close(t_map *config)
+{
+    int x_i;
+    int y_i;
+
+    y_i = 0;
+    if (check_borders(config) == -1)
+        return (-1);
+    while (y_i < config->map_size)
+    {
+        x_i = 1;
+        while (x_i < config->max_line)
+        {
+            x_i++;
+        }
+        y_i++;
+    }
+    return (0);
+}
 
 int validation(t_map *config)
 {
@@ -74,8 +119,13 @@ int validation(t_map *config)
     }
     if (check_map_for_sym(config, config->map) == -1)
     {
-            printf("map is incorrect\n");
-            return (-1);
+        printf("map is incorrect\n");
+        return (-1);
+    }
+    if (check_walls_to_close(config) == -1)
+    {
+        printf("map isn't close\n");
+        return (-1);
     }
     return (0);
 }

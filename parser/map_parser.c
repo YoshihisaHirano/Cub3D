@@ -65,17 +65,19 @@ int	set_map(int file_fd, int lines_to_map, t_map *config, char *filename)
 {
 	int		current_len;
 	char	*line;
+	int		gnl_res;
 
-	lines_to_map = skip_to_map(file_fd, lines_to_map);
-	while (get_next_line(file_fd, &line))
+	gnl_res = 1;
+	lines_to_map = skip_to_map(config, file_fd, lines_to_map);
+	while (gnl_res)
 	{
+		gnl_res = get_next_line(file_fd, &line);
 		current_len = ft_strlen(line);
 		if (current_len > config->max_line)
 			config->max_line = current_len;
 		config->map_size++;
 		free(line);
 	}
-	free(line);
 	close(file_fd);
 	file_fd = open(filename, O_RDONLY);
 	if (file_fd == -1)
