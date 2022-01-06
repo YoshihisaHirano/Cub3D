@@ -54,8 +54,8 @@ t_config	*create_config()
 	config->map = my_map;
 	config->player = player;
 	// player's params will be taken from the map
-	config->player->x = 160;
-	config->player->y = 160;
+	config->player->x = 380;
+	config->player->y = 380;
 	config->player->angle = ANGLE60;
 	tables = create_trig_tables();
 	add_step_tables(tables);
