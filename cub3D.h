@@ -77,16 +77,16 @@ typedef struct s_color
 
 typedef struct s_map
 {
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	t_color	*floor;
-	t_color	*ceil;
-	char	**map;
-	int		player_look;
-	int		map_size;
-	int		max_line;
+	char		*NO;
+	char		*SO;
+	char		*WE;
+	char		*EA;
+	int			floor_color;
+	int			ceil_color;
+	char		**map;
+	int			map_size;
+	int			max_line;
+	t_player	player;
 }			t_map;
 
 

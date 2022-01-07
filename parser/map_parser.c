@@ -1,6 +1,6 @@
 #include "../cub3D.h"
 
-int check_for_colors(char **arr_line, t_color *color_el, char *color_place)
+int check_for_colors(char **arr_line, int *color_el, char *color_place)
 {
 	char **tmp_arr;
 	if (!arr_line || !(*arr_line) || !(**arr_line))
@@ -12,9 +12,8 @@ int check_for_colors(char **arr_line, t_color *color_el, char *color_place)
 			return (0);
 		if (!tmp_arr[0] || !tmp_arr[1] || !tmp_arr[2])
 			return (0);
-		color_el->R = ft_atoi(tmp_arr[0]);
-		color_el->G = ft_atoi(tmp_arr[1]);
-		color_el->B = ft_atoi(tmp_arr[2]);
+		*color_el = create_trgb(0, ft_atoi(tmp_arr[0]), ft_atoi(tmp_arr[1]),
+				ft_atoi(tmp_arr[2]));
 		free_arr(tmp_arr);
 	}
 	return (0);
@@ -46,8 +45,8 @@ int	set_texture_color(int file_fd, t_map *config)
 		i++;
 		arr_line = ft_split(line, ' ');
 		check_for_texture(arr_line, config);
-		check_for_colors(arr_line, config->floor, "F");
-		check_for_colors(arr_line, config->ceil, "C");
+		check_for_colors(arr_line, &(config->floor_color), "F");
+		check_for_colors(arr_line, &(config->ceil_color), "C");
 		free_arr(arr_line);
 		free(line);
 		line = NULL;
@@ -97,7 +96,7 @@ t_map	*parser(char *filename)
 	int		lines_to_map;
 
 	if (check_filename(filename) == -1)
-		return (exit_error("Wrong file format"));
+		return (exit_error("---Wrong file format"));
 	config = create_config();
 	if (!config)
 		return (NULL);
@@ -108,7 +107,7 @@ t_map	*parser(char *filename)
 	if (lines_to_map == -1)
 	{
 		free_config(config);
-		return (exit_error("Map error"));
+		return (exit_error("---Map error"));
 	}
 	if (set_map(file_fd, lines_to_map, config, filename) == -1)
 	{
@@ -116,9 +115,7 @@ t_map	*parser(char *filename)
 		return (NULL);
 	}
 	if (validation(config) == -1)
-		return(exit_error("validation error"));
-//
+		return(exit_error("---validation error"));
 	show_params(config);
-	// free_config(config);
 	return (config);
 }
