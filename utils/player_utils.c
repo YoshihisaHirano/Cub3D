@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/06 12:33:42 by aalannys            ###    #######.fr    */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3D.h"
+#include "../cub3D.h"
 
 double	angle_to_radians(int angle)
 {

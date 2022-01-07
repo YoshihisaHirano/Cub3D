@@ -28,5 +28,15 @@
 
 /* keys */
 # define KEYCODE_ESC 53
+# define KEYCODE_W 13
+# define KEYCODE_A 0
+# define KEYCODE_S 1
+# define KEYCODE_D 2
+# define KEYCODE_LEFT 123
+# define KEYCODE_RIGHT 124
+
+/* messages */
+# define MEM_ALLOC_ERR "failed to allocate memory\n"
+# define INIT_WIN_ERR "failed to initialize window\n"
 
 #endif

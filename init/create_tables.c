@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/06 12:30:55 by aalannys            ###    #######.fr    */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3D.h"
+#include "../cub3D.h"
 
 t_trig_tables	*create_trig_tables(void)
 {

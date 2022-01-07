@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/06 13:05:20 by aalannys            ###    #######.fr    */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3D.h"
+#include "../cub3D.h"
 
 t_point	find_first_horizontal(t_player *player, int curr_angle, t_trig_tables *tables)
 {
