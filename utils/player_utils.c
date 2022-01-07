@@ -30,6 +30,9 @@ bool	facing_left(int angle)
 	return false;
 }
 
+//right
+// (castArc < this.ANGLE90 || castArc > this.ANGLE270)
+
 int	get_start_angle(int player_angle)
 {
 	int	start_angle;

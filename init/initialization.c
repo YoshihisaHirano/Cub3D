@@ -11,16 +11,7 @@
 /* ************************************************************************** */
 #include "../cub3D.h"
 
-char my_map[] = {
-		'W','W','W','W','W','W','W','W','W','W','W','W',
-		'W','O','W','O','O','O','O','O','O','O','O','W',
-		'W','O','W','O','O','O','O','O','O','O','O','W',
-		'W','O','O','O','O','O','O','O','O','O','O','W',
-		'W','W','O','O','O','O','O','O','O','O','O','W',
-		'W','O','O','O','O','O','O','O','O','O','O','W',
-		'W','O','W','O','O','O','O','O','O','O','O','W',
-		'W','W','W','W','W','W','W','W','W','W','W','W'
-};
+char *my_map = "WWWWWWWWWWWWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWWWWWWWWWWWW";
 
 t_win	*init_win()
 {
@@ -67,13 +58,11 @@ t_setup	*create_setup()
 	//map will be different when parser is ready
 	setup->map1 = my_map;
 	setup->player = player;
-	// player's params will be taken from the map
-	setup->player->x = 400;
-	setup->player->y = 400;
-	setup->player->angle = ANGLE60;
+	// players params will be taken from the map
+	setup->player->x = PLAYER_X;
+	setup->player->y = PLAYER_Y;
+	setup->player->angle = PLAYER_ANGLE;
 	tables = create_trig_tables();
-	add_step_tables(tables);
-	add_fish_table(tables);
 	setup->tables = tables;
 	return (setup);
 }

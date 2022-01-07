@@ -85,9 +85,9 @@ function GameWindow(canvas) {
 	this.fYStepTable=[];
 
 	// player's attributes
-	this.fPlayerX = 67;
-	this.fPlayerY = 67;
-	this.fPlayerArc = this.ANGLE90;
+	this.fPlayerX = 136;
+	this.fPlayerY = 136;
+	this.fPlayerArc = this.ANGLE0;
 	this.fPlayerDistanceToTheProjectionPlane = 277;
 	this.fPlayerHeight =32;
 	this.fPlayerSpeed = 16;
@@ -580,6 +580,11 @@ GameWindow.prototype =
 					else if (this.fMap.charAt(mapIndex)!='O')
 					{
 						distToVerticalGridBeingHit =(yIntersection-this.fPlayerY)*this.fISinTable[castArc];
+						if (castArc >= 1760)
+						{
+							console.log("castArc", castArc, "invSin", this.fISinTable[castArc],'yIntersection', yIntersection,'distToVerticalGridBeingHit', distToVerticalGridBeingHit);
+							console.log('deltaY', distToNextYIntersection, 'deltaX', distToNextVerticalGrid);
+						}
 						break;
 					}
 					else

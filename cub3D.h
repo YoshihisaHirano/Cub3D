@@ -128,9 +128,9 @@ bool			facing_down(int angle);
 bool			facing_left(int angle);
 int				get_start_angle(int player_angle);
 double			dst_to_horizontal(t_trig_tables *tables, t_player *player,
-									char *map, int curr_angle);
+									t_map *map, int curr_angle);
 double			dst_to_vertical(t_trig_tables *tables, t_player *player,
-								  char *map, int curr_angle);
+								  t_map *map, int curr_angle);
 t_setup			*create_setup();
 void			clear_setup(t_setup *setup);
 int				create_trgb(int t, int r, int g, int b);
