@@ -97,7 +97,6 @@ void	add_spaces(t_map *config, int i)
 		ft_memcpy(config->map[i], tmp, len);
 		free(tmp);
 	}
-
 }
 
 int fill_map_config(t_map *config, int lines_to_map, int file_fd)

@@ -14,9 +14,9 @@ int check_filename(char *file_name)
         return (0);
 }
 
-int check_map_for_sym(t_map *config, char **map)
+int check_map_chars(t_map *config, char **map)
 {
-    int     has_map_char;
+    int     not_empty_line;
     int     y_i;
     int     x_i;
 
@@ -24,39 +24,22 @@ int check_map_for_sym(t_map *config, char **map)
     while (map[y_i])
     {
         x_i = 0;
-        has_map_char = 0;
+        not_empty_line = 0;
         while (map[y_i][x_i])
         {
-//            if (map[y_i][x_i] == 'N' || map[y_i][x_i] == 'S' || map[y_i][x_i] == 'E' || map[y_i][x_i] == 'W')
-            if ( ft_strchr("NSEW", map[y_i][x_i]))
-                if (config->player.angle != -1)
+            if (!ft_strchr("NSEW01 ", map[y_i][x_i]))
+                return (-1);
+            if (ft_strchr("NSEW", map[y_i][x_i]))
+                if (setup_player(config, map[y_i][x_i], x_i, y_i) == -1)
                     return (-1);
-                else
-                {
-                    if (map[y_i][x_i] == 'N')
-                        config->player.angle = ANGLE270;
-                    if (map[y_i][x_i] == 'S')
-                        config->player.angle = ANGLE90;
-                    if (map[y_i][x_i] == 'E')
-                        config->player.angle = ANGLE0;
-                    if (map[y_i][x_i] == 'W')
-                        config->player.angle = ANGLE180;
-                    config->player.x = x_i * TILE_SIDE + TILE_SIDE / 2;
-                    config->player.y = y_i * TILE_SIDE + TILE_SIDE / 2;
-                }
-            else if (map[y_i][x_i] != '0' && map[y_i][x_i] != '1' && map[y_i][x_i]  != ' ')
-                        return (-1);
-            if (has_map_char || map[y_i][x_i] == '0' || map[y_i][x_i] == '1' || map[y_i][x_i] == 'N'
-                || map[y_i][x_i] == 'S' || map[y_i][x_i] == 'E' || map[y_i][x_i] == 'W')
-                    has_map_char = 1;
+            if (not_empty_line || ft_strchr("01NSEW", map[y_i][x_i])) // for not empty lines
+                    not_empty_line = 1;
             x_i++;
         }
-        if (!has_map_char)
+        if (!not_empty_line)
             return (-1);
         y_i++;
     }
-    if (config->player.angle == -1)
-        return (-1);
     return (0);
 }
 
@@ -128,18 +111,13 @@ int validation(t_map *config)
         printf("params are incorrect\n");
         return (-1);
     }
-
-    if (check_map_for_sym(config, config->map) == -1)
+    if (check_map_chars(config, config->map) == -1)
     {
         printf("map is incorrect\n");
         return (-1);
     }
-    if (0 == (config->player.y - TILE_SIDE / 2) / TILE_SIDE
-                || config->map_size - 1 == (config->player.y - TILE_SIDE / 2) / TILE_SIDE)
-    {
-        printf("player position on border\n");
+    if (is_player_setted(config) == -1)
         return (-1);
-    }
     if (check_walls_to_close(config) == -1)
     {
         printf("map isn't close\n");
