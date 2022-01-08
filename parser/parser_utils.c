@@ -126,9 +126,3 @@ int fill_map_config(t_map *config, int lines_to_map, int file_fd)
 	config->map[config->map_size] = NULL;
 	return (0);
 }
-
-void	*exit_error(char *msg)
-{
-	printf("%s\n", msg);
-	return (NULL);
-}

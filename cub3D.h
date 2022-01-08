@@ -139,4 +139,7 @@ int				create_trgb(int t, int r, int g, int b);
 void			draw_rectangle(t_img *img, t_rectangle *params, int color);
 void			draw_plane(t_config *conf);
 
+
+void test_xmp(void);
+
 #endif

@@ -35,3 +35,9 @@ int is_player_setted(t_map *config)
     }
     return (0);
 }
+
+void	*exit_error(char *msg)
+{
+	printf("%s\n", msg);
+	return (NULL);
+}
