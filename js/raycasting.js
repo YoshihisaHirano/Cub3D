@@ -85,8 +85,8 @@ function GameWindow(canvas) {
 	this.fYStepTable=[];
 
 	// player's attributes
-	this.fPlayerX = 136;
-	this.fPlayerY = 136;
+	this.fPlayerX = 320;
+	this.fPlayerY = 320;
 	this.fPlayerArc = this.ANGLE0;
 	this.fPlayerDistanceToTheProjectionPlane = 277;
 	this.fPlayerHeight =32;
@@ -266,12 +266,12 @@ GameWindow.prototype =
                 'WWWWWWWWWWWW';
 		var map4 =
 				'WWWWWWWWWWWW' +
-				'WOWOOOOOOOOW' +
-				'WOWOOOOOOOOW' +
 				'WOOOOOOOOOOW' +
-				'WWOOOOOOOOOW' +
 				'WOOOOOOOOOOW' +
-				'WOWOOOOOOOOW' +
+				'WOOOOOOOOOOW' +
+				'WOOOOOOOOOOW' +
+				'WOOOOOOOOOOW' +
+				'WOOOOOOOOOOW' +
 				'WWWWWWWWWWWW';
 		// Remove spaces and tabs
         this.fMap=map4.replace(/\s+/g, '');
@@ -480,9 +480,9 @@ GameWindow.prototype =
 				while (true)
 				{
 					xGridIndex = Math.floor(xIntersection/this.TILE_SIZE);
-					if (this.fTanTable[castArc] < -999) {
-						console.log('xGridIndex', xGridIndex);
-					}
+					// if (this.fTanTable[castArc] < -999) {
+					// 	console.log('xGridIndex', xGridIndex);
+					// }
 					yGridIndex = Math.floor(horizontalGrid/this.TILE_SIZE);
 					var mapIndex=Math.floor(yGridIndex*this.MAP_WIDTH+xGridIndex);
 					if (DEBUG)
@@ -546,6 +546,11 @@ GameWindow.prototype =
 						" ytemp="+ytemp+" yIntersection="+yIntersection);					
 				}
 			}
+
+			if (castArc == 1920)
+			{
+				console.log('intersec.x', verticalGrid, 'intersec.y', yIntersection);
+			}
 			  // LOOK FOR VERTICAL WALL
 			if (castArc==this.ANGLE90||castArc==this.ANGLE270)
 			{
@@ -559,9 +564,9 @@ GameWindow.prototype =
 					// compute current map position to inspect
 					xGridIndex = Math.floor(verticalGrid/this.TILE_SIZE);
 					yGridIndex = Math.floor(yIntersection/this.TILE_SIZE);
-					if (this.fTanTable[castArc] < -999) {
-						console.log('yGridIndex', yGridIndex);
-					}
+					// if (this.fTanTable[castArc] < -999) {
+					// 	console.log('yGridIndex', yGridIndex);
+					// }
 					var mapIndex=Math.floor(yGridIndex*this.MAP_WIDTH+xGridIndex);
 					
 					if (DEBUG)
@@ -580,11 +585,6 @@ GameWindow.prototype =
 					else if (this.fMap.charAt(mapIndex)!='O')
 					{
 						distToVerticalGridBeingHit =(yIntersection-this.fPlayerY)*this.fISinTable[castArc];
-						if (castArc >= 1760)
-						{
-							console.log("castArc", castArc, "invSin", this.fISinTable[castArc],'yIntersection', yIntersection,'distToVerticalGridBeingHit', distToVerticalGridBeingHit);
-							console.log('deltaY', distToNextYIntersection, 'deltaX', distToNextVerticalGrid);
-						}
 						break;
 					}
 					else
@@ -594,7 +594,11 @@ GameWindow.prototype =
 					}
 				}
 			}
-
+			if (castArc == 1920)
+			{
+				console.log("castArc", castArc, "invSin", this.fISinTable[castArc],'yIntersection', yIntersection,'distToVerticalGridBeingHit', distToVerticalGridBeingHit);
+				console.log('deltaY', distToNextYIntersection, 'deltaX', distToNextVerticalGrid);
+			}
 			// DRAW THE WALL SLICE
 			var scaleFactor;
 			var dist;
@@ -674,7 +678,7 @@ GameWindow.prototype =
 			//console.log("dist="+dist+" color="+color);
 
 			this.drawFillRectangle(castColumn, topOfWall, 1, (bottomOfWall-topOfWall)+1, cssColor);
-
+			console.log(castArc, 'castArc');
 			// TRACE THE NEXT RAY
 			castArc+=1;
 			if (castArc>=this.ANGLE360)

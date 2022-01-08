@@ -18,20 +18,13 @@ double	angle_to_radians(int angle)
 
 bool	facing_down(int angle)
 {
-	if (angle >= ANGLE0 && angle <= ANGLE180)
-		return true;
-	return false;
+	return (angle > ANGLE0 && angle < ANGLE180);
 }
 
-bool	facing_left(int angle)
+bool	facing_right(int angle)
 {
-	if (angle >= ANGLE90 && angle <= ANGLE270)
-		return true;
-	return false;
+	return (angle < ANGLE90 || angle > ANGLE270);
 }
-
-//right
-// (castArc < this.ANGLE90 || castArc > this.ANGLE270)
 
 int	get_start_angle(int player_angle)
 {

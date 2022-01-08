@@ -18,10 +18,10 @@ double find_dst(t_setup *setup, int angle, int column)
 
 	h_dst = dst_to_horizontal(setup->tables, setup->player, setup->map, angle);
 	v_dst = dst_to_vertical(setup->tables, setup->player, setup->map, angle);
-	// if (column < 801)
-	// {
-	// 	printf("%d - angle, %lf - h_dst, %lf - v_dst\n", angle, h_dst, v_dst);
-	// }
+//	 if (column == 160)
+//	 {
+//	 	printf("%d - angle, %lf - h_dst, %lf - v_dst\n", angle, h_dst, v_dst);
+//	 }
 	if (v_dst < h_dst)
 		return (v_dst / setup->tables->fish_table[column]);
 	return (h_dst / setup->tables->fish_table[column]);
@@ -29,7 +29,7 @@ double find_dst(t_setup *setup, int angle, int column)
 
 int	wall_height(double dist)
 {
-	return ((int)(TILE_SIDE * PLAYER_PLANE_DST / dist));
+	return (floor(TILE_SIDE * PLAYER_PLANE_DST / dist));
 }
 
 void	find_draw_column(t_setup *setup, int curr_angle, int column)
@@ -41,11 +41,11 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 	int			color;
 
 	dist = find_dst(setup, curr_angle, column);
-	// printf("%d - column, %d - wall height\n", column, wall_height(dist));
-	wall_top = (int)(PLANE_CENTER - (wall_height(dist) / 2));
+//	 printf("%d - column, %d - wall height\n", column, wall_height(dist));
+	wall_top = floor(PLANE_CENTER - (wall_height(dist) / 2));
 	if (wall_top < 0)
 		wall_top = 0;
-	wall_bottom = (int)(PLANE_CENTER + (wall_height(dist) / 2));
+	wall_bottom = floor(PLANE_CENTER + (wall_height(dist) / 2));
 	if (wall_bottom > PLANE_HEIGHT)
 		wall_bottom = PLANE_HEIGHT - 1;
 	rect.x = column;
@@ -58,15 +58,13 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 
 void	draw_floor_ceil(t_setup *setup)
 {
-	int			ceil_color; //temp val
-	int			floor_color; // temp as well
+	int			ceil_color;
+	int			floor_color;
 	t_rectangle	floor;
 	t_rectangle	ceil;
 
 	ceil_color = create_trgb(0, setup->map->floor->R, setup->map->floor->G, setup->map->floor->B);
 	floor_color = create_trgb(0, setup->map->ceil->R, setup->map->ceil->G, setup->map->ceil->B);
-	// ceil_color = create_trgb(0, 182, 213, 240);
-	// floor_color = create_trgb(0, 0, 57, 22);
 	floor.x = 0;
 	floor.y = PLANE_CENTER;
 	floor.width = PLANE_WIDTH;
@@ -94,7 +92,7 @@ void	draw_plane(t_setup *setup)
 		find_draw_column(setup, curr_angle, column);
 		column += 1;
 		curr_angle += 1;
-		if (curr_angle > ANGLE360)
+		if (curr_angle >= ANGLE360)
 			curr_angle -= ANGLE360;
 	}
 }

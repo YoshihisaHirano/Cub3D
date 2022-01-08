@@ -125,7 +125,7 @@ void			add_fish_table(t_trig_tables *tables);
 void			add_step_tables(t_trig_tables *tables);
 double			angle_to_radians(int angle);
 bool			facing_down(int angle);
-bool			facing_left(int angle);
+bool			facing_right(int angle);
 int				get_start_angle(int player_angle);
 double			dst_to_horizontal(t_trig_tables *tables, t_player *player,
 									t_map *map, int curr_angle);
