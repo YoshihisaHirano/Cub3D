@@ -51,14 +51,6 @@ typedef struct s_img
 	int			endian;
 }	t_img;
 
-typedef struct s_config {
-	t_player		*player;
-	t_trig_tables	*tables;
-	char 			*map;
-	t_img			*image;
-	int				scale;
-} t_config;
-
 typedef struct s_win
 {
 	void	*mlx_ptr;
@@ -88,6 +80,14 @@ typedef struct s_map
 	int			max_line;
 	t_player	player;
 }			t_map;
+
+typedef struct s_setup {
+	t_player		*player;
+	t_trig_tables	*tables;
+	t_map			*map;
+	t_img			*image;
+	t_win			*win;
+} t_setup;
 
 
 // parser part
@@ -126,18 +126,20 @@ void			add_fish_table(t_trig_tables *tables);
 void			add_step_tables(t_trig_tables *tables);
 double			angle_to_radians(int angle);
 bool			facing_down(int angle);
-bool			facing_left(int angle);
+bool			facing_right(int angle);
 int				get_start_angle(int player_angle);
 double			dst_to_horizontal(t_trig_tables *tables, t_player *player,
-									char *map, int curr_angle);
+									t_map *map, int curr_angle);
 double			dst_to_vertical(t_trig_tables *tables, t_player *player,
-								  char *map, int curr_angle);
-t_config		*create_main_config();
-void			init_win(t_win *win);
-void			init_img(t_img *img, t_win *win);
+								  t_map *map, int curr_angle);
+t_setup			*create_setup();
+void			clear_setup(t_setup *setup);
 int				create_trgb(int t, int r, int g, int b);
 void			draw_rectangle(t_img *img, t_rectangle *params, int color);
-void			draw_plane(t_config *conf);
+void			draw_plane(t_setup *setup);
+void			error_exit(char *message);
+t_setup			*init_all();
+int				key_hook(int key_code, t_setup *setup);
 
 
 void test_xmp(void);

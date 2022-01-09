@@ -1,11 +1,11 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 /* world */
-# define TILE_SIDE 320
-# define PLANE_WIDTH 1600
-# define PLANE_HEIGHT 1000
+# define TILE_SIDE 320//64//
+# define PLANE_WIDTH 1600//320//320//
+# define PLANE_HEIGHT 1000//200//200//
 # define PLANE_CENTER (PLANE_HEIGHT / 2)
-# define PLAYER_PLANE_DST 1386 // (half plane width / tan(30 deg))
+# define PLAYER_PLANE_DST 1386//277//277// (half plane width / tan(30 deg))
 
 /* angles */
 # define ANGLE60 PLANE_WIDTH
@@ -19,8 +19,9 @@
 # define ANGLE10 (ANGLE5 * 2)
 
 /* player's attributes */
-# define PLAYER_X 100
-# define PLAYER_Y 160
+# define PLAYER_SPEED 80//16//80
+# define PLAYER_X 1600
+# define PLAYER_Y 1600
 # define PLAYER_ANGLE ANGLE0
 # define PLAYER_HEIGHT (TILE_SIDE / 2)
 # define MAP_WIDTH 12
@@ -28,5 +29,15 @@
 
 /* keys */
 # define KEYCODE_ESC 53
+# define KEYCODE_W 13
+# define KEYCODE_A 0
+# define KEYCODE_S 1
+# define KEYCODE_D 2
+# define KEYCODE_LEFT 123
+# define KEYCODE_RIGHT 124
+
+/* messages */
+# define MEM_ALLOC_ERR "failed to allocate memory\n"
+# define INIT_WIN_ERR "failed to initialize window\n"
 
 #endif
