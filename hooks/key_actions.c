@@ -60,6 +60,24 @@ void    move_forwards_backwards(t_setup *setup, bool forwards)
 
 void    move_left_right(t_setup *setup, bool left)
 {
-    (void)setup;
-    (void)left;
+    double  x_dir;
+    double  y_dir;
+
+    y_dir = setup->tables->cos[setup->player->angle];
+    x_dir = setup->tables->sin[setup->player->angle];
+	if (out_of_map(setup, floor(x_dir * PLAYER_SPEED), floor(y_dir *
+	PLAYER_SPEED), left))
+		return;
+    if (left)
+    {
+        setup->player->x += floor(x_dir * PLAYER_SPEED);
+        setup->player->y -= floor(y_dir * PLAYER_SPEED);
+    }
+    else
+    {
+        setup->player->x -= floor(x_dir * PLAYER_SPEED);
+        setup->player->y += floor(y_dir * PLAYER_SPEED);
+    }
+    draw_plane(setup);
+    mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
 }

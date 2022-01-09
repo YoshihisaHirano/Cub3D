@@ -18,5 +18,9 @@ int key_hook(int key_code, t_setup *setup)
         move_forwards_backwards(setup, true);
     if (key_code == KEYCODE_S)
         move_forwards_backwards(setup, false);
+    if (key_code == KEYCODE_A)
+        move_left_right(setup, true);
+    if (key_code == KEYCODE_D)
+        move_left_right(setup, false);
     return (0);
 }
