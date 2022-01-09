@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 	map = parser(argv[1]);
     if (map == NULL)
     {
-        printf("parser error\n");
+        printf("------parser error\n");
         return (0);
     }
 	setup = init_all();
@@ -19,5 +19,16 @@ int main(int argc, char **argv)
 	draw_plane(setup);
 	mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
 	mlx_loop(setup->win->mlx_ptr);
+	free_config(map);
 	return (0);
 }
+
+
+
+// TODO change name for map_size line_size
+// TODO check if around player spaces
+//				 s
+//			    s0s
+//				 s
+
+

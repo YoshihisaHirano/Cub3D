@@ -11,18 +11,12 @@ void show_params(t_map *config)
 		printf("WE: %s\n", config->WE);
 	if (config->EA)
 		printf("EA: %s\n", config->EA);
-	if (config->player_look != -1)
-		printf("player look %d \n", config->player_look);
 	printf("color setup: \n");
 	printf("Ceil : ");
-		printf("%i ", config->ceil->R);
-		printf("%i ", config->ceil->G);
-		printf("%i ", config->ceil->B);
+		printf("%i ", config->ceil_color);
 	printf("\n");
 	printf("Floor : ");
-		printf("%i ", config->floor->R);
-		printf("%i ", config->floor->G);
-		printf("%i ", config->floor->B);
+		printf("%i ", config->floor_color);
 	printf("\n");
 	for (int j = 0; config->map[j]; j++)
 		printf("|%s|\n", config->map[j]);
@@ -35,23 +29,17 @@ t_map   *create_config(void)
 	config = malloc(sizeof(t_map));
 	if (!config)
 		return (NULL);
-	config->ceil = malloc(sizeof(t_color));
-	config->floor = malloc(sizeof(t_color));
-	if (!config->ceil || !config->floor)
-		return (NULL);
 	config->NO = NULL;
 	config->SO = NULL;
 	config->WE = NULL;
 	config->EA = NULL;
-	config->floor->R = -1;
-	config->floor->G = -1;
-	config->floor->B = -1;
-	config->ceil->R = -1;
-	config->ceil->G = -1;
-	config->ceil->B = -1;
+	config->player.angle = -1;
+	config->player.x = -1;
+	config->player.y = -1;
+	config->ceil_color = -1;
+	config->floor_color = -1; 
 	config->map = NULL;
-	config->player_look = -1;
-	config->map_size = 2;
+	config->map_size = 1;
 	config->max_line = 0;
 	return (config);
 }
@@ -66,24 +54,24 @@ int isColors_texture_setted(t_map *config)
 		return (0);
 	if (!config->EA)
 		return (0);
-	if (config->ceil->R == -1 || config->ceil->G == -1
-			|| config->ceil->B == -1)
+	if (config->ceil_color == -1)
 		return (0);
-	if (config->floor->R == -1 || config->floor->G == -1
-			|| config->floor->B == -1)
+	if (config->floor_color == -1)
 		return (0);
 	return (1);
 }
 
-int	skip_to_map(int file_fd, int lines_to_map)
+int	skip_to_map(t_map *config, int file_fd, int lines_to_map)
 {
 	char	*line;
 	char	*tmp_str;
+
 	while (get_next_line(file_fd, &line))
 	{
 		tmp_str = ft_strtrim(line, " ");
 		if (*tmp_str)
 		{
+			config->max_line = ft_strlen(line);
 			free(tmp_str);
 			free(line);
 			break ;
@@ -109,7 +97,6 @@ void	add_spaces(t_map *config, int i)
 		ft_memcpy(config->map[i], tmp, len);
 		free(tmp);
 	}
-
 }
 
 int fill_map_config(t_map *config, int lines_to_map, int file_fd)
@@ -138,10 +125,4 @@ int fill_map_config(t_map *config, int lines_to_map, int file_fd)
 	}
 	config->map[config->map_size] = NULL;
 	return (0);
-}
-
-void	*exit_error(char *msg)
-{
-	printf("%s\n", msg);
-	return (NULL);
 }

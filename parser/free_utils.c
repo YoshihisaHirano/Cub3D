@@ -12,10 +12,6 @@ void    free_config(t_map *config)
 		free(config->WE);
 	if (config->EA)
 		free(config->EA);
-	if (config->ceil)
-		free(config->ceil);
-	if (config->floor)
-		free(config->floor);
 	free_arr(config->map);
 	free(config);
 

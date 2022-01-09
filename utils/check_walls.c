@@ -4,12 +4,12 @@ int check_wall(t_map *config, int x, int y)
 {
     if (y >= config->map_size)
     {
-        // printf("out of map (y)\n");
+        printf("out of map (y)\n");
         return (0);
     }
     if (x >= (int) ft_strlen(config->map[y]))
     {
-        // printf("out of line\n");
+        printf("out of line\n");
         return (0);
     }
     // printf(" %d %lu\n%s\n", x, ft_strlen(config->map[y]), config->map[y]);

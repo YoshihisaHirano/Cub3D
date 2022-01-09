@@ -69,16 +69,16 @@ typedef struct s_color
 
 typedef struct s_map
 {
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	t_color	*floor;
-	t_color	*ceil;
-	char	**map;
-	int		player_look;
-	int		map_size;
-	int		max_line;
+	char		*NO;
+	char		*SO;
+	char		*WE;
+	char		*EA;
+	int			floor_color;
+	int			ceil_color;
+	char		**map;
+	int			map_size;
+	int			max_line;
+	t_player	player;
 }			t_map;
 
 typedef struct s_setup {
@@ -113,9 +113,11 @@ t_map	    *create_config(void);
 void		free_arr(char **arr);
 void    	free_config(t_map *config);
 int			isColors_texture_setted(t_map *config);
-int			skip_to_map(int file_fd, int lines_to_map);
+int			skip_to_map(t_map *config, int file_fd, int lines_to_map);
 int			fill_map_config(t_map *config, int lines_to_map, int file_fd);
-int			validation(t_map *config);	
+int			validation(t_map *config);
+int			setup_player(t_map *config, char char_for_check, int x_i, int y_i);
+int			is_player_setted(t_map *config);
 int			check_filename(char *file_name);
 void		*exit_error(char *msg);
 int			check_wall(t_map *config, int x, int y);
@@ -139,5 +141,8 @@ void			draw_plane(t_setup *setup);
 void			error_exit(char *message);
 t_setup			*init_all();
 int				key_hook(int key_code, t_setup *setup);
+
+
+void test_xmp(void);
 
 #endif
