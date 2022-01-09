@@ -84,7 +84,6 @@ typedef struct s_map
 typedef struct s_setup {
 	t_player		*player;
 	t_trig_tables	*tables;
-	char 			*map1;
 	t_map			*map;
 	t_img			*image;
 	t_win			*win;

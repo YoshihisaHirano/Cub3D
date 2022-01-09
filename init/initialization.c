@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../cub3D.h"
 
-char *my_map = "WWWWWWWWWWWWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWWWWWWWWWWWW";
+// char *my_map = "WWWWWWWWWWWWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWWWWWWWWWWWW";
 
 t_win	*init_win()
 {
@@ -55,8 +55,6 @@ t_setup	*create_setup()
 	player = malloc(sizeof(t_player));
 	if (!player)
 		error_exit(MEM_ALLOC_ERR);
-	//map will be different when parser is ready
-	setup->map1 = my_map;
 	setup->player = player;
 	// players params will be taken from the map
 	setup->player->x = PLAYER_X;

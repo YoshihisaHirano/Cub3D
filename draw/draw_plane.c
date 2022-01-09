@@ -58,13 +58,9 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 
 void	draw_floor_ceil(t_setup *setup)
 {
-	int			ceil_color;
-	int			floor_color;
 	t_rectangle	floor;
 	t_rectangle	ceil;
 
-	ceil_color = create_trgb(0, setup->map->floor->R, setup->map->floor->G, setup->map->floor->B);
-	floor_color = create_trgb(0, setup->map->ceil->R, setup->map->ceil->G, setup->map->ceil->B);
 	floor.x = 0;
 	floor.y = PLANE_CENTER;
 	floor.width = PLANE_WIDTH;
@@ -73,8 +69,8 @@ void	draw_floor_ceil(t_setup *setup)
 	ceil.y = 0;
 	ceil.width = PLANE_WIDTH;
 	ceil.height = PLANE_CENTER;
-	draw_rectangle(setup->image, &floor, floor_color);
-	draw_rectangle(setup->image, &ceil, ceil_color);
+	draw_rectangle(setup->image, &floor, setup->map->floor_color);
+	draw_rectangle(setup->image, &ceil, setup->map->ceil_color);
 }
 
 void	draw_plane(t_setup *setup)
