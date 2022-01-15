@@ -2,7 +2,8 @@ SRC		=	main.c init/create_tables.c init/initialization.c\
 			draw/draw_plane.c draw/find_walls.c hooks/key_hooks.c hooks/key_actions.c\
 			parser/map_parser.c parser/gnl/get_next_line.c parser/gnl/get_next_line_utils.c\
 			parser/parser_utils.c parser/parser_utils2.c  parser/free_utils.c  validation/map_validation.c validation/validation_utils.c\
-			utils/check_walls.c utils/player_utils.c utils/draw_utils.c utils/common_utils.c utils/clear_utils.c
+			utils/check_walls.c utils/player_utils.c utils/draw_utils.c utils/common_utils.c utils/clear_utils.c\
+			draw/draw_minimap.c
 OBJ		=	$(SRC:.c=.o)
 NAME	=	cub3D
 CC		=	gcc

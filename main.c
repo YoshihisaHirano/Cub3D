@@ -18,6 +18,7 @@ int main(int argc, char **argv)
 	mlx_key_hook(setup->win->win_ptr, key_hook, setup);
 	draw_plane(setup);
 	mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
+	draw_minimap(setup);
 	mlx_loop(setup->win->mlx_ptr);
 	free_config(map);
 	return (0);

@@ -40,4 +40,9 @@
 # define MEM_ALLOC_ERR "failed to allocate memory\n"
 # define INIT_WIN_ERR "failed to initialize window\n"
 
+/* minimap */
+#define MINI_MAP_WIDTH 250
+#define MINI_MAP_HEIGHT 250
+
+
 #endif
