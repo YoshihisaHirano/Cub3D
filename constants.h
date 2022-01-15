@@ -1,5 +1,6 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
+
 /* world */
 # define TILE_SIDE 320//64//
 # define PLANE_WIDTH 1600//320//320//
@@ -20,12 +21,18 @@
 
 /* player's attributes */
 # define PLAYER_SPEED 80//16//80
-# define PLAYER_X 1600
-# define PLAYER_Y 1600
-# define PLAYER_ANGLE ANGLE0
-# define PLAYER_HEIGHT (TILE_SIDE / 2)
-# define MAP_WIDTH 12
-# define MAP_HEIGHT 12
+# define PLAYER_X 1600 //delete
+# define PLAYER_Y 1600 //delete
+# define PLAYER_ANGLE ANGLE0 //delete
+# define PLAYER_HEIGHT (TILE_SIDE / 2) //delete ??
+# define MAP_WIDTH 12 //delete
+# define MAP_HEIGHT 12 //delete
+
+/* orientation */
+# define NORTH 0
+# define WEST 1
+# define SOUTH 2
+# define EAST 3
 
 /* keys */
 # define KEYCODE_ESC 53

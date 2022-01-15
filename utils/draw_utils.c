@@ -39,8 +39,6 @@ void	draw_rectangle(t_img *img, t_rectangle *params, int color)
 		j = 0;
 		while (j < params->width)
 		{
-//			printf("%d - x, %d - y, %d - height, %d - width\n", params->x, params->y, params->height, params->width);
-//			printf("%d - i, %d - j\n", i , j);
 			my_pix_put(img, params->x + j, params->y + i, color);
 			j++;
 		}

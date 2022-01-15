@@ -16,14 +16,13 @@ double find_dst(t_setup *setup, int angle, int column)
 	double	h_dst;
 	double	v_dst;
 
-	h_dst = dst_to_horizontal(setup->tables, setup->player, setup->map, angle);
-	v_dst = dst_to_vertical(setup->tables, setup->player, setup->map, angle);
-//	 if (column == 160)
-//	 {
-//	 	printf("%d - angle, %lf - h_dst, %lf - v_dst\n", angle, h_dst, v_dst);
-//	 }
+	h_dst = dst_to_horizontal(setup, angle);
+	v_dst = dst_to_vertical(setup, angle);
 	if (v_dst < h_dst)
+	{
+		setup->col->vertical_hit = true;
 		return (v_dst / setup->tables->fish_table[column]);
+	}
 	return (h_dst / setup->tables->fish_table[column]);
 }
 
@@ -41,7 +40,7 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 	int			color;
 
 	dist = find_dst(setup, curr_angle, column);
-//	 printf("%d - column, %d - wall height\n", column, wall_height(dist));
+	assign_wall_dir(setup->col, curr_angle);
 	wall_top = floor(PLANE_CENTER - (wall_height(dist) / 2));
 	if (wall_top < 0)
 		wall_top = 0;
@@ -75,10 +74,13 @@ void	draw_floor_ceil(t_setup *setup)
 
 void	draw_plane(t_setup *setup)
 {
-	int	column;
-	int	curr_angle;
+	int			column;
+	int			curr_angle;
+	t_column	col;
 
 	column = 0;
+	col = (t_column){ 0 };
+	setup->col = &col;
 	curr_angle = setup->player->angle - ANGLE30;
 	if (curr_angle < 0)
 		curr_angle += ANGLE360;

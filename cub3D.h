@@ -35,6 +35,25 @@ typedef struct s_point {
 	double	y;
 } t_point;
 
+typedef	struct s_column
+{
+	bool	vertical_hit;
+	int		wall_dir;
+	int		wall_height;
+	bool	ray_up;
+	bool	ray_left;
+	t_point	v_intersec;
+	t_point	h_intersec;
+} t_column;
+
+typedef struct	s_texture
+{
+	int		width;
+	int		height;
+	t_img	*img;
+} t_texture;
+
+
 typedef struct s_rectangle {
 	int x;
 	int y;
@@ -87,6 +106,8 @@ typedef struct s_setup {
 	t_map			*map;
 	t_img			*image;
 	t_win			*win;
+	t_column		*col;
+	t_texture		texture[4];
 } t_setup;
 
 
@@ -128,10 +149,8 @@ double			angle_to_radians(int angle);
 bool			facing_down(int angle);
 bool			facing_right(int angle);
 int				get_start_angle(int player_angle);
-double			dst_to_horizontal(t_trig_tables *tables, t_player *player,
-									t_map *map, int curr_angle);
-double			dst_to_vertical(t_trig_tables *tables, t_player *player,
-								  t_map *map, int curr_angle);
+double			dst_to_horizontal(t_setup *setup, int curr_angle);
+double			dst_to_vertical(t_setup *setup, int curr_angle);
 t_setup			*create_setup();
 void			clear_setup(t_setup *setup);
 int				create_trgb(int t, int r, int g, int b);
@@ -140,6 +159,8 @@ void			draw_plane(t_setup *setup);
 void			error_exit(char *message);
 t_setup			*init_all();
 int				key_hook(int key_code, t_setup *setup);
+void			assign_wall_dir(t_column *col, int curr_angle);
+bool			ray_out_of_map(t_map *map, t_point *grid_coords);
 
 
 void test_xmp(void);
