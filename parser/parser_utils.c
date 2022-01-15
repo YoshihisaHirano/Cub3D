@@ -42,7 +42,7 @@ t_map   *create_config(void)
 	config->floor_color = -1; 
 	config->map = NULL;
 	config->map_size = 1;
-	config->max_width = 0;
+	config->max_line = 0;
 	return (config);
 }
 
@@ -75,7 +75,7 @@ int	skip_to_map(t_map *config, int file_fd, int lines_to_map)
 		tmp_str = ft_strtrim(line, " ");
 		if (*tmp_str)
 		{
-			config->max_width = ft_strlen(line);
+			config->max_line = ft_strlen(line);
 			free(tmp_str);
 			free(line);
 			break ;
@@ -93,11 +93,11 @@ void	add_spaces(t_map *config, int i)
 	int		len;
 
 	len = ft_strlen(config->map[i]);
-	if (len < config->max_width)
+	if (len < config->max_line)
 	{
 		tmp = config->map[i];
-		config->map[i] = ft_calloc((config->max_width + 1), sizeof(char));
-		ft_memset(config->map[i], ' ', config->max_width);
+		config->map[i] = ft_calloc((config->max_line + 1), sizeof(char));
+		ft_memset(config->map[i], ' ', config->max_line);
 		ft_memcpy(config->map[i], tmp, len);
 		free(tmp);
 	}

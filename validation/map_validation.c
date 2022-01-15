@@ -50,7 +50,7 @@ int check_borders(t_map *config)
     int     line_end_i;
 
     x_i = 0;
-    while (x_i <= config->max_width)
+    while (x_i <= config->max_line)
     {
         if (config->map[0][x_i] == '0'
             || config->map[config->map_size - 1][x_i] == '0')
@@ -61,7 +61,7 @@ int check_borders(t_map *config)
     while (y_i < config->map_size)
     {
         x_i = 0;
-        line_end_i = config->max_width - 1;
+        line_end_i = config->max_line - 1;
         while (config->map[y_i][x_i] == ' ')
             x_i++;
         while (config->map[y_i][line_end_i] == ' ')
@@ -91,7 +91,7 @@ int check_walls_to_close(t_map *config)
     while (y_i < config->map_size - 1)
     {
         x_i = 1;
-        while (x_i < config->max_width)
+        while (x_i < config->max_line)
         {
             if ((map[y_i][x_i] == '0') && (map[y_i - 1][x_i] == ' '
                 || map[y_i + 1][x_i] == ' ' || map[y_i][x_i - 1] == ' ' 

@@ -119,6 +119,7 @@ int			setup_player(t_map *config, char char_for_check, int x_i, int y_i);
 int			is_player_setted(t_map *config);
 int			check_filename(char *file_name);
 void		*exit_error(char *msg);
+int			handle_line(t_map *config, char *line);
 int			check_wall(t_map *config, int x, int y);
 void			draw_column(t_img *img, t_point coords, int height, int color);
 t_trig_tables	*create_trig_tables(void);

@@ -3,7 +3,6 @@
 int	set_texture_color(int file_fd, t_map *config)
 {
 	char	*line;
-	// char	**arr_line;
 	int		i;
 
 	i = 1;
@@ -84,3 +83,5 @@ t_map	*parser(char *filename)
 	show_params(config);
 	return (config);
 }
+
+/* check_texture file??*/

@@ -35,3 +35,4 @@ int is_player_setted(t_map *config)
     }
     return (0);
 }
+
