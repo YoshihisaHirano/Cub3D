@@ -37,7 +37,7 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 	int			wall_top;
 	int			wall_bottom;
 	t_rectangle	rect;
-	int			color;
+	// int			color;
 
 	dist = find_dst(setup, curr_angle, column);
 	assign_wall_dir(setup->col, curr_angle);
@@ -51,8 +51,10 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 	rect.y = wall_top;
 	rect.height = (wall_bottom - wall_top + 1);
 	rect.width = 1;
-	color = create_trgb(0, 150, 75, 0); // arbitrary color for now
-	draw_rectangle(setup->image, &rect, color);
+	// call render tex column instead
+	// color = create_trgb(0, 150, 75, 0); // arbitrary color for now
+	// draw_rectangle(setup->image, &rect, color);
+	render_tex_column(setup, wall_top, wall_bottom);
 }
 
 void	draw_floor_ceil(t_setup *setup)
@@ -79,14 +81,15 @@ void	draw_plane(t_setup *setup)
 	t_column	col;
 
 	column = 0;
-	col = (t_column){ 0 };
-	setup->col = &col;
 	curr_angle = setup->player->angle - ANGLE30;
+	setup->col = &col;
 	if (curr_angle < 0)
 		curr_angle += ANGLE360;
 	draw_floor_ceil(setup);
 	while (column < PLANE_WIDTH)
 	{
+		col = (t_column){ 0 };
+		col.no = column;
 		find_draw_column(setup, curr_angle, column);
 		column += 1;
 		curr_angle += 1;

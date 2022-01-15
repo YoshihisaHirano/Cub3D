@@ -16,18 +16,6 @@ void	my_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-void	draw_column(t_img *img, t_point coords, int height, int color)
-{
-	int i;
-
-	i = 0;
-	while (i < height)
-	{
-		my_pix_put(img, (int)coords.x, (int)coords.y + i, color);
-		i++;
-	}
-}
-
 void	draw_rectangle(t_img *img, t_rectangle *params, int color)
 {
 	int i;

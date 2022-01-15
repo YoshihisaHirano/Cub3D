@@ -1,13 +1,13 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO /Users/19658306/school/cub/textures/NO.xpm
+SO /Users/19658306/school/cub/textures/SO.xpm
+WE /Users/19658306/school/cub/textures/WE.xpm
+EA /Users/19658306/school/cub/textures/EA.xpm
 F 182,213,240
 C 0,57,22
 
 1111111111
 1000000001
-1000000001
+1001100001
 100N000001
 1000000001
 1000000001

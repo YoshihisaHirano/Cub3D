@@ -44,14 +44,8 @@ typedef	struct s_column
 	bool	ray_left;
 	t_point	v_intersec;
 	t_point	h_intersec;
+	int		no;
 } t_column;
-
-typedef struct	s_texture
-{
-	int		width;
-	int		height;
-	t_img	*img;
-} t_texture;
 
 
 typedef struct s_rectangle {
@@ -68,6 +62,8 @@ typedef struct s_img
 	int			bpp;
 	int			line_len;
 	int			endian;
+	int			w;
+	int			h;
 }	t_img;
 
 typedef struct s_win
@@ -85,6 +81,13 @@ typedef struct s_color
 	int	G;
 	int	B;
 }		t_color;
+
+typedef struct	s_texture
+{
+	int		width;
+	int		height;
+	int		*texture;
+} t_texture;
 
 typedef struct s_map
 {
@@ -141,7 +144,7 @@ int			is_player_setted(t_map *config);
 int			check_filename(char *file_name);
 void		*exit_error(char *msg);
 int			check_wall(t_map *config, int x, int y);
-void			draw_column(t_img *img, t_point coords, int height, int color);
+void			my_pix_put(t_img *img, int x, int y, int color);
 t_trig_tables	*create_trig_tables(void);
 void			add_fish_table(t_trig_tables *tables);
 void			add_step_tables(t_trig_tables *tables);
@@ -161,6 +164,8 @@ t_setup			*init_all();
 int				key_hook(int key_code, t_setup *setup);
 void			assign_wall_dir(t_column *col, int curr_angle);
 bool			ray_out_of_map(t_map *map, t_point *grid_coords);
+void			load_textures(t_setup *setup);
+void			render_tex_column(t_setup *setup, int wall_top, int wall_bottom);
 
 
 void test_xmp(void);

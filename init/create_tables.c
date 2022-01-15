@@ -23,39 +23,6 @@ void	add_fish_table(t_trig_tables *tables)
 	}
 }
 
-/*
- * 		// Facing LEFT
-			if (i>=this.ANGLE90 && i<this.ANGLE270)
-			{
-				this.fXStepTable[i] = (this.TILE_SIZE/this.fTanTable[i]);
-				if (this.fXStepTable[i]>0)
-					this.fXStepTable[i]=-this.fXStepTable[i];
-			}
-			// facing RIGHT
-			else
-			{
-				this.fXStepTable[i] = (this.TILE_SIZE/this.fTanTable[i]);
-				if (this.fXStepTable[i]<0)
-					this.fXStepTable[i]=-this.fXStepTable[i];
-			}
-
-			// FACING DOWN
-			if (i>=this.ANGLE0 && i<this.ANGLE180)
-			{
-				this.fYStepTable[i] = (this.TILE_SIZE*this.fTanTable[i]);
-				if (this.fYStepTable[i]<0)
-					this.fYStepTable[i]=-this.fYStepTable[i];
-			}
-			// FACING UP
-			else
-			{
-				this.fYStepTable[i] = (this.TILE_SIZE*this.fTanTable[i]);
-				if (this.fYStepTable[i]>0)
-					this.fYStepTable[i]=-this.fYStepTable[i];
-			}
-
- */
-
 bool	face_left(int angle)
 {
 	return (angle >= ANGLE90 && angle < ANGLE270);
@@ -97,8 +64,7 @@ t_trig_tables	*create_trig_tables(void)
 		error_exit(MEM_ALLOC_ERR);
 	while (i <= ANGLE360)
 	{
-		rad = angle_to_radians(i) + 0.0001; // addition to avoid zero
-		// division
+		rad = angle_to_radians(i) + 0.0001;
 		tables->sin[i] = sin(rad);
 		tables->inv_sin[i] = 1.0 / tables->sin[i];
 		tables->cos[i] = cos(rad);

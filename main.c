@@ -15,6 +15,7 @@ int main(int argc, char **argv)
     }
 	setup = init_all();
 	setup->map = map;
+	load_textures(setup);	
 	mlx_key_hook(setup->win->win_ptr, key_hook, setup);
 	draw_plane(setup);
 	mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);

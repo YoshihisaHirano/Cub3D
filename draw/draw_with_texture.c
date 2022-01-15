@@ -1,5 +1,15 @@
 #include "../cub3D.h"
 
+int     get_color_from_tex(t_setup *setup, int x, int y)
+{
+    int         color;
+    t_texture   tex;
+
+    tex = setup->texture[setup->col->wall_dir];
+    color = tex.texture[y * tex.width + x];
+    return (color);
+}
+
 void    assign_wall_dir(t_column *col, int curr_angle)
 {
     col->ray_up = !facing_down(curr_angle);
@@ -18,16 +28,18 @@ t_point find_start_pixel(t_setup *setup)
 {
     t_point pixel_pos;
 
-    pixel_pos.x = (int)fmod(setup->col->h_intersec.x, TILE_SIDE)
+    pixel_pos.x = fmod(setup->col->h_intersec.x, TILE_SIDE)
         / TILE_SIDE * setup->texture[setup->col->wall_dir].width;
     if (setup->col->vertical_hit)
     {
-        pixel_pos.x = (int)fmod(setup->col->v_intersec.y, TILE_SIDE)
+        pixel_pos.x = fmod(setup->col->v_intersec.y, TILE_SIDE)
             / TILE_SIDE * setup->texture[setup->col->wall_dir].width;
     }
     pixel_pos.y = 0;
     return (pixel_pos);
 }
+
+
 
 void    render_tex_column(t_setup *setup, int wall_top, int wall_bottom)
 {
@@ -43,8 +55,9 @@ void    render_tex_column(t_setup *setup, int wall_top, int wall_bottom)
     y = curr_pix.y;
     while (y < wall_height)
     {
-        // color = get_color - from texture;
-        // my_pix_put(setup->img, curr_pix.x, y, color);
-        y = (int)floor(y + y_step);
+        color = get_color_from_tex(setup, (int)curr_pix.x, (int)curr_pix.y);
+        my_pix_put(setup->image, setup->col->no, wall_top + y, color);
+        curr_pix.y = curr_pix.y + y_step;
+        y++;
     }
 }
