@@ -21,7 +21,7 @@ void    free_arr(char **arr)
 {
 	char **arr_tmp;
 
-	if (!arr || !(*arr))
+	if (!arr)
 		return ;
 	arr_tmp = arr;
 	while (*arr_tmp)

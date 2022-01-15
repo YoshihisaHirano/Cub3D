@@ -50,7 +50,7 @@ int check_borders(t_map *config)
     int     line_end_i;
 
     x_i = 0;
-    while (x_i <= config->max_line)
+    while (x_i <= config->max_width)
     {
         if (config->map[0][x_i] == '0'
             || config->map[config->map_size - 1][x_i] == '0')
@@ -61,7 +61,7 @@ int check_borders(t_map *config)
     while (y_i < config->map_size)
     {
         x_i = 0;
-        line_end_i = config->max_line - 1;
+        line_end_i = config->max_width - 1;
         while (config->map[y_i][x_i] == ' ')
             x_i++;
         while (config->map[y_i][line_end_i] == ' ')
@@ -91,7 +91,7 @@ int check_walls_to_close(t_map *config)
     while (y_i < config->map_size - 1)
     {
         x_i = 1;
-        while (x_i < config->max_line)
+        while (x_i < config->max_width)
         {
             if ((map[y_i][x_i] == '0') && (map[y_i - 1][x_i] == ' '
                 || map[y_i + 1][x_i] == ' ' || map[y_i][x_i - 1] == ' ' 
@@ -108,19 +108,19 @@ int validation(t_map *config)
 {
     if (!config || !isColors_texture_setted(config) || !config->map)
     {
-        printf("params are incorrect\n");
+        printf("Error\nParams are incorrect\n");
         return (-1);
     }
     if (check_map_chars(config, config->map) == -1)
     {
-        printf("map is incorrect\n");
+        printf("Error\nMap is incorrect\n");
         return (-1);
     }
     if (is_player_setted(config) == -1)
         return (-1);
     if (check_walls_to_close(config) == -1)
     {
-        printf("map isn't close\n");
+        printf("Error\nMap isn't close\n");
         return (-1);
     }
     return (0);

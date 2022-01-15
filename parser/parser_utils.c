@@ -3,14 +3,15 @@
 void show_params(t_map *config)
 {
 	printf("\n-----config------\n");
+	printf("%p\n", config);
 	if (config->NO)
-		printf("NO: %s\n", config->NO);
+		printf("NO: %s = %p\n", config->NO, config->NO);
 	if (config->SO)
-		printf("SO: %s\n", config->SO);    
+		printf("SO: %s = %p\n", config->SO, config->SO);    
 	if (config->WE)
-		printf("WE: %s\n", config->WE);
+		printf("WE: %s = %p\n", config->WE, config->WE);
 	if (config->EA)
-		printf("EA: %s\n", config->EA);
+		printf("EA: %s = %p\n", config->EA, config->EA);
 	printf("color setup: \n");
 	printf("Ceil : ");
 		printf("%i ", config->ceil_color);
@@ -18,6 +19,7 @@ void show_params(t_map *config)
 	printf("Floor : ");
 		printf("%i ", config->floor_color);
 	printf("\n");
+	printf("map %p\n", config->map);
 	for (int j = 0; config->map[j]; j++)
 		printf("|%s|\n", config->map[j]);
 }
@@ -40,12 +42,14 @@ t_map   *create_config(void)
 	config->floor_color = -1; 
 	config->map = NULL;
 	config->map_size = 1;
-	config->max_line = 0;
+	config->max_width = 0;
 	return (config);
 }
 
 int isColors_texture_setted(t_map *config)
 {
+	if (!config)
+		return (0);
 	if (!config->NO)
 	   return (0);
 	if (!config->SO)
@@ -71,7 +75,7 @@ int	skip_to_map(t_map *config, int file_fd, int lines_to_map)
 		tmp_str = ft_strtrim(line, " ");
 		if (*tmp_str)
 		{
-			config->max_line = ft_strlen(line);
+			config->max_width = ft_strlen(line);
 			free(tmp_str);
 			free(line);
 			break ;
@@ -89,11 +93,11 @@ void	add_spaces(t_map *config, int i)
 	int		len;
 
 	len = ft_strlen(config->map[i]);
-	if (len < config->max_line)
+	if (len < config->max_width)
 	{
 		tmp = config->map[i];
-		config->map[i] = ft_calloc((config->max_line + 1), sizeof(char));
-		ft_memset(config->map[i], ' ', config->max_line);
+		config->map[i] = ft_calloc((config->max_width + 1), sizeof(char));
+		ft_memset(config->map[i], ' ', config->max_width);
 		ft_memcpy(config->map[i], tmp, len);
 		free(tmp);
 	}
