@@ -35,6 +35,19 @@ typedef struct s_point {
 	double	y;
 } t_point;
 
+typedef	struct s_column
+{
+	bool	vertical_hit;
+	int		wall_dir;
+	int		wall_height;
+	bool	ray_up;
+	bool	ray_left;
+	t_point	v_intersec;
+	t_point	h_intersec;
+	int		no;
+} t_column;
+
+
 typedef struct s_rectangle {
 	int x;
 	int y;
@@ -49,6 +62,8 @@ typedef struct s_img
 	int			bpp;
 	int			line_len;
 	int			endian;
+	int			w;
+	int			h;
 }	t_img;
 
 typedef struct s_win
@@ -66,6 +81,13 @@ typedef struct s_color
 	int	G;
 	int	B;
 }		t_color;
+
+typedef struct	s_texture
+{
+	int		width;
+	int		height;
+	int		*texture;
+} t_texture;
 
 typedef struct s_map
 {
@@ -87,6 +109,8 @@ typedef struct s_setup {
 	t_map			*map;
 	t_img			*image;
 	t_win			*win;
+	t_column		*col;
+	t_texture		texture[4];
 } t_setup;
 
 
@@ -122,7 +146,7 @@ void		*exit_error(char *msg);
 int			handle_line(t_map *config, char *line);
 void		draw_minimap(t_setup *setup);
 int			check_wall(t_map *config, int x, int y);
-void			draw_column(t_img *img, t_point coords, int height, int color);
+void			my_pix_put(t_img *img, int x, int y, int color);
 t_trig_tables	*create_trig_tables(void);
 void			add_fish_table(t_trig_tables *tables);
 void			add_step_tables(t_trig_tables *tables);
@@ -130,10 +154,8 @@ double			angle_to_radians(int angle);
 bool			facing_down(int angle);
 bool			facing_right(int angle);
 int				get_start_angle(int player_angle);
-double			dst_to_horizontal(t_trig_tables *tables, t_player *player,
-									t_map *map, int curr_angle);
-double			dst_to_vertical(t_trig_tables *tables, t_player *player,
-								  t_map *map, int curr_angle);
+double			dst_to_horizontal(t_setup *setup, int curr_angle);
+double			dst_to_vertical(t_setup *setup, int curr_angle);
 t_setup			*create_setup();
 void			clear_setup(t_setup *setup);
 int				create_trgb(int t, int r, int g, int b);
@@ -142,6 +164,10 @@ void			draw_plane(t_setup *setup);
 void			error_exit(char *message);
 t_setup			*init_all();
 int				key_hook(int key_code, t_setup *setup);
+void			assign_wall_dir(t_column *col, int curr_angle);
+bool			ray_out_of_map(t_map *map, t_point *grid_coords);
+void			load_textures(t_setup *setup);
+void			render_tex_column(t_setup *setup, int wall_top, int wall_bottom);
 
 
 void test_xmp(void);

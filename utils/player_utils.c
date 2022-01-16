@@ -35,3 +35,9 @@ int	get_start_angle(int player_angle)
 		start_angle += ANGLE360;
 	return (start_angle);
 }
+
+bool	ray_out_of_map(t_map *map, t_point *grid_coords)
+{
+	return (grid_coords->x < 0 || grid_coords->y < 0 ||
+			grid_coords->x >= map->max_line || grid_coords->y >= map->map_size);
+}

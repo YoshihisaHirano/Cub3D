@@ -17,14 +17,13 @@ double find_dst(t_setup *setup, int angle, int column)
 	double	h_dst;
 	double	v_dst;
 
-	h_dst = dst_to_horizontal(setup->tables, setup->player, setup->map, angle);
-	v_dst = dst_to_vertical(setup->tables, setup->player, setup->map, angle);
-//	 if (column == 160)
-//	 {
-//	 	printf("%d - angle, %lf - h_dst, %lf - v_dst\n", angle, h_dst, v_dst);
-//	 }
+	h_dst = dst_to_horizontal(setup, angle);
+	v_dst = dst_to_vertical(setup, angle);
 	if (v_dst < h_dst)
+	{
+		setup->col->vertical_hit = true;
 		return (v_dst / setup->tables->fish_table[column]);
+	}
 	return (h_dst / setup->tables->fish_table[column]);
 }
 
@@ -39,10 +38,10 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 	int			wall_top;
 	int			wall_bottom;
 	t_rectangle	rect;
-	int			color;
+	// int			color;
 
 	dist = find_dst(setup, curr_angle, column);
-//	 printf("%d - column, %d - wall height\n", column, wall_height(dist));
+	assign_wall_dir(setup->col, curr_angle);
 	wall_top = floor(PLANE_CENTER - (wall_height(dist) / 2));
 	if (wall_top < 0)
 		wall_top = 0;
@@ -53,8 +52,10 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 	rect.y = wall_top;
 	rect.height = (wall_bottom - wall_top + 1);
 	rect.width = 1;
-	color = create_trgb(0, 150, 75, 0); // arbitrary color for now
-	draw_rectangle(setup->image, &rect, color);
+	// call render tex column instead
+	// color = create_trgb(0, 150, 75, 0); // arbitrary color for now
+	// draw_rectangle(setup->image, &rect, color);
+	render_tex_column(setup, wall_top, wall_bottom);
 }
 
 void	draw_floor_ceil(t_setup *setup)
@@ -76,16 +77,20 @@ void	draw_floor_ceil(t_setup *setup)
 
 void	draw_plane(t_setup *setup)
 {
-	int	column;
-	int	curr_angle;
+	int			column;
+	int			curr_angle;
+	t_column	col;
 
 	column = 0;
 	curr_angle = setup->player->angle - ANGLE30;
+	setup->col = &col;
 	if (curr_angle < 0)
 		curr_angle += ANGLE360;
 	draw_floor_ceil(setup);
 	while (column < PLANE_WIDTH)
 	{
+		col = (t_column){ 0 };
+		col.no = column;
 		find_draw_column(setup, curr_angle, column);
 		column += 1;
 		curr_angle += 1;
