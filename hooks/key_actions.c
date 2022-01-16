@@ -57,7 +57,6 @@ void    move_forwards_backwards(t_setup *setup, bool forwards)
     }
     draw_plane(setup);
     mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
-	draw_minimap(setup);
 }
 
 void    move_left_right(t_setup *setup, bool left)
@@ -82,5 +81,4 @@ void    move_left_right(t_setup *setup, bool left)
     }
     draw_plane(setup);
     mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
-	draw_minimap(setup);
 }
