@@ -5,7 +5,6 @@ void draw_map_pixel(t_setup *setup, t_img *img, t_rectangle *rec, int x, int y)
 {
 	rec->x = x;
 	rec->y = y;
-	(void) setup;
 	if ((setup->map->map)[y / rec->height][x / rec->width] == ' ')
 		draw_rectangle(img, rec, create_trgb(50, 0, 0, 100));
 	if ((setup->map->map)[y / rec->height][x / rec->width] == '1')
