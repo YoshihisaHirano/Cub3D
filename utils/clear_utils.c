@@ -2,7 +2,7 @@
 
 void    clear_setup(t_setup *setup)
 {
-    free(setup->player);
+    // free(setup->player);
     free(setup->tables);
     free(setup->win);
     free(setup->image);
