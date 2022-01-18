@@ -8,6 +8,7 @@ int main(int argc, char **argv)
     if (argc < 2)
 		return (1);
 	map = parser(argv[1]);
+	printf("end of parse\n");
     if (map == NULL)
     {
         printf("------parser error\n");

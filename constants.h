@@ -58,8 +58,9 @@
 # define TEXTURE_ERR "failed to parse texture\n"
 
 /* minimap */
-#define MINI_MAP_WIDTH 250
-#define MINI_MAP_HEIGHT 250
+# define MINI_MAP_WIDTH 150
+# define MINI_MAP_HEIGHT 150
+# define MINI_MAP_SLOTS 10
 
 
 #endif

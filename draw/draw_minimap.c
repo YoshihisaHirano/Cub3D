@@ -22,10 +22,17 @@ void	draw_rectangle2(t_img *img, t_rectangle *params, int color)
 
 void	draw_player(t_setup *setup, t_img *img, t_rectangle *rec)
 {
+	int offset_x;
+	int offset_y;
 
-	rec->x = (setup->player->x) / PLAYER_SPEED * (rec->width / 4);
-	rec->y = (setup->player->y) / PLAYER_SPEED * (rec->height / 4);
-	printf("x %d\n", rec->x);
+	offset_x = setup->player->x % TILE_SIDE * 1.0 / TILE_SIDE * rec->width;
+	offset_y = setup->player->y % TILE_SIDE * 1.0 / TILE_SIDE * rec->height;
+	if (offset_x > rec->width)
+		offset_x = 0;
+	if (offset_y > rec->height)
+		offset_y = 0;
+	rec->x = setup->player->x / TILE_SIDE * rec->width + offset_x;
+	rec->y = setup->player->y / TILE_SIDE * rec->height + offset_y;
 	rec->height = 5;
 	rec->width = 5;
 	draw_rectangle(img, rec, create_trgb(100, 255, 100, 0));
@@ -35,6 +42,7 @@ void draw_map_pixel(t_setup *setup, t_img *img, t_rectangle *rec, int x, int y)
 {
 	rec->x = x * rec->width;
 	rec->y = y * rec->height;
+	printf("x %d y %d\n", rec->x, rec->y);
 	if ((setup->map->map)[y][x] == ' ')
 		draw_rectangle(img, rec, create_trgb(50, 50, 150, 50));
 	else if ((setup->map->map)[y][x] == '1')
@@ -54,6 +62,7 @@ void    draw_minimap(t_setup *setup)
 	int x;
 	int y;
 
+	printf("start draw map\n");
 	rec.width = (MINI_MAP_WIDTH - MINI_MAP_WIDTH % setup->map->max_line) / (setup->map->max_line);
 	rec.height = (MINI_MAP_HEIGHT - MINI_MAP_HEIGHT % setup->map->map_size) / setup->map->map_size;
 	img.img = mlx_new_image(setup->win->mlx_ptr,
@@ -73,3 +82,4 @@ void    draw_minimap(t_setup *setup)
 	mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr,
 			img.img, 15, 15);
 }
+
