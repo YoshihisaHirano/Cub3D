@@ -27,25 +27,13 @@ int	set_texture_color(int file_fd, t_map *config)
 
 int	set_map_config(int file_fd, t_map *config, char *filename)
 {
-	int		current_len;
-	char	*line;
-	int		gnl_res;
 	int		lines_to_map;
 
-	gnl_res = 1;
 	lines_to_map = set_texture_color(file_fd, config);
 	if (lines_to_map == -1)
 		return (-1);
 	lines_to_map = skip_to_map(config, file_fd, lines_to_map);
-	while (gnl_res)
-	{
-		gnl_res = get_next_line(file_fd, &line);
-		current_len = ft_strlen(line);
-		if (current_len > config->max_line)
-			config->max_line = current_len;
-		config->map_size++;
-		free(line);
-	}
+	set_map_width(file_fd, config);
 	close(file_fd);
 	file_fd = open(filename, O_RDONLY);
 	if (file_fd == -1)

@@ -54,3 +54,22 @@ int handle_line(t_map *config, char *line)
 	line = NULL;
     return (0);
 }
+
+void	set_map_width(int file_fd, t_map *config)
+{
+	int		current_len;
+	char	*line;
+	int		gnl_res;
+
+	gnl_res = 1;
+	
+	while (gnl_res)
+	{
+		gnl_res = get_next_line(file_fd, &line);
+		current_len = ft_strlen(line);
+		if (current_len > config->max_line)
+			config->max_line = current_len;
+		config->map_size++;
+		free(line);
+	}
+}
