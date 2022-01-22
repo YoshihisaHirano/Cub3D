@@ -84,8 +84,8 @@ int	set_map(int file_fd, int lines_to_map, t_map *config, char *filename)
 	if (fill_map_config(config, lines_to_map, file_fd) == -1)
 		return (-1);
 	close(file_fd);
-	printf("map size: %d\n lines_to_map %d\n max_len %d\n",
-			config->map_size, lines_to_map, config->max_line);
+	// printf("map size: %d\n lines_to_map %d\n max_len %d\n",
+			// config->map_size, lines_to_map, config->max_line);
 	return (0);
 }
 
@@ -116,6 +116,6 @@ t_map	*parser(char *filename)
 	}
 	if (validation(config) == -1)
 		return(exit_error("---validation error"));
-	show_params(config);
+	// show_params(config);
 	return (config);
 }

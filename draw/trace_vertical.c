@@ -19,7 +19,7 @@ t_point	find_first_vertical(t_player *player, int curr_angle, t_trig_tables *tab
 		intersec.x = floor(player->x / TILE_SIDE) * TILE_SIDE + TILE_SIDE;
 	else
 		intersec.x = floor(player->x / TILE_SIDE) * TILE_SIDE - 1;
-	intersec.y = tables->tan[curr_angle] * (intersec.x - player->x) + player->y;
+	intersec.y = (tables->tan[curr_angle] * (intersec.x - player->x) + player->y);
 	return (intersec);
 }
 
@@ -27,17 +27,21 @@ double	get_v_distance(t_setup *setup, int arc, t_point *intersec, t_point *delta
 {
 	t_point	grid_idx;
 
+	(void)arc;
 	while (true)
 	{
-		grid_idx.x = floor(intersec->x / TILE_SIDE);
-		grid_idx.y = floor(intersec->y / TILE_SIDE);
+		grid_idx.x = (intersec->x / TILE_SIDE);
+		grid_idx.y = (intersec->y / TILE_SIDE);
 		if (ray_out_of_map(setup->map, &grid_idx))
 			return (INT_MAX);
 		if (check_wall(setup->map, grid_idx.x, grid_idx.y))
 		{
 			setup->col->v_intersec.y = intersec->y;
 			setup->col->v_intersec.x = intersec->x;
-			return ((intersec->y - setup->player->y) * setup->tables->inv_sin[arc]);
+			// intersec->x = (intersec->x);
+			// intersec->y = (intersec->y);
+			return (hypot(fabs(intersec->x - setup->player->x), fabs(intersec->y - setup->player->y)));
+			// return sqrt(pow(fabs(intersec->x - setup->player->x), 2) + pow(fabs(intersec->x - setup->player->x), 2));
 		}
 		intersec->x += deltas->x;
 		intersec->y += deltas->y;
@@ -54,7 +58,7 @@ double dst_to_vertical(t_setup *setup, int curr_angle)
 	deltas.x = TILE_SIDE;
 	if (!facing_right(curr_angle))
 		deltas.x *= -1;
-	deltas.y = setup->tables->y_step_table[curr_angle];
+	deltas.y = (setup->tables->y_step_table[curr_angle]);
 	intersec = find_first_vertical(setup->player, curr_angle, setup->tables);
 	return (get_v_distance(setup, curr_angle, &intersec, &deltas));
 }

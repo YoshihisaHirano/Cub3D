@@ -81,3 +81,56 @@ void    move_left_right(t_setup *setup, bool left)
     draw_plane(setup);
     mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
 }
+
+void    dda_move_forward_backward(t_setup *setup, bool forward)
+{
+    t_player    *p;
+
+    p = setup->player;
+    if (forward)
+    {
+        // add proper checking of movement possibility
+        if (!check_wall(setup->map, (int)(p->pos->x + p->dir->x * PLAYER_SPEED), (int)p->pos->y))
+            setup->player->pos->x += (p->dir->x * PLAYER_SPEED);
+        if (!check_wall(setup->map, (int)p->pos->x, (int)(p->pos->y + p->dir->y * PLAYER_SPEED)))
+            setup->player->pos->y += (p->dir->y * PLAYER_SPEED);
+    }
+    else
+    {
+        if (!check_wall(setup->map, (int)(p->pos->x - p->dir->x * PLAYER_SPEED), (int)p->pos->y))
+            setup->player->pos->x -= p->dir->x * PLAYER_SPEED;
+        if (!check_wall(setup->map, (int)p->pos->x, (int)(p->pos->y - p->dir->y * PLAYER_SPEED)))
+            setup->player->pos->y -= p->dir->y * PLAYER_SPEED;
+    }
+    draw_plane(setup);
+    mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
+}
+
+void    dda_rotate(t_setup *setup, bool left)
+{
+    double      old_dir_x;
+    double      old_plane_x;
+    double      cos_r;
+    double      sin_r;
+    t_player    *p;
+
+    p = setup->player;
+    old_dir_x = setup->player->dir->x;
+    old_plane_x = setup->plane->x;
+    if (left)
+    {
+        cos_r = cos(ROTATION_SPEED);
+        sin_r = sin(ROTATION_SPEED);
+    }
+    else
+    {
+        cos_r = cos(-ROTATION_SPEED);
+        sin_r = sin(-ROTATION_SPEED);
+    }
+    p->dir->x = (p->dir->x * cos_r) - (p->dir->y * sin_r);
+    p->dir->y = (old_dir_x * sin_r) + (p->dir->y * cos_r);
+    setup->plane->x = (setup->plane->x * cos_r) - (setup->plane->y * sin_r);
+    setup->plane->y = (old_plane_x * sin_r) + (setup->plane->y * cos_r);
+    draw_plane(setup);
+    mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
+}

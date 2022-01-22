@@ -19,25 +19,29 @@ t_point	find_first_horizontal(t_player *player, int curr_angle, t_trig_tables *t
 		intersec.y = floor(player->y / TILE_SIDE) * TILE_SIDE + TILE_SIDE;
 	else
 		intersec.y = floor(player->y / TILE_SIDE) * TILE_SIDE - 1;
-	intersec.x = tables->inv_tan[curr_angle] * (intersec.y - player->y) + player->x;
+	intersec.x = (tables->inv_tan[curr_angle] * (intersec.y - player->y) + player->x);
 	return (intersec);
 }
 
 double	get_h_distance(t_setup *setup, int arc, t_point *intersec, t_point *deltas)
 {
     t_point	grid_idx;
-
+	
+	(void)arc;
     while (true)
 	{
-		grid_idx.x = floor(intersec->x / TILE_SIDE);
-		grid_idx.y = floor(intersec->y / TILE_SIDE);
+		grid_idx.x = (intersec->x / TILE_SIDE);
+		grid_idx.y = (intersec->y / TILE_SIDE);
 		if (ray_out_of_map(setup->map, &grid_idx))
 			return (INT_MAX);
 		if (check_wall(setup->map, grid_idx.x, grid_idx.y))
         {
             setup->col->h_intersec.y = intersec->y;
 			setup->col->h_intersec.x = intersec->x;
-            return ((intersec->x - setup->player->x) * setup->tables->inv_cos[arc]);
+			printf("%.10lf - x, %.10lf - y\n", intersec->x, intersec->y);
+			// intersec->x = (intersec->x);
+			// intersec->y = (intersec->y);
+            return (hypot(fabs(intersec->x - setup->player->x), fabs(intersec->y - setup->player->y)));
         }
 		intersec->x += deltas->x;
 		intersec->y += deltas->y;
@@ -54,7 +58,7 @@ double	dst_to_horizontal(t_setup *setup, int curr_angle)
 	deltas.y = TILE_SIDE;
 	if (! facing_down(curr_angle))
 		deltas.y *= -1;
-	deltas.x = setup->tables->x_step_table[curr_angle];
+	deltas.x = (setup->tables->x_step_table[curr_angle]);
 	intersec = find_first_horizontal(setup->player, curr_angle, setup->tables);
     return (get_h_distance(setup, curr_angle, &intersec, &deltas));
 }

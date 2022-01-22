@@ -22,6 +22,7 @@ void    assign_wall_dir(t_column *col, int curr_angle)
         col->wall_dir = EAST;
     if (!col->ray_left && col->vertical_hit)
         col->wall_dir = WEST;
+    // printf("%d - curr_angle, %d - column_no, %d ray_up, %d ray_left, %d wall_dir, %d - v_hit\n", curr_angle, col->no, col->ray_up, col->ray_left, col->wall_dir, col->vertical_hit);
 }
 
 t_point find_start_pixel(t_setup *setup)

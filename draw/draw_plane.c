@@ -18,11 +18,15 @@ double find_dst(t_setup *setup, int angle, int column)
 
 	h_dst = dst_to_horizontal(setup, angle);
 	v_dst = dst_to_vertical(setup, angle);
-	if (v_dst < h_dst)
+	// v_dst = floor(v_dst / setup->tables->fish_table[column]);
+	// h_dst = floor(h_dst / setup->tables->fish_table[column]);
+	if (column == 17) printf("%.10lf - h_dst, %.10lf - v_dst\n", h_dst, v_dst);
+	if (h_dst > v_dst)
 	{
 		setup->col->vertical_hit = true;
 		return (v_dst / setup->tables->fish_table[column]);
 	}
+	setup->col->vertical_hit = false;
 	return (h_dst / setup->tables->fish_table[column]);
 }
 
@@ -37,7 +41,6 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 	int			wall_top;
 	int			wall_bottom;
 	t_rectangle	rect;
-	// int			color;
 
 	dist = find_dst(setup, curr_angle, column);
 	assign_wall_dir(setup->col, curr_angle);
@@ -51,9 +54,6 @@ void	find_draw_column(t_setup *setup, int curr_angle, int column)
 	rect.y = wall_top;
 	rect.height = (wall_bottom - wall_top + 1);
 	rect.width = 1;
-	// call render tex column instead
-	// color = create_trgb(0, 150, 75, 0); // arbitrary color for now
-	// draw_rectangle(setup->image, &rect, color);
 	render_tex_column(setup, wall_top, wall_bottom);
 }
 
@@ -86,11 +86,12 @@ void	draw_plane(t_setup *setup)
 	if (curr_angle < 0)
 		curr_angle += ANGLE360;
 	draw_floor_ceil(setup);
+	// printf("%lf - pos.x, %lf - pos.y, %lf - dir.x, %lf - dir.y\n", setup->player->pos->x, setup->player->pos->y, setup->player->dir->x, setup->player->dir->y);
 	while (column < PLANE_WIDTH)
 	{
 		col = (t_column){ 0 };
 		col.no = column;
-		find_draw_column(setup, curr_angle, column);
+		render(setup);
 		column += 1;
 		curr_angle += 1;
 		if (curr_angle >= ANGLE360)

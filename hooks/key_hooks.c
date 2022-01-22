@@ -11,13 +11,13 @@ int key_hook(int key_code, t_setup *setup)
     if (key_code == KEYCODE_ESC)
         exit_procedure(setup);
     if (key_code == KEYCODE_LEFT)
-        turn(setup, true);
+        dda_rotate(setup, true);
     if (key_code == KEYCODE_RIGHT)
-        turn(setup, false);
+        dda_rotate(setup, false);
     if (key_code == KEYCODE_W)
-        move_forwards_backwards(setup, true);
+        dda_move_forward_backward(setup, true);
     if (key_code == KEYCODE_S)
-        move_forwards_backwards(setup, false);
+        dda_move_forward_backward(setup, false);
     if (key_code == KEYCODE_A)
         move_left_right(setup, true);
     if (key_code == KEYCODE_D)

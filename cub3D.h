@@ -24,16 +24,19 @@ typedef struct s_trig_tables {
 	double	y_step_table[ANGLE360 + 1];
 }	t_trig_tables;
 
-typedef	struct s_player {
-	int	x;
-	int	y;
-	int	angle;
-} t_player;
-
 typedef struct s_point {
 	double	x;
 	double	y;
 } t_point;
+
+typedef	struct s_player {
+	int	x;
+	int	y;
+	int	angle;
+	// changing to DDA algorithm
+	t_point	*pos;
+	t_point	*dir;
+} t_player;
 
 typedef	struct s_column
 {
@@ -111,6 +114,8 @@ typedef struct s_setup {
 	t_win			*win;
 	t_column		*col;
 	t_texture		texture[4];
+	//DDA
+	t_point			*plane;
 } t_setup;
 
 
@@ -166,7 +171,7 @@ void			assign_wall_dir(t_column *col, int curr_angle);
 bool			ray_out_of_map(t_map *map, t_point *grid_coords);
 void			load_textures(t_setup *setup);
 void			render_tex_column(t_setup *setup, int wall_top, int wall_bottom);
-
+void			render(t_setup *setup);
 
 void test_xmp(void);
 

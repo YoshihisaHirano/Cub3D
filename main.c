@@ -15,7 +15,15 @@ int main(int argc, char **argv)
     }
 	setup = init_all();
 	setup->map = map;
-	load_textures(setup);	
+	load_textures(setup);
+	// DDA
+	setup->player->pos->x = 5.5;
+	setup->player->pos->y = 5.5;
+	setup->player->dir->x = 0.0;
+	setup->player->dir->y = 1.0;
+	setup->plane->x = -FOV;
+	setup->plane->y = 0.0;
+	//
 	mlx_key_hook(setup->win->win_ptr, key_hook, setup);
 	draw_plane(setup);
 	mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
