@@ -8,6 +8,7 @@ int main(int argc, char **argv)
     if (argc < 2)
 		return (1);
 	map = parser(argv[1]);
+	printf("end of parse\n");
     if (map == NULL)
     {
         printf("------parser error\n");
@@ -15,18 +16,20 @@ int main(int argc, char **argv)
     }
 	setup = init_all();
 	setup->map = map;
-	load_textures(setup);
+	// setup->player = &(map->player);
 	// DDA
 	setup->player->pos->x = 5.5;
 	setup->player->pos->y = 5.5;
-	setup->player->dir->x = 0.0;
-	setup->player->dir->y = -1.0;
-	setup->plane->x = -FOV;
-	setup->plane->y = 0.0;
+	setup->player->dir->x = 1.0;
+	setup->player->dir->y = 0.0;
+	setup->plane->x = 0.0;
+	setup->plane->y = -FOV;
 	//
+	load_textures(setup);	
 	mlx_key_hook(setup->win->win_ptr, key_hook, setup);
 	draw_plane(setup);
 	mlx_put_image_to_window(setup->win->mlx_ptr, setup->win->win_ptr, setup->image->img, 0, 0);
+	draw_minimap(setup);
 	mlx_loop(setup->win->mlx_ptr);
 	free_config(map);
 	return (0);

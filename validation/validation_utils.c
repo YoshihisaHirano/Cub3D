@@ -36,8 +36,17 @@ int is_player_setted(t_map *config)
     return (0);
 }
 
-void	*exit_error(char *msg)
+int check_top_bottom_borders(t_map *config)
 {
-	printf("%s\n", msg);
-	return (NULL);
+    int     x_i;
+
+    x_i = 0;
+    while (x_i <= config->max_line)
+    {
+        if (config->map[0][x_i] == '0'
+            || config->map[config->map_size - 1][x_i] == '0')
+            return (-1);
+        x_i++;
+    }
+    return (0);
 }

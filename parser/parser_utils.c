@@ -3,14 +3,15 @@
 void show_params(t_map *config)
 {
 	printf("\n-----config------\n");
+	printf("%p\n", config);
 	if (config->NO)
-		printf("NO: %s\n", config->NO);
+		printf("NO: %s = %p\n", config->NO, config->NO);
 	if (config->SO)
-		printf("SO: %s\n", config->SO);    
+		printf("SO: %s = %p\n", config->SO, config->SO);    
 	if (config->WE)
-		printf("WE: %s\n", config->WE);
+		printf("WE: %s = %p\n", config->WE, config->WE);
 	if (config->EA)
-		printf("EA: %s\n", config->EA);
+		printf("EA: %s = %p\n", config->EA, config->EA);
 	printf("color setup: \n");
 	printf("Ceil : ");
 		printf("%i ", config->ceil_color);
@@ -18,6 +19,7 @@ void show_params(t_map *config)
 	printf("Floor : ");
 		printf("%i ", config->floor_color);
 	printf("\n");
+	printf("map %p\n", config->map);
 	for (int j = 0; config->map[j]; j++)
 		printf("|%s|\n", config->map[j]);
 }
@@ -46,6 +48,8 @@ t_map   *create_config(void)
 
 int isColors_texture_setted(t_map *config)
 {
+	if (!config)
+		return (0);
 	if (!config->NO)
 	   return (0);
 	if (!config->SO)

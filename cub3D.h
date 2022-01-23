@@ -128,6 +128,16 @@ typedef struct  s_raycaster {
     int     wall_height;
 } t_raycaster;
 
+typedef struct s_minimap
+{
+	t_img		img;
+	t_rectangle	rec;
+	int			player_x;
+	int			player_y;
+	int			map_start_x;
+	int			map_start_y;
+	int			inner_map_size;
+}				t_minimap;
 
 // parser part
 void show_params(t_map *config); // to delete
@@ -152,12 +162,21 @@ void		free_arr(char **arr);
 void    	free_config(t_map *config);
 int			isColors_texture_setted(t_map *config);
 int			skip_to_map(t_map *config, int file_fd, int lines_to_map);
+void		set_map_width(int file_fd, t_map *config);
 int			fill_map_config(t_map *config, int lines_to_map, int file_fd);
 int			validation(t_map *config);
+int			check_top_bottom_borders(t_map *config);
 int			setup_player(t_map *config, char char_for_check, int x_i, int y_i);
 int			is_player_setted(t_map *config);
 int			check_filename(char *file_name);
 void		*exit_error(char *msg);
+int			handle_line(t_map *config, char *line);
+void		draw_minimap(t_setup *setup);
+void		draw_rectangle2(t_img *img, t_rectangle *params, int color);
+void		set_img_rec(t_setup *setup, t_minimap *minimap);
+void		get_inner_map_size(t_setup *setup, t_minimap *minimap);
+void		get_player_position(t_setup *setup, t_minimap *minimap);
+void		set_map_start(t_setup *setup, t_minimap *minimap);
 int			check_wall(t_map *config, int x, int y);
 void			my_pix_put(t_img *img, int x, int y, int color);
 void			find_wall_dir(t_column *col, t_point *ray_dir);

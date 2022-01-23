@@ -58,4 +58,10 @@
 # define INIT_WIN_ERR "failed to initialize window\n"
 # define TEXTURE_ERR "failed to parse texture\n"
 
+/* minimap */
+# define MINI_MAP_WIDTH 150
+# define MINI_MAP_HEIGHT 150
+# define MINI_MAP_SLOTS 10
+# define DRAW_MINIMAP_GRID 1
+
 #endif

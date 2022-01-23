@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_plane.c                                        :+:      :+:    :+:  */
+/*   draw_plane.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aalannys <aalannys@student.21-school.ru>   +#+  +:+       +#+        */
+/*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/06 17:55:09 by aalannys            #+#    #+#           */
-/*   Updated: 2022/01/06 17:55:09 by aalannys            ###    #######.fr    */
+/*   Created: 2022/01/06 17:55:09 by aalannys          #+#    #+#             */
+/*   Updated: 2022/01/16 11:25:27 by namina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../cub3D.h"
 
 int	get_color(t_setup *setup, int x, int y)

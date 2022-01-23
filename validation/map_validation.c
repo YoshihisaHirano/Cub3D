@@ -1,7 +1,6 @@
 #include "../cub3D.h"
 
 // empty lines at the end of file??? is it ok?? 
-// close map
 
 int check_filename(char *file_name)
 {
@@ -43,35 +42,29 @@ int check_map_chars(t_map *config, char **map)
     return (0);
 }
 
-int check_borders(t_map *config)
+int check_borders(t_map *conf)
 {
     int     x_i;
     int     y_i;
     int     line_end_i;
 
-    x_i = 0;
-    while (x_i <= config->max_line)
-    {
-        if (config->map[0][x_i] == '0'
-            || config->map[config->map_size - 1][x_i] == '0')
-            return (-1);
-        x_i++;
-    }
+    if (check_top_bottom_borders(conf) == -1)
+        return (-1);
     y_i = 1;
-    while (y_i < config->map_size)
+    while (y_i < conf->map_size)
     {
         x_i = 0;
-        line_end_i = config->max_line - 1;
-        while (config->map[y_i][x_i] == ' ')
+        line_end_i = conf->max_line - 1;
+        while (conf->map[y_i][x_i] == ' ')
             x_i++;
-        while (config->map[y_i][line_end_i] == ' ')
+        while (conf->map[y_i][line_end_i] == ' ')
             line_end_i--;
-        if (config->map[y_i][x_i] == '0' || config->map[y_i][line_end_i] == '0')
+        if (conf->map[y_i][x_i] == '0' || conf->map[y_i][line_end_i] == '0')
             return (-1);
-        if ((y_i == (config->player.y - TILE_SIDE / 2) / TILE_SIDE
-                && x_i == (config->player.x - TILE_SIDE / 2) / TILE_SIDE)
-                || (y_i == (config->player.y - TILE_SIDE / 2) / TILE_SIDE
-                && line_end_i == (config->player.x - TILE_SIDE / 2) / TILE_SIDE))
+        if ((y_i == (conf->player.y - TILE_SIDE / 2) / TILE_SIDE
+                && x_i == (conf->player.x - TILE_SIDE / 2) / TILE_SIDE)
+                || (y_i == (conf->player.y - TILE_SIDE / 2) / TILE_SIDE
+                && line_end_i == (conf->player.x - TILE_SIDE / 2) / TILE_SIDE))
             return (-1);
         y_i++;
     }
@@ -108,19 +101,19 @@ int validation(t_map *config)
 {
     if (!config || !isColors_texture_setted(config) || !config->map)
     {
-        printf("params are incorrect\n");
+        printf("Error\nParams are incorrect\n");
         return (-1);
     }
     if (check_map_chars(config, config->map) == -1)
     {
-        printf("map is incorrect\n");
+        printf("Error\nMap is incorrect\n");
         return (-1);
     }
     if (is_player_setted(config) == -1)
         return (-1);
     if (check_walls_to_close(config) == -1)
     {
-        printf("map isn't close\n");
+        printf("Error\nMap isn't close\n");
         return (-1);
     }
     return (0);
