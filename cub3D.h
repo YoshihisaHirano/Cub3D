@@ -118,6 +118,16 @@ typedef struct s_setup {
 	t_point			*plane;
 } t_setup;
 
+typedef struct  s_raycaster {
+    t_point deltas;
+    t_point step;
+    t_point ray_dir;
+    t_point on_map;
+    t_point side_dist;
+    double  wall_dist;
+    int     wall_height;
+} t_raycaster;
+
 
 // parser part
 void show_params(t_map *config); // to delete
@@ -150,15 +160,11 @@ int			check_filename(char *file_name);
 void		*exit_error(char *msg);
 int			check_wall(t_map *config, int x, int y);
 void			my_pix_put(t_img *img, int x, int y, int color);
+void			find_wall_dir(t_column *col, t_point *ray_dir);
 t_trig_tables	*create_trig_tables(void);
 void			add_fish_table(t_trig_tables *tables);
 void			add_step_tables(t_trig_tables *tables);
 double			angle_to_radians(int angle);
-bool			facing_down(int angle);
-bool			facing_right(int angle);
-int				get_start_angle(int player_angle);
-double			dst_to_horizontal(t_setup *setup, int curr_angle);
-double			dst_to_vertical(t_setup *setup, int curr_angle);
 t_setup			*create_setup();
 void			clear_setup(t_setup *setup);
 int				create_trgb(int t, int r, int g, int b);
@@ -172,6 +178,9 @@ bool			ray_out_of_map(t_map *map, t_point *grid_coords);
 void			load_textures(t_setup *setup);
 void			render_tex_column(t_setup *setup, int wall_top, int wall_bottom);
 void			render(t_setup *setup);
+int				get_color(t_setup *setup, int x, int y);
+void			draw_column(t_setup *setup, t_raycaster *r, int wall_top, int tex_x);
+int				get_texture_x(t_setup *setup, t_raycaster *r);
 
 void test_xmp(void);
 

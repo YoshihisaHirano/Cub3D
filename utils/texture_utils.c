@@ -1,5 +1,23 @@
 #include "../cub3D.h"
 
+void    find_wall_dir(t_column *col, t_point *ray_dir)
+{
+    if (col->vertical_hit)
+    {
+        if (ray_dir->y < 0)
+            col->wall_dir = NORTH;
+        else
+            col->wall_dir = SOUTH;
+    }
+    else
+    {
+        if (ray_dir->x < 0)
+            col->wall_dir = WEST;
+        else
+            col->wall_dir = EAST;
+    }
+}
+
 void    load_image(t_setup *s, char *path, t_img *img, int i)
 {
     int *res;
@@ -20,8 +38,7 @@ void    load_image(t_setup *s, char *path, t_img *img, int i)
         s->texture[i].texture[j] = res[j];
         j++;
     }
-    // printf("%d - first int\n", s->texture[i].texture[0]);
-    // mlx_destroy_image(s->win->mlx_ptr, img->img);
+    mlx_destroy_image(s->win->mlx_ptr, img->img);
 }
 
 void    load_textures(t_setup *setup)

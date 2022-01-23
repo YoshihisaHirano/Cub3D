@@ -11,50 +11,51 @@
 /* ************************************************************************** */
 #include "../cub3D.h"
 
-double find_dst(t_setup *setup, int angle, int column)
+int     get_color(t_setup *setup, int x, int y)
 {
-	double	h_dst;
-	double	v_dst;
+    int         color;
+    t_texture   tex;
 
-	h_dst = dst_to_horizontal(setup, angle);
-	v_dst = dst_to_vertical(setup, angle);
-	// v_dst = floor(v_dst / setup->tables->fish_table[column]);
-	// h_dst = floor(h_dst / setup->tables->fish_table[column]);
-	if (column == 17) printf("%.10lf - h_dst, %.10lf - v_dst\n", h_dst, v_dst);
-	if (h_dst > v_dst)
-	{
-		setup->col->vertical_hit = true;
-		return (v_dst / setup->tables->fish_table[column]);
-	}
-	setup->col->vertical_hit = false;
-	return (h_dst / setup->tables->fish_table[column]);
+    tex = setup->texture[setup->col->wall_dir];
+    color = tex.texture[y * tex.width + x];
+    return (color);
 }
 
-int	wall_height(double dist)
+int get_texture_x(t_setup *setup, t_raycaster *r)
 {
-	return (floor(TILE_SIDE * PLAYER_PLANE_DST / dist));
+    double  wall_hit_x;
+    int     texture_x;
+
+    wall_hit_x = setup->player->pos->x + r->wall_dist * r->ray_dir.x;
+    if (setup->col->vertical_hit == 0)
+    wall_hit_x = setup->player->pos->y + r->wall_dist * r->ray_dir.y;
+    wall_hit_x -= floor(wall_hit_x);
+    texture_x = (int)(wall_hit_x * setup->texture[setup->col->wall_dir].width);
+    if ((setup->col->vertical_hit == 0 && r->ray_dir.x > 0)
+        || (setup->col->vertical_hit == 1 && r->ray_dir.y < 0))
+        texture_x = setup->texture[setup->col->wall_dir].width - texture_x - 1;
+    return (texture_x);
 }
 
-void	find_draw_column(t_setup *setup, int curr_angle, int column)
+void    draw_column(t_setup *setup, t_raycaster *r, int wall_top, int tex_x)
 {
-	double		dist;
-	int			wall_top;
-	int			wall_bottom;
-	t_rectangle	rect;
+    t_point curr_pix;
+    int     y;
+    double  y_step;
+    int     color;
 
-	dist = find_dst(setup, curr_angle, column);
-	assign_wall_dir(setup->col, curr_angle);
-	wall_top = floor(PLANE_CENTER - (wall_height(dist) / 2));
-	if (wall_top < 0)
-		wall_top = 0;
-	wall_bottom = floor(PLANE_CENTER + (wall_height(dist) / 2));
-	if (wall_bottom > PLANE_HEIGHT)
-		wall_bottom = PLANE_HEIGHT - 1;
-	rect.x = column;
-	rect.y = wall_top;
-	rect.height = (wall_bottom - wall_top + 1);
-	rect.width = 1;
-	render_tex_column(setup, wall_top, wall_bottom);
+    curr_pix.x = tex_x;
+    curr_pix.y = 0;
+    y_step = 1.0 * setup->texture[setup->col->wall_dir].height /
+        (double)r->wall_height;
+    y = curr_pix.y;
+    while (y < r->wall_height)
+    {
+        color = get_color(setup, (int)curr_pix.x, (int)curr_pix.y);
+        my_pix_put(setup->image, setup->col->no, wall_top + y, color);
+        curr_pix.y = curr_pix.y + y_step;
+        y++;
+    }
 }
 
 void	draw_floor_ceil(t_setup *setup)
@@ -86,7 +87,6 @@ void	draw_plane(t_setup *setup)
 	if (curr_angle < 0)
 		curr_angle += ANGLE360;
 	draw_floor_ceil(setup);
-	// printf("%lf - pos.x, %lf - pos.y, %lf - dir.x, %lf - dir.y\n", setup->player->pos->x, setup->player->pos->y, setup->player->dir->x, setup->player->dir->y);
 	while (column < PLANE_WIDTH)
 	{
 		col = (t_column){ 0 };

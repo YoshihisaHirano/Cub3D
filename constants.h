@@ -9,8 +9,8 @@
 // # define PLAYER_PLANE_DST 1386// (half plane width / tan(30 deg))
 
 # define TILE_SIDE 64//320//
-# define PLANE_WIDTH 640//1600//
-# define PLANE_HEIGHT 460//1000//
+# define PLANE_WIDTH 960//1600//
+# define PLANE_HEIGHT 690//1000//
 # define PLANE_CENTER (PLANE_HEIGHT / 2)
 # define PLAYER_PLANE_DST 277//1386// (half plane width / tan(30 deg))
 
@@ -31,8 +31,6 @@
 // # define PLAYER_Y 1600// //delete
 # define PLAYER_ANGLE ANGLE270 //delete
 # define PLAYER_HEIGHT (TILE_SIDE / 2) //delete ??
-# define MAP_WIDTH 12 //delete
-# define MAP_HEIGHT 12 //delete
 # define PLAYER_SPEED 0.5//80//
 # define ROTATION_SPEED 0.3
 # define PLAYER_X 320//1600// //delete

@@ -19,8 +19,8 @@ int key_hook(int key_code, t_setup *setup)
     if (key_code == KEYCODE_S)
         dda_move_forward_backward(setup, false);
     if (key_code == KEYCODE_A)
-        move_left_right(setup, true);
+        dda_move_left_right(setup, true);
     if (key_code == KEYCODE_D)
-        move_left_right(setup, false);
+        dda_move_left_right(setup, false);
     return (0);
 }

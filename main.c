@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 	setup->player->pos->x = 5.5;
 	setup->player->pos->y = 5.5;
 	setup->player->dir->x = 0.0;
-	setup->player->dir->y = 1.0;
+	setup->player->dir->y = -1.0;
 	setup->plane->x = -FOV;
 	setup->plane->y = 0.0;
 	//

@@ -1,11 +1,10 @@
 SRC		=	main.c init/create_tables.c init/initialization.c\
-			draw/draw_plane.c draw/draw_with_texture.c draw/trace_horizontal.c draw/trace_vertical.c\
-			hooks/key_hooks.c hooks/key_actions.c\
+			draw/draw_plane.c draw/raycast_dda.c\
+			hooks/key_hooks.c hooks/movements.c hooks/rotation.c\
 			parser/map_parser.c parser/gnl/get_next_line.c parser/gnl/get_next_line_utils.c\
 			parser/parser_utils.c parser/free_utils.c validation/map_validation.c validation/validation_utils.c\
 			utils/check_walls.c utils/player_utils.c utils/draw_utils.c utils/common_utils.c utils/clear_utils.c\
-			utils/texture_utils.c\
-			draw/raycast_dda.c
+			utils/texture_utils.c
 OBJ		=	$(SRC:.c=.o)
 NAME	=	cub3D
 CC		=	gcc
