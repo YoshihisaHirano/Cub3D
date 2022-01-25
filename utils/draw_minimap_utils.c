@@ -48,8 +48,8 @@ void	get_inner_map_size(t_setup *setup, t_minimap *minimap)
 
 void	get_player_position(t_setup *setup, t_minimap *minimap)
 {
-	minimap->player_x = setup->player->pos->x;
-	minimap->player_y = setup->player->pos->y;
+	minimap->player_x = setup->player->pos.x;
+	minimap->player_y = setup->player->pos.y;
 }
 
 void	set_map_start(t_setup *setup, t_minimap *minimap)

@@ -5,10 +5,7 @@ void    clear_setup(t_setup *setup)
     int i;
 
     i = 0;
-    // free(setup->player->pos);
-    // free(setup->player->dir);
-    // free(setup->player);
-    free(setup->plane);
+	free_config(setup->map);
     free(setup->win);
     free(setup->image);
     while (i < 4)
