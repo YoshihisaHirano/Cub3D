@@ -61,10 +61,10 @@ int check_borders(t_map *conf)
             line_end_i--;
         if (conf->map[y_i][x_i] == '0' || conf->map[y_i][line_end_i] == '0')
             return (-1);
-        if ((y_i == (conf->player.y - TILE_SIDE / 2) / TILE_SIDE
-                && x_i == (conf->player.x - TILE_SIDE / 2) / TILE_SIDE)
-                || (y_i == (conf->player.y - TILE_SIDE / 2) / TILE_SIDE
-                && line_end_i == (conf->player.x - TILE_SIDE / 2) / TILE_SIDE))
+        if ((y_i == conf->player->pos->y - 0.5
+                && x_i == conf->player->pos->x - 0.5)
+                || (y_i == conf->player->pos->y - 0.5
+                && line_end_i == conf->player->pos->x - 0.5))
             return (-1);
         y_i++;
     }
@@ -78,7 +78,7 @@ int check_walls_to_close(t_map *config)
     char    **map;
 
     map = config->map;
-    y_i = 0;
+    y_i = 1;
     if (check_borders(config) == -1)
         return (-1);
     while (y_i < config->map_size - 1)
@@ -86,8 +86,10 @@ int check_walls_to_close(t_map *config)
         x_i = 1;
         while (x_i < config->max_line)
         {
-            if ((map[y_i][x_i] == '0') && (map[y_i - 1][x_i] == ' '
-                || map[y_i + 1][x_i] == ' ' || map[y_i][x_i - 1] == ' ' 
+            if ((map[y_i][x_i] == '0')
+                && (map[y_i - 1][x_i] == ' '
+                || map[y_i + 1][x_i] == ' '
+                || map[y_i][x_i - 1] == ' ' 
                 || map[y_i][x_i + 1] == ' '))
                 return (-1);
             x_i++;

@@ -4,13 +4,13 @@ void	assign_rotation(double *cos_r, double *sin_r, bool left)
 {
 	if (left)
 	{
-		*cos_r = cos(ROTATION_SPEED);
-		*sin_r = sin(ROTATION_SPEED);
+		*cos_r = cos(-ROTATION_SPEED);
+		*sin_r = sin(-ROTATION_SPEED);
 	}
 	else
 	{
-		*cos_r = cos(-ROTATION_SPEED);
-		*sin_r = sin(-ROTATION_SPEED);
+		*cos_r = cos(ROTATION_SPEED);
+		*sin_r = sin(ROTATION_SPEED);
 	}
 }
 

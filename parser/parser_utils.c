@@ -31,13 +31,27 @@ t_map   *create_config(void)
 	config = malloc(sizeof(t_map));
 	if (!config)
 		return (NULL);
+	config->player = malloc(sizeof(t_player));
+	if (!config->player)
+		return (NULL);
+	config->plane = malloc(sizeof(t_point));
+	if (!config->plane)
+		return (NULL);
+	config->player->pos = malloc(sizeof(t_point));
+	if (!config->player->pos)
+		error_exit(MEM_ALLOC_ERR);
+	config->player->dir = malloc(sizeof(t_point));
+	if (!config->player->dir)
 	config->NO = NULL;
 	config->SO = NULL;
 	config->WE = NULL;
 	config->EA = NULL;
-	config->player.angle = -1;
-	config->player.x = -1;
-	config->player.y = -1;
+	config->player->pos->x = -1;
+	config->player->pos->y = -1;
+	config->player->dir->x = -1;
+	config->player->dir->y = -1;
+	config->plane->x = -1;
+	config->plane->y = -1;
 	config->ceil_color = -1;
 	config->floor_color = -1; 
 	config->map = NULL;
@@ -62,6 +76,7 @@ int isColors_texture_setted(t_map *config)
 		return (0);
 	if (config->floor_color == -1)
 		return (0);
+	// check player pos dir plane
 	return (1);
 }
 
@@ -73,6 +88,7 @@ int	skip_to_map(t_map *config, int file_fd, int lines_to_map)
 	while (get_next_line(file_fd, &line))
 	{
 		tmp_str = ft_strtrim(line, " ");
+		printf("%p\n", tmp_str);
 		if (*tmp_str)
 		{
 			config->max_line = ft_strlen(line);
@@ -84,6 +100,7 @@ int	skip_to_map(t_map *config, int file_fd, int lines_to_map)
 		free(line);
 		free(tmp_str);
 	}
+
 	return (lines_to_map);
 }
 

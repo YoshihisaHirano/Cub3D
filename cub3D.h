@@ -103,7 +103,8 @@ typedef struct s_map
 	char		**map;
 	int			map_size;
 	int			max_line;
-	t_player	player;
+	t_player	*player;
+	t_point		*plane;
 }			t_map;
 
 typedef struct s_setup {

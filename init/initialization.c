@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                    :+:      :+:    :+:  */
+/*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aalannys <aalannys@student.21-school.ru>   +#+  +:+       +#+        */
+/*   By: aleksandr <aleksandr@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/06 13:54:12 by aalannys            #+#    #+#           */
-/*   Updated: 2022/01/06 13:54:12 by aalannys            ###    #######.fr    */
+/*   Created: 2022/01/06 13:54:12 by aalannys          #+#    #+#             */
+/*   Updated: 2022/01/25 18:48:34 by aleksandr        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../cub3D.h"
 
 // char *my_map = "WWWWWWWWWWWWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWOOOOOOOOOOWWWWWWWWWWWWW";
@@ -46,31 +47,31 @@ t_img	*init_img(t_win *win)
 t_setup	*create_setup()
 {
 	t_setup			*setup;
-	t_player		*player;
+	// t_player		*player;
 	t_trig_tables	*tables;
-	t_point			*plane;
+	// t_point			*plane;
 
 	setup = malloc(sizeof(t_setup));
 	if (!setup)
 		error_exit(MEM_ALLOC_ERR);
-	player = malloc(sizeof(t_player));
-	if (!player)
-		error_exit(MEM_ALLOC_ERR);
-	plane = malloc(sizeof(t_point));
-	setup->player = player;
-	player->pos = malloc(sizeof(t_point));
-	if (!player->pos)
-		error_exit(MEM_ALLOC_ERR);
-	player->dir = malloc(sizeof(t_point));
-	if (!player->dir)
-		error_exit(MEM_ALLOC_ERR);
+	// player = malloc(sizeof(t_player));
+	// if (!player)
+	// 	error_exit(MEM_ALLOC_ERR);
+	// plane = malloc(sizeof(t_point));
+	// setup->player = player;
+	// player->pos = malloc(sizeof(t_point));
+	// if (!player->pos)
+	// 	error_exit(MEM_ALLOC_ERR);
+	// player->dir = malloc(sizeof(t_point));
+	// if (!player->dir)
+	// 	error_exit(MEM_ALLOC_ERR);
 	// players params will be taken from the map
-	setup->player->x = PLAYER_X;
-	setup->player->y = PLAYER_Y;
-	setup->player->angle = PLAYER_ANGLE;
+	// setup->player->x = PLAYER_X;
+	// setup->player->y = PLAYER_Y;
+	// setup->player->angle = PLAYER_ANGLE;
 	tables = create_trig_tables();
 	setup->tables = tables;
-	setup->plane = plane;
+	// setup->plane = plane;
 	return (setup);
 }
 

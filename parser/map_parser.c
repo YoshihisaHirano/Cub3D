@@ -68,7 +68,6 @@ t_map	*parser(char *filename)
 		free_config(config);
 		return(NULL);
 	}
-	show_params(config);
 	return (config);
 }
 

@@ -5,9 +5,9 @@ void    clear_setup(t_setup *setup)
     int i;
 
     i = 0;
-    free(setup->player->pos);
-    free(setup->player->dir);
-    free(setup->player);
+    // free(setup->player->pos);
+    // free(setup->player->dir);
+    // free(setup->player);
     free(setup->tables);
     free(setup->plane);
     free(setup->win);

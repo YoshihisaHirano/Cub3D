@@ -2,8 +2,8 @@
 
 void	draw_player(t_setup *setup, t_minimap *minimap)
 {
-	int offset_x;
-	int offset_y;
+	double offset_x;
+	double offset_y;
 	t_rectangle	rec;
 
 	rec = minimap->rec;
@@ -13,7 +13,7 @@ void	draw_player(t_setup *setup, t_minimap *minimap)
 		offset_x = 0;
 	if (offset_y > rec.height)
 		offset_y = 0;
-	rec.x =  (setup->player->pos->x - minimap->map_start_x) * rec.width + offset_x;
+	rec.x = (setup->player->pos->x - minimap->map_start_x) * rec.width + offset_x;
 	rec.y = (setup->player->pos->y - minimap->map_start_y) * rec.height + offset_y;
 	rec.height = 5;
 	rec.width = 5;
@@ -66,7 +66,7 @@ void draw_map(t_setup *setup, t_minimap *minimap)
 	}
 }
 
-void    draw_minimap(t_setup *setup)
+void	draw_minimap(t_setup *setup)
 {
 	printf("start draw minimap\n");
 	t_minimap	minimap;

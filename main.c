@@ -14,16 +14,20 @@ int main(int argc, char **argv)
         printf("------parser error\n");
         return (0);
     }
+
 	setup = init_all();
+	setup->player = map->player;
+	setup->plane = map->plane;
 	setup->map = map;
+	// setup->map = map;
 	// setup->player = &(map->player);
 	// DDA
-	setup->player->pos->x = 5.5;
-	setup->player->pos->y = 5.5;
-	setup->player->dir->x = 1.0;
-	setup->player->dir->y = 0.0;
-	setup->plane->x = 0.0;
-	setup->plane->y = -FOV;
+	// setup->player->pos->x = 5.5;
+	// setup->player->pos->y = 5.5;
+	// setup->player->dir->x = 1.0;
+	// setup->player->dir->y = 0.0;
+	// setup->plane->x = 0.0;
+	// setup->plane->y = -FOV;
 	//
 	load_textures(setup);	
 	mlx_key_hook(setup->win->win_ptr, key_hook, setup);
@@ -35,12 +39,8 @@ int main(int argc, char **argv)
 	return (0);
 }
 
-
-
 // TODO change name for map_size line_size
 // TODO check if around player spaces
 //				 s
 //			    s0s
 //				 s
-
-
