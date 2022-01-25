@@ -78,10 +78,7 @@ typedef struct	s_texture
 
 typedef struct s_map
 {
-	char		*NO;
-	char		*SO;
-	char		*WE;
-	char		*EA;
+	char		**texture_array;
 	int			floor_color;
 	int			ceil_color;
 	char		**map;

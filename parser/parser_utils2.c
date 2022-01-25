@@ -30,13 +30,13 @@ void    check_for_texture(char **arr_line, t_map *config)
 	if (!arr_line || !(*arr_line) || !(**arr_line))
 		return ;
 	if (arr_line[1] && !ft_strncmp(*arr_line, "NO", 3))
-		config->NO = ft_strdup(arr_line[1]);
+		config->texture_array[0] = ft_strdup(arr_line[1]);
 	if (arr_line[1] && !ft_strncmp(*arr_line, "SO", 3))
-		config->SO = ft_strdup(arr_line[1]);
+		config->texture_array[1] = ft_strdup(arr_line[1]);
 	if (arr_line[1] && !ft_strncmp(*arr_line, "WE", 3))
-		config->WE = ft_strdup(arr_line[1]);
+		config->texture_array[2] = ft_strdup(arr_line[1]);
 	if (arr_line[1] && !ft_strncmp(*arr_line, "EA", 3))
-		config->EA = ft_strdup(arr_line[1]);
+		config->texture_array[3] = ft_strdup(arr_line[1]);
 }
 
 int handle_line(t_map *config, char *line)
