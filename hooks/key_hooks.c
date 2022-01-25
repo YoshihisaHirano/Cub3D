@@ -1,9 +1,10 @@
 #include "hooks.h"
 
-void	exit_procedure(t_setup *setup)
+int	exit_procedure(t_setup *setup)
 {
 	clear_setup(setup);
 	exit(0);
+	return (0);
 }
 
 int	key_hook(int key_code, t_setup *setup)

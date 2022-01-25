@@ -12,30 +12,14 @@
 # include "libft/libft.h"
 # include "constants.h"
 
-typedef struct s_trig_tables {
-	double	sin[ANGLE360 + 1];
-	double	inv_sin[ANGLE360 + 1];
-	double	cos[ANGLE360 + 1];
-	double	inv_cos[ANGLE360 + 1];
-	double	tan[ANGLE360 + 1];
-	double	inv_tan[ANGLE360 + 1];
-	double	fish_table[ANGLE60 + 1];
-	double	x_step_table[ANGLE360 + 1];
-	double	y_step_table[ANGLE360 + 1];
-}	t_trig_tables;
-
 typedef struct s_point {
 	double	x;
 	double	y;
 } t_point;
 
 typedef	struct s_player {
-	int	x;
-	int	y;
-	int	angle;
-	// changing to DDA algorithm
-	t_point	*pos;
-	t_point	*dir;
+	t_point	pos;
+	t_point	dir;
 } t_player;
 
 typedef	struct s_column
@@ -109,13 +93,11 @@ typedef struct s_map
 
 typedef struct s_setup {
 	t_player		*player;
-	t_trig_tables	*tables;
 	t_map			*map;
 	t_img			*image;
 	t_win			*win;
 	t_column		*col;
 	t_texture		texture[4];
-	//DDA
 	t_point			*plane;
 } t_setup;
 
@@ -181,11 +163,6 @@ void		set_map_start(t_setup *setup, t_minimap *minimap);
 int			check_wall(t_map *config, int x, int y);
 void			my_pix_put(t_img *img, int x, int y, int color);
 void			find_wall_dir(t_column *col, t_point *ray_dir);
-t_trig_tables	*create_trig_tables(void);
-void			add_fish_table(t_trig_tables *tables);
-void			add_step_tables(t_trig_tables *tables);
-double			angle_to_radians(int angle);
-t_setup			*create_setup();
 void			clear_setup(t_setup *setup);
 int				create_trgb(int t, int r, int g, int b);
 void			draw_rectangle(t_img *img, t_rectangle *params, int color);
@@ -193,15 +170,12 @@ void			draw_plane(t_setup *setup);
 void			error_exit(char *message);
 t_setup			*init_all();
 int				key_hook(int key_code, t_setup *setup);
-void			assign_wall_dir(t_column *col, int curr_angle);
-bool			ray_out_of_map(t_map *map, t_point *grid_coords);
 void			load_textures(t_setup *setup);
 void			render_tex_column(t_setup *setup, int wall_top, int wall_bottom);
 void			render(t_setup *setup);
 int				get_color(t_setup *setup, int x, int y);
 void			draw_column(t_setup *setup, t_raycaster *r, int wall_top, int tex_x);
 int				get_texture_x(t_setup *setup, t_raycaster *r);
-
-void test_xmp(void);
+int				exit_procedure(t_setup *setup);
 
 #endif

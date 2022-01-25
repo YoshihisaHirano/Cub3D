@@ -79,14 +79,10 @@ void	draw_floor_ceil(t_setup *setup)
 void	draw_plane(t_setup *setup)
 {
 	int			column;
-	int			curr_angle;
 	t_column	col;
 
 	column = 0;
-	curr_angle = setup->player->angle - ANGLE30;
 	setup->col = &col;
-	if (curr_angle < 0)
-		curr_angle += ANGLE360;
 	draw_floor_ceil(setup);
 	while (column < PLANE_WIDTH)
 	{
@@ -94,8 +90,5 @@ void	draw_plane(t_setup *setup)
 		col.no = column;
 		render(setup);
 		column += 1;
-		curr_angle += 1;
-		if (curr_angle >= ANGLE360)
-			curr_angle -= ANGLE360;
 	}
 }

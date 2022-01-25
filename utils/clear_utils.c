@@ -8,7 +8,6 @@ void    clear_setup(t_setup *setup)
     // free(setup->player->pos);
     // free(setup->player->dir);
     // free(setup->player);
-    free(setup->tables);
     free(setup->plane);
     free(setup->win);
     free(setup->image);
