@@ -2,7 +2,7 @@ SRC		=	main.c initialization.c\
 			draw/draw_plane.c draw/raycast_dda.c\
 			hooks/key_hooks.c hooks/movements.c hooks/rotation.c\
 			parser/map_parser.c parser/gnl/get_next_line.c parser/gnl/get_next_line_utils.c\
-			parser/parser_utils.c parser/parser_utils2.c  parser/free_utils.c  validation/map_validation.c validation/validation_utils.c\
+			parser/parser_utils.c parser/parser_utils2.c validation/map_validation.c validation/validation_utils.c\
 			utils/check_walls.c utils/draw_utils.c utils/common_utils.c utils/clear_utils.c\
 			draw/draw_minimap.c utils/texture_utils.c utils/draw_minimap_utils.c
 OBJ		=	$(SRC:.c=.o)

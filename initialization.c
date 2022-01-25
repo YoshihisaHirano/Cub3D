@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-t_win	*init_win()
+t_win	*init_win(void)
 {
 	t_win	*win;
 
@@ -21,11 +21,14 @@ t_win	*init_win()
 		error_exit(MEM_ALLOC_ERR);
 	win->mlx_ptr = mlx_init();
 	if (!win->mlx_ptr)
+	{
+		free(win);
 		error_exit(INIT_WIN_ERR);
+	}
 	win->height = PLANE_HEIGHT;
 	win->width = PLANE_WIDTH;
 	win->win_ptr = mlx_new_window(win->mlx_ptr,
-								  win->width, win->height, "Cub3D");
+			win->width, win->height, "Cub3D");
 	return (win);
 }
 
@@ -35,24 +38,31 @@ t_img	*init_img(t_win *win)
 
 	img = malloc(sizeof(t_img));
 	if (!img)
+	{
+		free(win);
 		error_exit(MEM_ALLOC_ERR);
+	}
 	img->img = mlx_new_image(win->mlx_ptr, win->width, win->height);
 	img->addr = mlx_get_data_addr(img->img, &(img->bpp),
-								  &(img->line_len), &(img->endian));
+			&(img->line_len), &(img->endian));
 	return (img);
 }
 
-t_setup	*init_all()
+t_setup	*init_all(void)
 {
 	t_setup		*setup;
 	t_win		*win;
 	t_img		*img;
-	
+
 	win = init_win();
 	img = init_img(win);
 	setup = malloc(sizeof(t_setup));
 	if (!setup)
+	{
+		free(img);
+		free(win);
 		error_exit(MEM_ALLOC_ERR);
+	}
 	setup->image = img;
 	setup->win = win;
 	return (setup);

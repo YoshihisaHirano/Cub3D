@@ -15,38 +15,37 @@
 typedef struct s_point {
 	double	x;
 	double	y;
-} t_point;
+}	t_point;
 
-typedef	struct s_player {
+typedef struct s_player {
 	t_point	pos;
 	t_point	dir;
-} t_player;
+}	t_player;
 
-typedef	struct s_column
+typedef struct s_column
 {
 	bool	vertical_hit;
 	int		wall_dir;
 	int		wall_height;
 	int		no;
-} t_column;
-
+}	t_column;
 
 typedef struct s_rectangle {
-	int x;
-	int y;
-	int height;
+	int	x;
+	int	y;
+	int	height;
 	int	width;
-} t_rectangle;
+}	t_rectangle;
 
 typedef struct s_img
 {
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			line_len;
-	int			endian;
-	int			w;
-	int			h;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		w;
+	int		h;
 }	t_img;
 
 typedef struct s_win
@@ -58,19 +57,12 @@ typedef struct s_win
 	t_img	*image;
 }	t_win;
 
-typedef struct s_color
-{
-	int	R;
-	int	G;
-	int	B;
-}		t_color;
-
-typedef struct	s_texture
+typedef struct s_texture
 {
 	int		width;
 	int		height;
 	int		*texture;
-} t_texture;
+}	t_texture;
 
 typedef struct s_map
 {
@@ -92,9 +84,9 @@ typedef struct s_setup {
 	t_column		*col;
 	t_texture		texture[4];
 	t_point			*plane;
-} t_setup;
+}	t_setup;
 
-typedef struct  s_raycaster {
+typedef struct s_raycaster {
 	t_point	deltas;
 	t_point	step;
 	t_point	ray_dir;
@@ -102,7 +94,7 @@ typedef struct  s_raycaster {
 	t_point	side_dist;
 	double	wall_dist;
 	int		wall_height;
-} t_raycaster;
+}	t_raycaster;
 
 typedef struct s_minimap
 {
@@ -133,9 +125,9 @@ t_set_fd	*get_current_el(t_set_fd **list, int fd);
 int			get_next_line(int fd, char **line);
 void		lst_free(t_set_fd **list);
 t_map		*parser(char *filename);
-t_map	    *create_config(void);
+t_map		*create_config(void);
 void		free_arr(char **arr);
-void    	free_config(t_map *config);
+void		free_config(t_map *config);
 int			isColors_texture_setted(t_map *config);
 int			skip_to_map(t_map *config, int file_fd, int lines_to_map);
 void		set_map_width(int file_fd, t_map *config);
@@ -161,13 +153,13 @@ int			create_trgb(int t, int r, int g, int b);
 void		draw_rectangle(t_img *img, t_rectangle *params, int color);
 void		draw_plane(t_setup *setup);
 void		error_exit(char *message);
-t_setup		*init_all();
+t_setup		*init_all(void);
 int			key_hook(int key_code, t_setup *setup);
 void		load_textures(t_setup *setup);
 void		render_tex_column(t_setup *setup, int wall_top, int wall_bottom);
 void		render(t_setup *setup);
 int			get_color(t_setup *setup, int x, int y);
-void		draw_column(t_setup *setup, t_raycaster *r, int wall_top, int tex_x);
+void		draw_column(t_setup *s, t_raycaster *r, int wall_top, int tex_x);
 int			get_texture_x(t_setup *setup, t_raycaster *r);
 int			exit_procedure(t_setup *setup);
 

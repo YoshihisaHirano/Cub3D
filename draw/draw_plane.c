@@ -38,7 +38,7 @@ int	get_texture_x(t_setup *setup, t_raycaster *r)
 	return (texture_x);
 }
 
-void	draw_column(t_setup *setup, t_raycaster *r, int wall_top, int tex_x)
+void	draw_column(t_setup *s, t_raycaster *r, int wall_top, int tex_x)
 {
 	t_point	curr_pix;
 	int		y;
@@ -47,13 +47,13 @@ void	draw_column(t_setup *setup, t_raycaster *r, int wall_top, int tex_x)
 
 	curr_pix.x = tex_x;
 	curr_pix.y = 0;
-	y_step = 1.0 * setup->texture[setup->col->wall_dir].height
+	y_step = 1.0 * s->texture[s->col->wall_dir].height
 		/ (double)r->wall_height;
 	y = curr_pix.y;
 	while (y < r->wall_height)
 	{
-		color = get_color(setup, (int)curr_pix.x, (int)curr_pix.y);
-		my_pix_put(setup->image, setup->col->no, wall_top + y, color);
+		color = get_color(s, (int)curr_pix.x, (int)curr_pix.y);
+		my_pix_put(s->image, s->col->no, wall_top + y, color);
 		curr_pix.y = curr_pix.y + y_step;
 		y++;
 	}

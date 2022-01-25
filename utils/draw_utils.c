@@ -18,8 +18,8 @@ void	my_pix_put(t_img *img, int x, int y, int color)
 
 void	draw_rectangle(t_img *img, t_rectangle *params, int color)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < params->height)

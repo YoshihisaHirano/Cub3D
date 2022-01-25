@@ -4,7 +4,7 @@
 /* world */
 # define PLANE_WIDTH 960
 # define PLANE_HEIGHT 690
-# define PLANE_CENTER PLANE_HEIGHT / 2
+# define PLANE_CENTER 345
 # define PLAYER_SPEED 0.5
 # define ROTATION_SPEED 0.3
 # define FOV 0.66

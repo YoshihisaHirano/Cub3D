@@ -37,7 +37,8 @@ t_map   *create_config(void)
 	config->plane = malloc(sizeof(t_point));
 	if (!config->plane)
 		return (NULL);
-	config->texture_array = malloc(sizeof(char *) * 4);
+	config->texture_array = malloc(sizeof(char *) * 5);
+	config->texture_array[4] = NULL;
 	if (!config->texture_array)
 		return (NULL);
 	config->player->pos.x = -1;
