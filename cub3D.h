@@ -27,10 +27,6 @@ typedef	struct s_column
 	bool	vertical_hit;
 	int		wall_dir;
 	int		wall_height;
-	bool	ray_up;
-	bool	ray_left;
-	t_point	v_intersec;
-	t_point	h_intersec;
 	int		no;
 } t_column;
 
@@ -78,10 +74,7 @@ typedef struct	s_texture
 
 typedef struct s_map
 {
-	char		*NO;
-	char		*SO;
-	char		*WE;
-	char		*EA;
+	char		**texture_array;
 	int			floor_color;
 	int			ceil_color;
 	char		**map;
@@ -102,13 +95,13 @@ typedef struct s_setup {
 } t_setup;
 
 typedef struct  s_raycaster {
-    t_point deltas;
-    t_point step;
-    t_point ray_dir;
-    t_point on_map;
-    t_point side_dist;
-    double  wall_dist;
-    int     wall_height;
+	t_point	deltas;
+	t_point	step;
+	t_point	ray_dir;
+	t_point	on_map;
+	t_point	side_dist;
+	double	wall_dist;
+	int		wall_height;
 } t_raycaster;
 
 typedef struct s_minimap
@@ -161,21 +154,21 @@ void		get_inner_map_size(t_setup *setup, t_minimap *minimap);
 void		get_player_position(t_setup *setup, t_minimap *minimap);
 void		set_map_start(t_setup *setup, t_minimap *minimap);
 int			check_wall(t_map *config, int x, int y);
-void			my_pix_put(t_img *img, int x, int y, int color);
-void			find_wall_dir(t_column *col, t_point *ray_dir);
-void			clear_setup(t_setup *setup);
-int				create_trgb(int t, int r, int g, int b);
-void			draw_rectangle(t_img *img, t_rectangle *params, int color);
-void			draw_plane(t_setup *setup);
-void			error_exit(char *message);
-t_setup			*init_all();
-int				key_hook(int key_code, t_setup *setup);
-void			load_textures(t_setup *setup);
-void			render_tex_column(t_setup *setup, int wall_top, int wall_bottom);
-void			render(t_setup *setup);
-int				get_color(t_setup *setup, int x, int y);
-void			draw_column(t_setup *setup, t_raycaster *r, int wall_top, int tex_x);
-int				get_texture_x(t_setup *setup, t_raycaster *r);
-int				exit_procedure(t_setup *setup);
+void		my_pix_put(t_img *img, int x, int y, int color);
+void		find_wall_dir(t_column *col, t_point *ray_dir);
+void		clear_setup(t_setup *setup);
+int			create_trgb(int t, int r, int g, int b);
+void		draw_rectangle(t_img *img, t_rectangle *params, int color);
+void		draw_plane(t_setup *setup);
+void		error_exit(char *message);
+t_setup		*init_all();
+int			key_hook(int key_code, t_setup *setup);
+void		load_textures(t_setup *setup);
+void		render_tex_column(t_setup *setup, int wall_top, int wall_bottom);
+void		render(t_setup *setup);
+int			get_color(t_setup *setup, int x, int y);
+void		draw_column(t_setup *setup, t_raycaster *r, int wall_top, int tex_x);
+int			get_texture_x(t_setup *setup, t_raycaster *r);
+int			exit_procedure(t_setup *setup);
 
 #endif

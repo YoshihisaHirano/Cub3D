@@ -43,19 +43,13 @@ void    load_image(t_setup *s, char *path, t_img *img, int i)
 
 void    load_textures(t_setup *setup)
 {
-    char    *paths[4];
     int     i;
     t_img   img;
 
-    // change this later
-    paths[0] = setup->map->NO;
-    paths[1] = setup->map->SO;
-    paths[2] = setup->map->WE;
-    paths[3] = setup->map->EA;
     i = 0;
     while (i < 4)
     {
-        load_image(setup, paths[i], &img, i);
+        load_image(setup, setup->map->texture_array[i], &img, i);
         i++;
     }
 }

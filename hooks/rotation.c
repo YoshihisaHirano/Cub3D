@@ -23,11 +23,11 @@ void	dda_rotate(t_setup *setup, bool left)
 	t_player	*p;
 
 	p = setup->player;
-	old_dir_x = setup->player->dir->x;
+	old_dir_x = setup->player->dir.x;
 	old_plane_x = setup->plane->x;
 	assign_rotation(&cos_r, &sin_r, left);
-	p->dir->x = (p->dir->x * cos_r) - (p->dir->y * sin_r);
-	p->dir->y = (old_dir_x * sin_r) + (p->dir->y * cos_r);
+	p->dir.x = (p->dir.x * cos_r) - (p->dir.y * sin_r);
+	p->dir.y = (old_dir_x * sin_r) + (p->dir.y * cos_r);
 	setup->plane->x = (setup->plane->x * cos_r) - (setup->plane->y * sin_r);
 	setup->plane->y = (old_plane_x * sin_r) + (setup->plane->y * cos_r);
 	draw_plane(setup);
