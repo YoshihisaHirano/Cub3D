@@ -5,10 +5,10 @@ void	assign_dir_map_delta(t_setup *setup, t_raycaster *r)
 	double	camera_x;
 
 	camera_x = 2 * setup->col->no / (double)PLANE_WIDTH - 1;
-	r->ray_dir.x = setup->player->dir->x + setup->plane->x * camera_x;
-	r->ray_dir.y = setup->player->dir->y + setup->plane->y * camera_x;
-	r->on_map.x = floor(setup->player->pos->x);
-	r->on_map.y = floor(setup->player->pos->y);
+	r->ray_dir.x = setup->player->dir.x + setup->plane->x * camera_x;
+	r->ray_dir.y = setup->player->dir.y + setup->plane->y * camera_x;
+	r->on_map.x = floor(setup->player->pos.x);
+	r->on_map.y = floor(setup->player->pos.y);
 	r->deltas.x = fabs(1.0 / r->ray_dir.x);
 	r->deltas.y = fabs(1.0 / r->ray_dir.y);
 }
@@ -16,17 +16,17 @@ void	assign_dir_map_delta(t_setup *setup, t_raycaster *r)
 void	assign_step_dst(t_setup *setup, t_raycaster *r)
 {
 	r->step = (t_point){.x = 1, .y = 1};
-	r->side_dist.x = (r->on_map.x + 1.0 - setup->player->pos->x) * r->deltas.x;
-	r->side_dist.y = (r->on_map.y + 1.0 - setup->player->pos->y) * r->deltas.y;
+	r->side_dist.x = (r->on_map.x + 1.0 - setup->player->pos.x) * r->deltas.x;
+	r->side_dist.y = (r->on_map.y + 1.0 - setup->player->pos.y) * r->deltas.y;
 	if (r->ray_dir.x < 0)
 	{
 		r->step.x = -1;
-		r->side_dist.x = (setup->player->pos->x - r->on_map.x) * r->deltas.x;
+		r->side_dist.x = (setup->player->pos.x - r->on_map.x) * r->deltas.x;
 	}
 	if (r->ray_dir.y < 0)
 	{
 		r->step.y = -1;
-		r->side_dist.y = (setup->player->pos->y - r->on_map.y) * r->deltas.y;
+		r->side_dist.y = (setup->player->pos.y - r->on_map.y) * r->deltas.y;
 	}
 }
 
@@ -60,10 +60,10 @@ int	find_wall_top(t_setup *setup, t_raycaster *r)
 	int		wall_top;
 	int		wall_bottom;
 
-	wall_dist = fabs((r->on_map.y - setup->player->pos->y
+	wall_dist = fabs((r->on_map.y - setup->player->pos.y
 				+ (1.0 - r->step.y) / 2.0) / r->ray_dir.y);
 	if (setup->col->vertical_hit == 0)
-		wall_dist = fabs((r->on_map.x - setup->player->pos->x
+		wall_dist = fabs((r->on_map.x - setup->player->pos.x
 					+ (1.0 - r->step.x) / 2.0) / r->ray_dir.x);
 	r->wall_dist = wall_dist;
 	wall_height = abs((int)(PLANE_HEIGHT / wall_dist));

@@ -7,14 +7,14 @@ void	draw_player(t_setup *setup, t_minimap *minimap)
 	t_rectangle	rec;
 
 	rec = minimap->rec;
-	offset_x = setup->player->pos->x * rec.width;
-	offset_y = setup->player->pos->y * rec.height;
+	offset_x = setup->player->pos.x * rec.width;
+	offset_y = setup->player->pos.y * rec.height;
 	if (offset_x > rec.width)
 		offset_x = 0;
 	if (offset_y > rec.height)
 		offset_y = 0;
-	rec.x = (setup->player->pos->x - minimap->map_start_x) * rec.width + offset_x;
-	rec.y = (setup->player->pos->y - minimap->map_start_y) * rec.height + offset_y;
+	rec.x = (setup->player->pos.x - minimap->map_start_x) * rec.width + offset_x;
+	rec.y = (setup->player->pos.y - minimap->map_start_y) * rec.height + offset_y;
 	rec.height = 5;
 	rec.width = 5;
 	draw_rectangle(&(minimap->img), &rec, create_trgb(100, 255, 100, 0));

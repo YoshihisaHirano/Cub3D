@@ -37,19 +37,14 @@ t_map   *create_config(void)
 	config->plane = malloc(sizeof(t_point));
 	if (!config->plane)
 		return (NULL);
-	config->player->pos = malloc(sizeof(t_point));
-	if (!config->player->pos)
-		error_exit(MEM_ALLOC_ERR);
-	config->player->dir = malloc(sizeof(t_point));
-	if (!config->player->dir)
 	config->NO = NULL;
 	config->SO = NULL;
 	config->WE = NULL;
 	config->EA = NULL;
-	config->player->pos->x = -1;
-	config->player->pos->y = -1;
-	config->player->dir->x = -1;
-	config->player->dir->y = -1;
+	config->player->pos.x = -1;
+	config->player->pos.y = -1;
+	config->player->dir.x = -1;
+	config->player->dir.y = -1;
 	config->plane->x = -1;
 	config->plane->y = -1;
 	config->ceil_color = -1;

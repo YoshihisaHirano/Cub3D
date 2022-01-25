@@ -1,4 +1,4 @@
-SRC		=	main.c init/initialization.c\
+SRC		=	main.c initialization.c\
 			draw/draw_plane.c draw/raycast_dda.c\
 			hooks/key_hooks.c hooks/movements.c hooks/rotation.c\
 			parser/map_parser.c parser/gnl/get_next_line.c parser/gnl/get_next_line_utils.c\

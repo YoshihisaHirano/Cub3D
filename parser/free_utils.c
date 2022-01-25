@@ -15,10 +15,6 @@ void    free_config(t_map *config)
 	free_arr(config->map);
 	if (config->plane)
 		free(config->plane);
-	if (config->player && config->player->pos)
-		free(config->player->pos);
-	if (config->player && config->player->dir)
-		free(config->player->dir);
 	if (config->player)
 		free(config->player);
 	free(config);

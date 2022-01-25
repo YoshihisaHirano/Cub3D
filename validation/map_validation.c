@@ -61,10 +61,10 @@ int check_borders(t_map *conf)
             line_end_i--;
         if (conf->map[y_i][x_i] == '0' || conf->map[y_i][line_end_i] == '0')
             return (-1);
-        if ((y_i == conf->player->pos->y - 0.5
-                && x_i == conf->player->pos->x - 0.5)
-                || (y_i == conf->player->pos->y - 0.5
-                && line_end_i == conf->player->pos->x - 0.5))
+        if ((y_i == conf->player->pos.y - 0.5
+                && x_i == conf->player->pos.x - 0.5)
+                || (y_i == conf->player->pos.y - 0.5
+                && line_end_i == conf->player->pos.x - 0.5))
             return (-1);
         y_i++;
     }

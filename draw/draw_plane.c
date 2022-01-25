@@ -27,9 +27,9 @@ int	get_texture_x(t_setup *setup, t_raycaster *r)
 	double	wall_hit_x;
 	int		texture_x;
 
-	wall_hit_x = setup->player->pos->x + r->wall_dist * r->ray_dir.x;
+	wall_hit_x = setup->player->pos.x + r->wall_dist * r->ray_dir.x;
 	if (setup->col->vertical_hit == 0)
-	wall_hit_x = setup->player->pos->y + r->wall_dist * r->ray_dir.y;
+	wall_hit_x = setup->player->pos.y + r->wall_dist * r->ray_dir.y;
 	wall_hit_x -= floor(wall_hit_x);
 	texture_x = (int)(wall_hit_x * setup->texture[setup->col->wall_dir].width);
 	if ((setup->col->vertical_hit == 0 && r->ray_dir.x > 0)
