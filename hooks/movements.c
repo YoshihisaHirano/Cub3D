@@ -2,7 +2,7 @@
 
 bool	allow_movement_x(t_setup *setup, double delta_x)
 {
-	if ((setup->player->pos.x + delta_x) < 1
+	if ((setup->player->pos.x + delta_x) <= 1
 		|| (setup->player->pos.x + delta_x) >= setup->map->max_line)
 		return (false);
 	if (check_wall(setup->map, (int)(setup->player->pos.x + delta_x),
@@ -13,7 +13,7 @@ bool	allow_movement_x(t_setup *setup, double delta_x)
 
 bool	allow_movement_y(t_setup *setup, double delta_y)
 {
-	if ((setup->player->pos.y + delta_y) < 1
+	if ((setup->player->pos.y + delta_y) <= 1
 		|| (setup->player->pos.y + delta_y) >= setup->map->map_size)
 		return (false);
 	if (check_wall(setup->map, (int)(setup->player->pos.x),
