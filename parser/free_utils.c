@@ -4,14 +4,8 @@ void    free_config(t_map *config)
 {
 	if (!config)
 		return ;
-	if (config->NO)
-	   free(config->NO);
-	if (config->SO)
-		free(config->SO);    
-	if (config->WE)
-		free(config->WE);
-	if (config->EA)
-		free(config->EA);
+	if (config->texture_array)
+		free_arr(config->texture_array);
 	free_arr(config->map);
 	if (config->plane)
 		free(config->plane);
