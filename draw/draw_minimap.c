@@ -13,8 +13,10 @@ void	draw_player(t_setup *setup, t_minimap *minimap)
 		offset_x = 0;
 	if (offset_y > rec.height)
 		offset_y = 0;
-	rec.x = (setup->player->pos.x - minimap->map_start_x) * rec.width + offset_x;
-	rec.y = (setup->player->pos.y - minimap->map_start_y) * rec.height + offset_y;
+	rec.x = (setup->player->pos.x - minimap->map_start_x) * rec.width
+			+ offset_x;
+	rec.y = (setup->player->pos.y - minimap->map_start_y) * rec.height
+			+ offset_y;
 	rec.height = 5;
 	rec.width = 5;
 	draw_rectangle(&(minimap->img), &rec, create_trgb(100, 255, 100, 0));
@@ -35,8 +37,8 @@ void draw_map_pixel(t_setup *setup, t_minimap *minimap, int x, int y)
 		draw_rectangle(&img, &rec, create_trgb(50, 0, 0, 102));
 	else if ((setup->map->map)[y][x] == '\0')
 		draw_rectangle(&img, &rec, create_trgb(50, 0, 0, 255));
-	if ((setup->map->map)[y][x] != ' ' && DRAW_MINIMAP_GRID)
-		draw_rectangle2(&img, &rec, create_trgb(50, 0, 0, 0));
+	if (DRAW_MINIMAP_GRID && (setup->map->map)[y][x] != ' ')
+		draw_grid(&img, &rec, create_trgb(50, 0, 0, 0));
 }
 
 void draw_map(t_setup *setup, t_minimap *minimap)

@@ -1,6 +1,6 @@
 #include "../cub3D.h"
 
-void	draw_rectangle2(t_img *img, t_rectangle *params, int color)
+void	draw_grid(t_img *img, t_rectangle *params, int color)
 {
 	int i;
 	int j;
@@ -28,14 +28,17 @@ void	set_img_rec(t_setup *setup, t_minimap *minimap)
 	minimap->img.img = mlx_new_image(setup->win->mlx_ptr,
 		MINI_MAP_WIDTH - MINI_MAP_WIDTH % minimap->inner_map_size,
 		MINI_MAP_HEIGHT - MINI_MAP_HEIGHT % minimap->inner_map_size);
-	minimap->img.addr = mlx_get_data_addr(minimap->img.img, &(minimap->img.bpp),
-			&(minimap->img.line_len), &(minimap->img.endian));
+	minimap->img.addr = mlx_get_data_addr(minimap->img.img,
+			&(minimap->img.bpp),
+			&(minimap->img.line_len),
+			&(minimap->img.endian));
 }
 
 
 void	get_inner_map_size(t_setup *setup, t_minimap *minimap)
 {
-	if (setup->map->map_size < MINI_MAP_SLOTS || setup->map->max_line < MINI_MAP_SLOTS)
+	if (setup->map->map_size < MINI_MAP_SLOTS
+		|| setup->map->max_line < MINI_MAP_SLOTS)
 	{
 		if (setup->map->map_size < setup->map->max_line)
 			minimap->inner_map_size = setup->map->map_size;

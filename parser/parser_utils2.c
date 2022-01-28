@@ -2,7 +2,7 @@
 
 void	*exit_error(char *msg)
 {
-	printf("%s\n", msg);
+	write(2, msg, ft_strlen(msg));
 	return (NULL);
 }
 

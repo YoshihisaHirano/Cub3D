@@ -32,15 +32,11 @@ t_map   *create_config(void)
 	if (!config)
 		return (NULL);
 	config->player = malloc(sizeof(t_player));
-	if (!config->player)
-		return (NULL);
 	config->plane = malloc(sizeof(t_point));
-	if (!config->plane)
-		return (NULL);
 	config->texture_array = malloc(sizeof(char *) * 5);
+	if (!config->player || !config->plane || !config->texture_array)
+		return (free_config(config));
 	config->texture_array[4] = NULL;
-	if (!config->texture_array)
-		return (NULL);
 	config->player->pos.x = -1;
 	config->player->pos.y = -1;
 	config->player->dir.x = -1;
@@ -59,11 +55,11 @@ int isColors_texture_setted(t_map *config)
 {
 	if (!config)
 		return (0);
-	if (!config->texture_array)
-	   return (0);
-	if (config->ceil_color == -1)
+	if (!config->texture_array || config->ceil_color == -1
+			|| config->floor_color == -1)
 		return (0);
-	if (config->floor_color == -1)
+	if (!(config->texture_array[0]) || !(config->texture_array[1])
+		|| !(config->texture_array[2]) || !(config->texture_array[3]))
 		return (0);
 	return (1);
 }
@@ -75,7 +71,13 @@ int	skip_to_map(t_map *config, int file_fd, int lines_to_map)
 
 	while (get_next_line(file_fd, &line))
 	{
+		tmp_str = NULL;
 		tmp_str = ft_strtrim(line, " ");
+		if (!tmp_str)
+		{
+			exit_error(MEM_ALLOC_ERR);
+			return (-1);
+		}
 		if (*tmp_str)
 		{
 			config->max_line = ft_strlen(line);
@@ -87,11 +89,10 @@ int	skip_to_map(t_map *config, int file_fd, int lines_to_map)
 		free(line);
 		free(tmp_str);
 	}
-
 	return (lines_to_map);
 }
 
-void	add_spaces(t_map *config, int i)
+int	add_spaces(t_map *config, int i)
 {
 	char	*tmp;
 	int		len;
@@ -101,10 +102,13 @@ void	add_spaces(t_map *config, int i)
 	{
 		tmp = config->map[i];
 		config->map[i] = ft_calloc((config->max_line + 1), sizeof(char));
+		if (config->map[i] == NULL)
+			return (-1);
 		ft_memset(config->map[i], ' ', config->max_line);
 		ft_memcpy(config->map[i], tmp, len);
 		free(tmp);
 	}
+	return (0);
 }
 
 int fill_map_config(t_map *config, int lines_to_map, int file_fd)
@@ -128,7 +132,8 @@ int fill_map_config(t_map *config, int lines_to_map, int file_fd)
 	while (gnl_res)
 	{
 		gnl_res = get_next_line(file_fd, &(config->map[i]));
-		add_spaces(config, i);
+		if (add_spaces(config, i) == -1)
+			return (-1);
 		i++;
 	}
 	config->map[config->map_size] = NULL;

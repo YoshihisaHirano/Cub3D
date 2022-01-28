@@ -36,7 +36,7 @@ void	set_player_EW(t_map *config, char char_for_check)
 	}
 }
 
-int setup_player(t_map *config, char char_for_check, int x_i, int y_i)
+int setup_player_pos(t_map *config, char char_for_check, int x_i, int y_i)
 {
 	if (config->player->pos.x != -1)
 		return (-1);
@@ -54,20 +54,22 @@ int is_player_setted(t_map *config)
 	int player_x;
 	int player_y;
 
-	player_x = config->player->pos.x - 0.5;
-	player_y = config->player->pos.y - 0.5;
+	player_x = config->player->pos.x;
+	player_y = config->player->pos.y;
 	if (player_x == -1 || player_x == -1)
 	{
-		printf("Error\nNo player position\n");
+		exit_error(NO_PLAYER_POSITION);
 		return (-1);
 	}
+	player_x -= 0.5;
+	player_y -= 0.5;
 	if (player_y == 0 || player_x == 0
 		|| config->map[player_y - 1][player_x] == ' '
 		|| config->map[player_y + 1][player_x] == ' '
 		|| config->map[player_y][player_x - 1] == ' '
 		|| config->map[player_y][player_x + 1] == ' ')
 	{
-		printf("Error\nPlayer position on border\n");
+		printf(PLAYER_ON_BORDER);
 		return (-1);
 	}
 	return (0);

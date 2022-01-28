@@ -8,12 +8,8 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		return (1);
 	map = parser(argv[1]);
-	printf("end of parse\n");
 	if (map == NULL)
-	{
-		printf("------parser error\n");
-		return (0);
-	}
+		return (1); // return value? 0 or 1 if error
 	setup = init_all();
 	setup->player = map->player;
 	setup->plane = map->plane;

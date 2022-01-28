@@ -28,6 +28,13 @@
 # define MEM_ALLOC_ERR "failed to allocate memory\n"
 # define INIT_WIN_ERR "failed to initialize window\n"
 # define TEXTURE_ERR "failed to parse texture\n"
+# define WRONG_MAP_FILE_FORMAT "Error\nWrong file format\n"
+# define OPEN_MAP_ERROR "Error\nOpen file error\n"
+# define INCORRECT_PARAMS "Error\nParams are incorrect\n"
+# define INCORRECT_MAP "Error\nMap is incorrect\n"
+# define MAP_OPEN_ERROR "Error\nMap isn't close\n"
+# define NO_PLAYER_POSITION "Error\nNo player position\n"
+# define PLAYER_ON_BORDER "Error\nPlayer position on border\n"
 
 /* minimap */
 # define MINI_MAP_WIDTH 150

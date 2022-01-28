@@ -15,10 +15,10 @@ void	free_arr(char **arr)
 	free(arr);
 }
 
-void	free_config(t_map *config)
+void	*free_config(t_map *config)
 {
 	if (!config)
-		return ;
+		return (NULL);
 	if (config->texture_array)
 		free_arr(config->texture_array);
 	free_arr(config->map);
@@ -27,6 +27,7 @@ void	free_config(t_map *config)
 	if (config->player)
 		free(config->player);
 	free(config);
+	return (NULL);
 }
 
 void	clear_setup(t_setup *setup)

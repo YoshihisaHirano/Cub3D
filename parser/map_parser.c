@@ -19,7 +19,7 @@ int	set_texture_color(int file_fd, t_map *config)
 		free(line);
 	if (!isColors_texture_setted(config))
 	{
-		printf("Error\nParams are incorrect\n");
+		exit_error(INCORRECT_PARAMS);
 		return (-1);
 	}
 	return (i);
@@ -33,6 +33,8 @@ int	set_map_config(int file_fd, t_map *config, char *filename)
 	if (lines_to_map == -1)
 		return (-1);
 	lines_to_map = skip_to_map(config, file_fd, lines_to_map);
+	if (lines_to_map == -1)
+		return (-1);
 	set_map_width(file_fd, config);
 	close(file_fd);
 	file_fd = open(filename, O_RDONLY);
@@ -46,28 +48,24 @@ int	set_map_config(int file_fd, t_map *config, char *filename)
 
 t_map	*parser(char *filename)
 {
-	int     file_fd;
-	t_map   *config;
+	int		file_fd;
+	t_map	*config;
 
 	if (check_filename(filename) == -1)
-		return (exit_error("Error\nWrong file format"));
+		return (exit_error(WRONG_MAP_FILE_FORMAT));
 	file_fd = open(filename, O_RDONLY);
 	if (file_fd == -1)
-		return (exit_error("Error\nOpen file error"));
+		return (exit_error(OPEN_MAP_ERROR));
 	config = create_config();
 	if (!config)
-		return (NULL);
+		return (exit_error(MEM_ALLOC_ERR));
 	if (set_map_config(file_fd, config, filename) == -1)
 	{
 		close(file_fd);
-		free_config(config);
-		return (NULL);
+		return (free_config(config));
 	}
 	if (validation(config) == -1)
-	{
-		free_config(config);
-		return(NULL);
-	}
+		return (free_config(config));
 	return (config);
 }
 
