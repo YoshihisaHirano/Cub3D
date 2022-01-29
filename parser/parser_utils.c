@@ -6,7 +6,7 @@
 /*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:55:02 by namina            #+#    #+#             */
-/*   Updated: 2022/01/29 17:57:38 by namina           ###   ########.fr       */
+/*   Updated: 2022/01/29 20:56:44 by namina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ t_map	*create_config(void)
 		return (NULL);
 	config->player = malloc(sizeof(t_player));
 	config->plane = malloc(sizeof(t_point));
-	config->texture_array = malloc(sizeof(char *) * 5);
+	config->texture_array = ft_calloc(5, sizeof(char *));
 	if (!config->player || !config->plane || !config->texture_array)
 		return (free_config(config));
-	config->texture_array[4] = NULL;
 	config->player->pos.x = -1;
 	config->player->pos.y = -1;
 	config->player->dir.x = -1;
@@ -86,7 +85,7 @@ int	add_spaces(t_map *config, int i)
 	int		len;
 
 	len = ft_strlen(config->map[i]);
-	if (len < config->max_line)
+	if (len < config->max_line && len)
 	{
 		tmp = config->map[i];
 		config->map[i] = ft_calloc((config->max_line + 1), sizeof(char));

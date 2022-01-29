@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aleksandr <aleksandr@student.42.fr>        +#+  +:+       +#+        */
+/*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 13:54:12 by aalannys          #+#    #+#             */
-/*   Updated: 2022/01/25 18:48:34 by aleksandr        ###   ########.fr       */
+/*   Updated: 2022/01/29 21:25:00 by namina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_setup	*init_all(void)
 	t_setup		*setup;
 	t_win		*win;
 	t_img		*img;
+	int			i;
 
 	win = init_win();
 	img = init_img(win);
@@ -62,6 +63,12 @@ t_setup	*init_all(void)
 		free(img);
 		free(win);
 		error_exit(MEM_ALLOC_ERR);
+	}
+	i = 0;
+	while (i < 4)
+	{
+		setup->texture[i].texture = NULL;
+		i++;
 	}
 	setup->image = img;
 	setup->win = win;

@@ -6,7 +6,7 @@
 /*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 18:13:58 by namina            #+#    #+#             */
-/*   Updated: 2022/01/29 18:20:35 by namina           ###   ########.fr       */
+/*   Updated: 2022/01/29 22:09:27 by namina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,11 @@ int	validation(t_map *config)
 	if (check_walls_to_close(config) == -1)
 	{
 		exit_error(MAP_OPEN_ERROR);
+		return (-1);
+	}
+	if (check_texture_files(config) == -1)
+	{
+		exit_error(TEXTURE_ERR);
 		return (-1);
 	}
 	return (0);

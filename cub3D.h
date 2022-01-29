@@ -6,7 +6,7 @@
 /*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 18:37:21 by namina            #+#    #+#             */
-/*   Updated: 2022/01/29 18:39:11 by namina           ###   ########.fr       */
+/*   Updated: 2022/01/29 22:24:42 by namina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,11 @@ void		free_arr(char **arr);
 void		*free_config(t_map *config);
 int			is_colors_texture_setted(t_map *config);
 int			skip_to_map(t_map *config, int file_fd, int lines_to_map);
-void		set_map_width(int file_fd, t_map *config);
+void		set_map_width_height(int file_fd, t_map *config);
 int			fill_map_config(t_map *config, int lines_to_map, int file_fd);
+void		trim_str_arr(t_map *config);
+int			check_texture_files(t_map *config);
+int			check_color_arr(char **arr);
 int			validation(t_map *config);
 int			check_top_bottom_borders(t_map *config);
 int			setup_player_pos(t_map *config, char char_for_check,
@@ -135,7 +138,7 @@ int			setup_player_pos(t_map *config, char char_for_check,
 int			is_player_setted(t_map *config);
 int			check_filename(char *file_name);
 void		*exit_error(char *msg);
-int			handle_line(t_map *config, char *line);
+int			handle_line(t_map *config, char **line);
 void		draw_minimap(t_setup *setup);
 void		draw_grid(t_img *img, t_rectangle *params, int color);
 void		set_img_rec(t_setup *setup, t_minimap *minimap);

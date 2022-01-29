@@ -6,7 +6,7 @@
 /*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 18:36:51 by namina            #+#    #+#             */
-/*   Updated: 2022/01/29 18:36:52 by namina           ###   ########.fr       */
+/*   Updated: 2022/01/29 21:06:38 by namina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@
 # define KEYCODE_RIGHT 124
 
 /* messages */
-# define MEM_ALLOC_ERR "failed to allocate memory\n"
-# define INIT_WIN_ERR "failed to initialize window\n"
-# define TEXTURE_ERR "failed to parse texture\n"
+# define MEM_ALLOC_ERR "Error\nFailed to allocate memory\n"
+# define INIT_WIN_ERR "Error\nFailed to initialize window\n"
+# define TEXTURE_ERR "Error\nFailed to parse texture\n"
 # define WRONG_MAP_FILE_FORMAT "Error\nWrong file format\n"
 # define OPEN_MAP_ERROR "Error\nOpen file error\n"
 # define INCORRECT_PARAMS "Error\nParams are incorrect\n"

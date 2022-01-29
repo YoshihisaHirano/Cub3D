@@ -6,7 +6,7 @@
 /*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:54:14 by namina            #+#    #+#             */
-/*   Updated: 2022/01/29 17:59:49 by namina           ###   ########.fr       */
+/*   Updated: 2022/01/29 22:25:54 by namina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,24 @@ void	*exit_error(char *msg)
 	return (NULL);
 }
 
-int	check_for_colors(char **arr_line, int *color_el, char *color_place)
+int	check_for_colors(char *line, int *color_el, char color_place)
 {
 	char	**tmp_arr;
 
-	if (!arr_line || !(*arr_line) || !(**arr_line))
-		return (0);
-	if (arr_line[1] && !ft_strncmp(*arr_line, color_place, 2))
+	while (*line == ' ')
+		line++;
+	if (*line == color_place)
 	{
-		tmp_arr = ft_split(arr_line[1], ',');
-		if (!tmp_arr || tmp_arr[3])
+		line++;
+		tmp_arr = ft_split(line, ',');
+		if (!tmp_arr)
+			return (-1);
+		if (!tmp_arr || tmp_arr[3] || check_color_arr(tmp_arr) == -1
+			|| !tmp_arr[0] || !tmp_arr[1] || !tmp_arr[2])
+		{
+			free_arr(tmp_arr);
 			return (0);
-		if (!tmp_arr[0] || !tmp_arr[1] || !tmp_arr[2])
-			return (0);
+		}
 		*color_el = create_trgb(0, ft_atoi(tmp_arr[0]), ft_atoi(tmp_arr[1]),
 				ft_atoi(tmp_arr[2]));
 		free_arr(tmp_arr);
@@ -38,10 +43,18 @@ int	check_for_colors(char **arr_line, int *color_el, char *color_place)
 	return (0);
 }
 
-void	check_for_texture(char **arr_line, t_map *config)
+void	check_for_texture(char *line, t_map *config)
 {
-	if (!arr_line || !(*arr_line) || !(**arr_line))
+	char	**arr_line;
+
+	arr_line = ft_split(line, ' ');
+	if (!arr_line)
 		return ;
+	if (!arr_line || !(*arr_line) || !(**arr_line))
+	{
+		free_arr(arr_line);
+		return ;
+	}
 	if (arr_line[1] && !ft_strncmp(*arr_line, "NO", 3))
 		config->texture_array[0] = ft_strdup(arr_line[1]);
 	if (arr_line[1] && !ft_strncmp(*arr_line, "SO", 3))
@@ -50,25 +63,30 @@ void	check_for_texture(char **arr_line, t_map *config)
 		config->texture_array[2] = ft_strdup(arr_line[1]);
 	if (arr_line[1] && !ft_strncmp(*arr_line, "EA", 3))
 		config->texture_array[3] = ft_strdup(arr_line[1]);
+	free_arr(arr_line);
 }
 
-int	handle_line(t_map *config, char *line)
+int	handle_line(t_map *config, char **line)
 {
-	char	**arr_line;
-
-	arr_line = ft_split(line, ' ');
-	if (!arr_line)
+	check_for_texture(*line, config);
+	if (check_for_colors(*line, &(config->floor_color), 'F') == -1)
+	{
+		free(*line);
+		*line = NULL;
 		return (-1);
-	check_for_texture(arr_line, config);
-	check_for_colors(arr_line, &(config->floor_color), "F");
-	check_for_colors(arr_line, &(config->ceil_color), "C");
-	free_arr(arr_line);
-	free(line);
-	line = NULL;
+	}
+	if (check_for_colors(*line, &(config->ceil_color), 'C') == -1)
+	{
+		free(*line);
+		*line = NULL;
+		return (-1);
+	}
+	free(*line);
+	*line = NULL;
 	return (0);
 }
 
-void	set_map_width(int file_fd, t_map *config)
+void	set_map_width_height(int file_fd, t_map *config)
 {
 	int		current_len;
 	char	*line;

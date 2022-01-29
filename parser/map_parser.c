@@ -6,7 +6,7 @@
 /*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 17:54:26 by namina            #+#    #+#             */
-/*   Updated: 2022/01/29 17:56:36 by namina           ###   ########.fr       */
+/*   Updated: 2022/01/29 20:53:39 by namina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	set_texture_color(int file_fd, t_map *config)
 	while (get_next_line(file_fd, &line))
 	{
 		i++;
-		if (handle_line(config, line) == -1)
+		if (handle_line(config, &line) == -1)
 			break ;
 		if (is_colors_texture_setted(config))
 			return (i);
@@ -47,7 +47,7 @@ int	set_map_config(int file_fd, t_map *config, char *filename)
 	lines_to_map = skip_to_map(config, file_fd, lines_to_map);
 	if (lines_to_map == -1)
 		return (-1);
-	set_map_width(file_fd, config);
+	set_map_width_height(file_fd, config);
 	close(file_fd);
 	file_fd = open(filename, O_RDONLY);
 	if (file_fd == -1)
@@ -76,6 +76,7 @@ t_map	*parser(char *filename)
 		close(file_fd);
 		return (free_config(config));
 	}
+	trim_str_arr(config);
 	if (validation(config) == -1)
 		return (free_config(config));
 	return (config);
