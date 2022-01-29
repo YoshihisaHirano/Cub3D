@@ -11,21 +11,14 @@ CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror -MMD -MP -g
 LIBDIR	=	./libft
 LIB		=	$(LIBDIR)/libft.a
-MLXDIR	=	./minilibx
-MLX		=	$(MLXDIR)/libmlx.a
-LFLAGS	=	-L $(LIBDIR) -lft -L $(MLXDIR) -lmlx -framework OpenGL -framework AppKit
+LFLAGS	=	-L $(LIBDIR) -lft -lmlx -framework OpenGL -framework AppKit
 HEADER	=	cub3D.h constants.h
 
-# DEPENDS :=  $(patsubst %.c,%.d,$(SRC))
 DEPENDS := $(SRC:.c=.d)
-
 
 .PHONY	:	all re clean fclean
 
 all		:	$(NAME)
-
-$(MLX)	:	
-			make -s -C $(MLXDIR)
 
 $(LIB)	:
 			make -s -C $(LIBDIR)
@@ -35,18 +28,16 @@ $(NAME)	:	$(OBJ) Makefile
 
 -include $(DEPENDS)
 
-%.o		:	%.c $(LIB) $(MLX)
+%.o		:	%.c $(LIB)
 			$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 clean	:	
 			rm -f *.o */*.o $(DEPENDS)
 			make clean -C $(LIBDIR)
-			make clean -C $(MLXDIR)
 
 fclean	:	clean
 			rm -f $(NAME)
 			make fclean -C $(LIBDIR)
-			make clean -C $(MLXDIR)
 
 x		:	all
 			./cub3D map.cub

@@ -6,7 +6,7 @@
 /*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 17:55:09 by aalannys          #+#    #+#             */
-/*   Updated: 2022/01/16 11:25:27 by namina           ###   ########.fr       */
+/*   Updated: 2022/01/29 18:36:05 by namina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ void	draw_floor_ceil(t_setup *setup)
 	t_rectangle	floor;
 	t_rectangle	ceil;
 
-	ceil.x = 0;
-	ceil.y = PLANE_CENTER;
-	ceil.width = PLANE_WIDTH;
-	ceil.height = PLANE_CENTER;
 	floor.x = 0;
-	floor.y = 0;
+	floor.y = PLANE_CENTER;
 	floor.width = PLANE_WIDTH;
 	floor.height = PLANE_CENTER;
+	ceil.x = 0;
+	ceil.y = 0;
+	ceil.width = PLANE_WIDTH;
+	ceil.height = PLANE_CENTER;
 	draw_rectangle(setup->image, &floor, setup->map->floor_color);
 	draw_rectangle(setup->image, &ceil, setup->map->ceil_color);
 }

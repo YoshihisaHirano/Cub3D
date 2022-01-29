@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 18:38:44 by namina            #+#    #+#             */
+/*   Updated: 2022/01/29 18:39:22 by namina           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 int	main(int argc, char **argv)
@@ -9,7 +21,7 @@ int	main(int argc, char **argv)
 		return (1);
 	map = parser(argv[1]);
 	if (map == NULL)
-		return (1); // return value? 0 or 1 if error
+		return (1);
 	setup = init_all();
 	setup->player = map->player;
 	setup->plane = map->plane;
@@ -25,9 +37,3 @@ int	main(int argc, char **argv)
 	free_config(map);
 	return (0);
 }
-
-// TODO change name for map_size line_size
-// TODO check if around player spaces
-//				 s
-//			    s0s
-//				 s

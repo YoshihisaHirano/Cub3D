@@ -1,32 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 17:55:02 by namina            #+#    #+#             */
+/*   Updated: 2022/01/29 17:57:38 by namina           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3D.h"
 
-// void show_params(t_map *config)
-// {
-// 	printf("\n-----config------\n");
-// 	printf("%p\n", config);
-// 	if (config->NO)
-// 		printf("NO: %s = %p\n", config->NO, config->NO);
-// 	if (config->SO)
-// 		printf("SO: %s = %p\n", config->SO, config->SO);    
-// 	if (config->WE)
-// 		printf("WE: %s = %p\n", config->WE, config->WE);
-// 	if (config->EA)
-// 		printf("EA: %s = %p\n", config->EA, config->EA);
-// 	printf("color setup: \n");
-// 	printf("Ceil : ");
-// 		printf("%i ", config->ceil_color);
-// 	printf("\n");
-// 	printf("Floor : ");
-// 		printf("%i ", config->floor_color);
-// 	printf("\n");
-// 	printf("map %p\n", config->map);
-// 	for (int j = 0; config->map[j]; j++)
-// 		printf("|%s|\n", config->map[j]);
-// }
-
-t_map   *create_config(void)
+t_map	*create_config(void)
 {
-	t_map   *config;
+	t_map	*config;
 
 	config = malloc(sizeof(t_map));
 	if (!config)
@@ -44,19 +32,19 @@ t_map   *create_config(void)
 	config->plane->x = -1;
 	config->plane->y = -1;
 	config->ceil_color = -1;
-	config->floor_color = -1; 
+	config->floor_color = -1;
 	config->map = NULL;
 	config->map_size = 1;
 	config->max_line = 0;
 	return (config);
 }
 
-int isColors_texture_setted(t_map *config)
+int	is_colors_texture_setted(t_map *config)
 {
 	if (!config)
 		return (0);
 	if (!config->texture_array || config->ceil_color == -1
-			|| config->floor_color == -1)
+		|| config->floor_color == -1)
 		return (0);
 	if (!(config->texture_array[0]) || !(config->texture_array[1])
 		|| !(config->texture_array[2]) || !(config->texture_array[3]))
@@ -111,7 +99,7 @@ int	add_spaces(t_map *config, int i)
 	return (0);
 }
 
-int fill_map_config(t_map *config, int lines_to_map, int file_fd)
+int	fill_map_config(t_map *config, int lines_to_map, int file_fd)
 {
 	int		i;
 	char	*line;

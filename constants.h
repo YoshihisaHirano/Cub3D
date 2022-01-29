@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   constants.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 18:36:51 by namina            #+#    #+#             */
+/*   Updated: 2022/01/29 18:36:52 by namina           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
@@ -5,7 +17,7 @@
 # define PLANE_WIDTH 960
 # define PLANE_HEIGHT 690
 # define PLANE_CENTER 345
-# define PLAYER_SPEED 0.5
+# define PLAYER_SPEED 0.59
 # define ROTATION_SPEED 0.3
 # define FOV 0.66
 

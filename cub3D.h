@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 18:37:21 by namina            #+#    #+#             */
+/*   Updated: 2022/01/29 18:39:11 by namina           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 # include <math.h>
@@ -8,7 +20,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <fcntl.h>
-# include "minilibx/mlx.h"
+# include <mlx.h>
 # include "libft/libft.h"
 # include "constants.h"
 
@@ -107,21 +119,19 @@ typedef struct s_minimap
 	int			inner_map_size;
 }				t_minimap;
 
-// parser part
-void show_params(t_map *config); // to delete
-
 int			get_next_line(int fd, char **line);
 t_map		*parser(char *filename);
 t_map		*create_config(void);
 void		free_arr(char **arr);
 void		*free_config(t_map *config);
-int			isColors_texture_setted(t_map *config);
+int			is_colors_texture_setted(t_map *config);
 int			skip_to_map(t_map *config, int file_fd, int lines_to_map);
 void		set_map_width(int file_fd, t_map *config);
 int			fill_map_config(t_map *config, int lines_to_map, int file_fd);
 int			validation(t_map *config);
 int			check_top_bottom_borders(t_map *config);
-int			setup_player_pos(t_map *config, char char_for_check, int x_i, int y_i);
+int			setup_player_pos(t_map *config, char char_for_check,
+				int x_i, int y_i);
 int			is_player_setted(t_map *config);
 int			check_filename(char *file_name);
 void		*exit_error(char *msg);

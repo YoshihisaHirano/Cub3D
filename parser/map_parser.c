@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parser.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 17:54:26 by namina            #+#    #+#             */
+/*   Updated: 2022/01/29 17:56:36 by namina           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3D.h"
 
 int	set_texture_color(int file_fd, t_map *config)
@@ -12,12 +24,12 @@ int	set_texture_color(int file_fd, t_map *config)
 		i++;
 		if (handle_line(config, line) == -1)
 			break ;
-		if (isColors_texture_setted(config))
+		if (is_colors_texture_setted(config))
 			return (i);
 	}
 	if (line)
 		free(line);
-	if (!isColors_texture_setted(config))
+	if (!is_colors_texture_setted(config))
 	{
 		exit_error(INCORRECT_PARAMS);
 		return (-1);

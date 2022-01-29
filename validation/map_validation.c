@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: namina <namina@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 18:13:58 by namina            #+#    #+#             */
+/*   Updated: 2022/01/29 18:20:35 by namina           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3D.h"
 
-int check_filename(char *file_name)
+int	check_filename(char *file_name)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(file_name);
 	if (ft_strncmp(file_name + len - 4, ".cub", 5))
@@ -11,11 +23,11 @@ int check_filename(char *file_name)
 		return (0);
 }
 
-int check_map_chars(t_map *config, char **map)
+int	check_map_chars(t_map *config, char **map)
 {
-	int     not_empty_line;
-	int     y_i;
-	int     x_i;
+	int	not_empty_line;
+	int	y_i;
+	int	x_i;
 
 	y_i = 0;
 	while (map[y_i])
@@ -29,7 +41,7 @@ int check_map_chars(t_map *config, char **map)
 			if (ft_strchr("NSEW", map[y_i][x_i]))
 				if (setup_player_pos(config, map[y_i][x_i], x_i, y_i) == -1)
 					return (-1);
-			if (not_empty_line || ft_strchr("01NSEW", map[y_i][x_i])) // for not empty lines
+			if (not_empty_line || ft_strchr("01NSEW", map[y_i][x_i]))
 					not_empty_line = 1;
 			x_i++;
 		}
@@ -40,11 +52,11 @@ int check_map_chars(t_map *config, char **map)
 	return (0);
 }
 
-int check_borders(t_map *conf)
+int	check_borders(t_map *conf)
 {
-	int     x_i;
-	int     y_i;
-	int     line_end_i;
+	int	x_i;
+	int	y_i;
+	int	line_end_i;
 
 	if (check_top_bottom_borders(conf) == -1)
 		return (-1);
@@ -61,7 +73,7 @@ int check_borders(t_map *conf)
 			return (-1);
 		if ((y_i == conf->player->pos.y - 0.5
 				&& x_i == conf->player->pos.x - 0.5)
-				|| (y_i == conf->player->pos.y - 0.5
+			|| (y_i == conf->player->pos.y - 0.5
 				&& line_end_i == conf->player->pos.x - 0.5))
 			return (-1);
 		y_i++;
@@ -69,11 +81,11 @@ int check_borders(t_map *conf)
 	return (0);
 }
 
-int check_walls_to_close(t_map *config)
+int	check_walls_to_close(t_map *config)
 {
-	int     x_i;
-	int     y_i;
-	char    **map;
+	int		x_i;
+	int		y_i;
+	char	**map;
 
 	map = config->map;
 	y_i = 1;
@@ -87,7 +99,7 @@ int check_walls_to_close(t_map *config)
 			if ((map[y_i][x_i] == '0')
 				&& (map[y_i - 1][x_i] == ' '
 				|| map[y_i + 1][x_i] == ' '
-				|| map[y_i][x_i - 1] == ' ' 
+				|| map[y_i][x_i - 1] == ' '
 				|| map[y_i][x_i + 1] == ' '))
 				return (-1);
 			x_i++;
@@ -97,9 +109,9 @@ int check_walls_to_close(t_map *config)
 	return (0);
 }
 
-int validation(t_map *config)
+int	validation(t_map *config)
 {
-	if (!config || !isColors_texture_setted(config) || !config->map)
+	if (!config || !is_colors_texture_setted(config) || !config->map)
 	{
 		exit_error(INCORRECT_PARAMS);
 		return (-1);
