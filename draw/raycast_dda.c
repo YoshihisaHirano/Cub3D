@@ -72,13 +72,13 @@ int	find_wall_top(t_setup *setup, t_raycaster *r)
 	int		wall_top;
 	int		wall_bottom;
 
-	wall_dist = fabs((r->on_map.y - setup->player->pos.y
-				+ (1.0 - r->step.y) / 2.0) / r->ray_dir.y);
+	wall_dist = (r->on_map.y - setup->player->pos.y
+			+ (1.0 - r->step.y) / 2.0) / r->ray_dir.y;
 	if (setup->col->vertical_hit == 0)
-		wall_dist = fabs((r->on_map.x - setup->player->pos.x
-					+ (1.0 - r->step.x) / 2.0) / r->ray_dir.x);
+		wall_dist = (r->on_map.x - setup->player->pos.x
+				+ (1.0 - r->step.x) / 2.0) / r->ray_dir.x;
 	r->wall_dist = wall_dist;
-	wall_height = abs((int)(PLANE_HEIGHT / wall_dist));
+	wall_height = (int)(PLANE_HEIGHT / wall_dist);
 	wall_top = -wall_height / 2 + PLANE_HEIGHT / 2;
 	if (wall_top < 0)
 		wall_top = 0;

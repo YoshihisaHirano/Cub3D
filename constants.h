@@ -18,7 +18,7 @@
 # define PLANE_HEIGHT 690
 # define PLANE_CENTER 345
 # define PLAYER_SPEED 0.59
-# define ROTATION_SPEED 0.3
+# define ROTATION_SPEED 0.33
 # define FOV 0.66
 
 /* orientation */
