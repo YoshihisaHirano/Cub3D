@@ -8,13 +8,17 @@ SRC		=	main.c initialization.c\
 OBJ		=	$(SRC:.c=.o)
 NAME	=	cub3D
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror -MMD -MP -g
 LIBDIR	=	./libft
 LIB		=	$(LIBDIR)/libft.a
 MLXDIR	=	./minilibx
 MLX		=	$(MLXDIR)/libmlx.a
 LFLAGS	=	-L $(LIBDIR) -lft -L $(MLXDIR) -lmlx -framework OpenGL -framework AppKit
 HEADER	=	cub3D.h constants.h
+
+# DEPENDS :=  $(patsubst %.c,%.d,$(SRC))
+DEPENDS := $(SRC:.c=.d)
+
 
 .PHONY	:	all re clean fclean
 
@@ -29,11 +33,13 @@ $(LIB)	:
 $(NAME)	:	$(OBJ) Makefile
 			$(CC) $(CFLAGS) $(LFLAGS) $(OBJ)  -o $(NAME)
 
-%.o		:	%.c $(LIB) $(MLX) $(HEADER)
+-include $(DEPENDS)
+
+%.o		:	%.c $(LIB) $(MLX)
 			$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 clean	:	
-			rm -f *.o */*.o
+			rm -f *.o */*.o $(DEPENDS)
 			make clean -C $(LIBDIR)
 			make clean -C $(MLXDIR)
 

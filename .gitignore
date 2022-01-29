@@ -1,6 +1,7 @@
 .gitignore
 main.c
 *.o
+*.d
 cub3D
 .vscode
 a.out
