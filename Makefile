@@ -32,7 +32,7 @@ $(NAME)	:	$(OBJ) Makefile
 			$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 clean	:	
-			rm -f *.o */*.o $(DEPENDS)
+			rm -f *.o */*.o */*/*.o $(DEPENDS)
 			make clean -C $(LIBDIR)
 
 fclean	:	clean
